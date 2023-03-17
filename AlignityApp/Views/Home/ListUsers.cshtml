@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "_LayoutAlignity";
+    ViewBag.Title = "Listes des utilisateurs";
+}
+
+<h1>Listes des utilisateurs</h1>
+
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Date de naissance</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+
+    @foreach (AlignityApp.Models.User user in @Model)
+    {
+        <tr>
+            <td>@user.Name</td>
+            <td>@user.Firstname</td>
+            <td>@user.Birthdate</td>
+            <td>@user.Email</td>
+            <td>@user.UserRole</td>
+        </tr>
+    }
+
+</table>
+
+@section Navigation {
+    <ul>
+        <li>@Html.ActionLink("Accueil", "Index")</li>
+        <li>@Html.ActionLink("Création d'un utilisateur", "CreateUser")</li>
+        <li class="selected">@Html.ActionLink("Liste des utilisateurs", "ListUsers")</li>
+    </ul>
+}

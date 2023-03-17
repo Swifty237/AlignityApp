@@ -1,0 +1,56 @@
+﻿@model AlignityApp.Models.User
+@{
+    Layout = "_LayoutAlignity";
+    ViewBag.Title = "Création d'un utilisateur";
+}
+
+
+    <h3>Remplir le formulaire</h3>
+    <br />
+
+    @using (Html.BeginForm())
+    {
+        <fieldset>
+
+            <legend>Création d'un user </legend>
+
+            @Html.LabelFor(m => Model.Name)
+            @Html.TextBoxFor(m => Model.Name)
+            @Html.ValidationMessageFor(m => Model.Name)
+            <br />
+            @Html.LabelFor(m => Model.Firstname)
+            @Html.TextBoxFor(m => Model.Firstname)
+            @Html.ValidationMessageFor(m => Model.Firstname)
+            <br />
+            @Html.LabelFor(m => Model.Birthdate)
+            @Html.TextBoxFor(m => Model.Birthdate)
+            @Html.ValidationMessageFor(m => Model.Birthdate)
+            <br />
+            @Html.LabelFor(m => Model.Email)
+            @Html.TextBoxFor(m => Model.Email)
+            @Html.ValidationMessageFor(m => Model.Email)
+            <br />
+            @Html.LabelFor(m => Model.Password)
+            @Html.TextBoxFor(m => Model.Password)
+            @Html.ValidationMessageFor(m => Model.Password)
+
+            <br />
+
+            <input type="submit" value="Modifier" />
+
+        </fieldset>
+    }
+
+@section Navigation {
+    <ul>
+        <li>@Html.ActionLink("Accueil", "Index")</li>
+        <li class="selected">@Html.ActionLink("Création d'un utilisateur", "CreateUser")</li>
+        <li>@Html.ActionLink("Liste des utilisateurs", "ListUsers")</li>
+    </ul>
+}
+
+@section Scripts {
+    <script type="text/javascript" src="/Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.validate-vsdoc.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.validate.unobtrusive.js"></script>
+}
