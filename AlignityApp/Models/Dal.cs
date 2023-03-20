@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace AlignityApp.Models
 {
@@ -74,6 +76,34 @@ namespace AlignityApp.Models
                 cra.State = state;
                 _bddContext.SaveChanges();
             }
+        }
+
+        public User Authentifier(string email, string password)
+        {
+            //string motDePasse = EncodeMD5(password);
+            User user = this._bddContext.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            return user;
+
+        }
+        public User GetUser(int id)
+        {
+            return this._bddContext.Users.Find(id);
+        }
+
+        public User GetUser(string idStr)
+        {
+            int id;
+            if (int.TryParse(idStr, out id))
+            {
+                return this.GetUser(id);
+            }
+            return null;
+        }
+
+        public static string EncodeMD5(string motDePasse)
+        {
+            string motDePasseSel = "ChoixResto" + motDePasse + "ASP.NET MVC";
+            return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(motDePasseSel)));
         }
 
         public void Dispose()

@@ -18,5 +18,7 @@ namespace AlignityApp.Models
         List<Cra> GetAllCras();
         int CreateCra(int userId);
         void ModifyCra(int id, CRAState state);
+        User Authentifier(string email, string password);
+        User GetUser(int id);
     }
 }

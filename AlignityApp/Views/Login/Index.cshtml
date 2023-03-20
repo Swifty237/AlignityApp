@@ -1,0 +1,49 @@
+﻿@model AlignityApp.ViewModels.UserViewModel
+             
+    <!DOCTYPE html>
+    <html lang="fr">
+
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="#" />
+        <link type="text/css" rel="styleSheet" href="/css/login/Login.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AlignityApp</title>
+    </head>
+
+
+    <body>
+        <div id="bg">
+        <div class="validation-summary-errors">
+            @Html.ValidationMessageFor(m => m.User.Email)
+            @Html.ValidationMessageFor(m => m.User.Password)
+        </div>
+            <div id="login_wrap">
+                <div id="login">
+                    <div id="status">
+                        <i style="top: 0">Log</i>
+                        <i style="right: 5px">in</i>
+                    </div>
+             
+                            @using (Html.BeginForm())
+                    {
+                    <div>
+                       
+                    <span>
+                        <form>
+                            <p class="form">@Html.TextBoxFor(m => m.User.Email, new { placeholder = "Email"})</p>
+                            <p class="form">@Html.PasswordFor(m => m.User.Password, new { placeholder = "Password"})</p>
+                            <input type="submit" value="Se Connecter" class="btn" style="margin-right: 20px;">
+                        </form>
+                        <a href="#">Mot de passe oublié?</a>
+                    </span>
+                    </div>
+                    }
+                </div>
+                <div id="login_img">
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+

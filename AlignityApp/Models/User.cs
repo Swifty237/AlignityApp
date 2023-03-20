@@ -19,8 +19,10 @@ namespace AlignityApp.Models
         [MaxLength(50)]
         public string PhoneNumber { get; set; }
         [MaxLength(100)]
+        [Required(ErrorMessage = "Le champs Email est vide!")]
         public string Email { get; set; }
         [MaxLength(50)]
+        [Required(ErrorMessage = "Le champs Password est vide!")]
         public string Password { get; set; }
         public Job? UserJob { get; set; }
         public DateTime CreationDate { get; set; }
