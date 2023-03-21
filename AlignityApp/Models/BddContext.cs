@@ -29,13 +29,14 @@ namespace AlignityApp.Models
 
             this.Users.AddRange(
 
-                new User { 
-                    Name ="dupont", 
-                    Firstname = "thomas", 
-                    Birthdate = new DateTime(1974, 10, 01), 
-                    Email = "thomas@gmail.com", 
-                    Password = "1234", 
-                    UserRole = Role.SALARIED 
+                new User
+                {
+                    Name = "dupont",
+                    Firstname = "thomas",
+                    Birthdate = new DateTime(1974, 10, 01),
+                    Email = "thomas@gmail.com",
+                    Password = "1234",
+                    UserRole = Role.SALARIED
                 },
 
                 new User
@@ -68,27 +69,54 @@ namespace AlignityApp.Models
                     UserRole = Role.ADMINISTRATOR
                 });
 
-            /*            this.Cras.AddRange(
-                            new Cra {},
-                            new Cra {},
-                            new Cra { },
-                            new Cra { },
-                            new Cra { },
-                            new Cra { }
+            //this.Cras.AddRange(
+            //            new Cra { State = CRAState.DRAFT, UserId = 1, CreationDate = new DateTime(2022, 01, 11) },
+            //            new Cra { State = CRAState.SENT, UserId = 2, CreationDate = new DateTime(2023, 03, 11) },
+            //            new Cra { State = CRAState.ALERT, UserId = 1, CreationDate = new DateTime(1992, 03, 11) },
+            //            new Cra { State = CRAState.VALIDATED, UserId = 2, CreationDate = new DateTime(1996, 03, 11) },
+            //            new Cra { State = CRAState.VALIDATED, UserId = 1, CreationDate = new DateTime(2002, 03, 11) }
+            //        );
+
+            /*            this.Activities.AddRange(
+                            new Activity() { },
+                            new Activity() { },
+                            new Activity() { },
+                            new Activity() { }
                         );*/
 
-/*            this.Activities.AddRange(
-                new Activity() { },
-                new Activity() { },
-                new Activity() { },
-                new Activity() { }
-            );*/
+            /*            this.Customers.AddRange(
+                            new Customer { },
+                            new Customer { },
+                            new Customer { }
+                        );*/
 
-/*            this.Customers.AddRange(
-                new Customer { },
-                new Customer { },
-                new Customer { }
-            );*/
+            this.SaveChanges();
+        }
+
+        public void InitializeCra()
+        {
+
+
+            this.Cras.AddRange(
+                        new Cra { State = CRAState.DRAFT, UserId = 1, CreationDate = new DateTime(2022, 01, 11) },
+                        new Cra { State = CRAState.SENT, UserId = 2, CreationDate = new DateTime(2023, 03, 11) },
+                        new Cra { State = CRAState.ALERT, UserId = 1, CreationDate = new DateTime(1992, 03, 11) },
+                        new Cra { State = CRAState.VALIDATED, UserId = 2, CreationDate = new DateTime(1996, 03, 11) },
+                        new Cra { State = CRAState.VALIDATED, UserId = 1, CreationDate = new DateTime(2002, 03, 11) }
+                    );
+
+            /*            this.Activities.AddRange(
+                            new Activity() { },
+                            new Activity() { },
+                            new Activity() { },
+                            new Activity() { }
+                        );*/
+
+            /*            this.Customers.AddRange(
+                            new Customer { },
+                            new Customer { },
+                            new Customer { }
+                        );*/
 
             this.SaveChanges();
         }

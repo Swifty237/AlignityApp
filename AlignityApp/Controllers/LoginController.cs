@@ -1,6 +1,7 @@
 ﻿using AlignityApp.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 
@@ -34,14 +35,17 @@ namespace AlignityApp.Controllers
                 {
                     var userClaims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.Name, user.Id.ToString())
-                    };
+                        new Claim(ClaimTypes.Name, user.Id.ToString()),
 
+                    };
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
 
                     var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
 
                     HttpContext.SignInAsync(userPrincipal);
+
+                    if(user.UserRole.ToString()=="SALARIED")
+                        return Redirect("/listCra/?id="+user.Id);
 
                     if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);

@@ -34,6 +34,7 @@ namespace AlignityApp
             using (BddContext ctx = new BddContext())
             {
                 ctx.InitializeDb();
+                ctx.InitializeCra();
             }
 
             app.UseStaticFiles();

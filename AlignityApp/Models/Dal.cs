@@ -54,29 +54,35 @@ namespace AlignityApp.Models
             return _bddContext.Cras.ToList();
         }
 
-        public int CreateCra(int userId)
+        public List<Cra> GetCrasByUserId(int id)
         {
-            Cra cra = new Cra() { 
-                State = CRAState.DRAFT, 
-                CreationDate = DateTime.Now, 
-                UserOfCraId = userId  
-            };
-
-            _bddContext.Cras.Add(cra);
-            _bddContext.SaveChanges();
-            return cra.Id;
+            List<Cra> cras = _bddContext.Cras.Where(b => b.UserId == id).ToList();
+            return cras;
         }
 
-        public void ModifyCra(int craId, CRAState state)
-        {
-            Cra cra = _bddContext.Cras.Find(craId);
+        //public int CreateCra(int userId)
+        //{
+        //    Cra cra = new Cra() { 
+        //        State = CRAState.DRAFT, 
+        //        CreationDate = DateTime.Now, 
+        //        UserOfCraId = userId  
+        //    };
 
-            if (cra != null && cra.UserOfCra != null)
-            {
-                cra.State = state;
-                _bddContext.SaveChanges();
-            }
-        }
+        //    _bddContext.Cras.Add(cra);
+        //    _bddContext.SaveChanges();
+        //    return cra.Id;
+        //}
+
+        //public void ModifyCra(int craId, CRAState state)
+        //{
+        //    Cra cra = _bddContext.Cras.Find(craId);
+
+        //    if (cra != null && cra.UserOfCra != null)
+        //    {
+        //        cra.State = state;
+        //        _bddContext.SaveChanges();
+        //    }
+        //}
 
         public User Authentifier(string email, string password)
         {

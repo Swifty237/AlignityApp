@@ -12,6 +12,7 @@ namespace AlignityApp.Controllers
     {
         public IActionResult Index()
         {
+           
             return View();
         }
 
@@ -20,6 +21,7 @@ namespace AlignityApp.Controllers
             using (Dal dal = new Dal())
             {
                 List<User> users = dal.GetAllUsers();
+               
                 if (users == null)
                 {
                     return View("Error");
