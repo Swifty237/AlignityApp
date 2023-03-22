@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>@ViewBag.Title</title>
 
     <!-- Custom fonts for this template-->
     <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
@@ -65,9 +65,7 @@
             </li>
 
             <!-- Nav Item - Collapse Menu CRA -->
-            <li class="nav-item 
-                @((Context.Request.Path == "/Home/ListUsers" || 
-                    Context.Request.Path == "/Home/CreateUser") ? "active" : null)">
+            <li class="nav-item @((Context.Request.Path == "/Home/ListUsers" || Context.Request.Path == "/Home/CreateUser") ? "active" : null)">
 
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
@@ -115,11 +113,8 @@
             </li>
 
             <!-- Nav Item - Collapse Menu Holiday/RTT -->
-            <li class="nav-item
-                @((Context.Request.Path == "/Home/Holiday" ||
-                    Context.Request.Path == "/Home/Rtt" ||
-                    Context.Request.Path == "/Home/ListHolidays" ||
-                    Context.Request.Path == "/Home/ListRtt") ? "active" : null)">
+            <li class="nav-item @((Context.Request.Path == "/Home/Holiday" || Context.Request.Path == "/Home/Rtt" ||
+                    Context.Request.Path == "/Home/ListHolidays" || Context.Request.Path == "/Home/ListRtt") ? "active" : null)">
 
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                    aria-expanded="true" aria-controls="collapseUtilities">
@@ -130,11 +125,11 @@
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Choisir une action:</h6>
-                        <a class="collapse-item" href="/Home/Holiday">Faire une demande de congés</a>
-                        <a class="collapse-item" href="/Home/Rtt">Faire une demande de RTT</a>
+                        <a class="collapse-item text-wrap" href="/Home/Holiday">Faire une demande de congés</a>
+                        <a class="collapse-item text-wrap" href="/Home/Rtt">Faire une demande de RTT</a>
                         <hr class="collapse-item" />
-                        <a class="collapse-item" href="/Home/ListHolidays">Mes demandes de congés</a>
-                        <a class="collapse-item" href="/Home/ListRtt">Mes demandes de RTT</a>
+                        <a class="collapse-item text-wrap" href="/Home/ListHolidays">Mes demandes de congés</a>
+                        <a class="collapse-item text-wrap" href="/Home/ListRtt">Mes demandes de RTT</a>
                     </div>
                 </div>
             </li>
@@ -153,7 +148,7 @@
             </li>
 
             <!-- Sidebar Toggler (Sidebar) -->
-            <li>
+            <li class="d-flex justify-content-center">
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
@@ -164,7 +159,7 @@
                 <div class="sidebar-card d-none d-lg-flex">
                     <img class="sidebar-card-illustration mb-2" src="~/src/undraw_rocket.svg" alt="...">
                     <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                    <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+                    <a class="btn btn-warning btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
                 </div>
             </li>
 
@@ -191,7 +186,7 @@
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                    aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-warning" type="button">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
