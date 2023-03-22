@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "_LayoutAlignity";
+    Layout = "_LayoutSalaried";
     ViewBag.Title = "Listes des utilisateurs";
 }
 
@@ -26,11 +26,3 @@
     }
 
 </table>
-
-@section Navigation {
-    <ul>
-        <li>@Html.ActionLink("Accueil", "Index")</li>
-        <li>@Html.ActionLink("Création d'un utilisateur", "CreateUser")</li>
-        <li class="selected">@Html.ActionLink("Liste des utilisateurs", "ListUsers")</li>
-    </ul>
-}

@@ -1,6 +1,6 @@
 ﻿@model AlignityApp.Models.User
 @{
-    Layout = "_LayoutAlignity";
+    Layout = "_LayoutSalaried";
     ViewBag.Title = "Création d'un utilisateur";
 }
 
@@ -41,16 +41,17 @@
         </fieldset>
     }
 
-@section Navigation {
+@*@section Navigation {
+
     <ul>
         <li>@Html.ActionLink("Accueil", "Index")</li>
         <li class="selected">@Html.ActionLink("Création d'un utilisateur", "CreateUser")</li>
         <li>@Html.ActionLink("Liste des utilisateurs", "ListUsers")</li>
     </ul>
-}
+}*@
 
-@section Scripts {
+@*@section Scripts {
     <script type="text/javascript" src="/Scripts/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="/Scripts/jquery.validate-vsdoc.js"></script>
     <script type="text/javascript" src="/Scripts/jquery.validate.unobtrusive.js"></script>
-}
+}*@

@@ -1,58 +1,28 @@
-﻿body {
-    margin: auto;
-}
-
-nav {
-    width: 100%;
-}
-
-ul {
-    margin-right: 10em;
-    float: right;
-}
-
-li {
-    display: inline;
-    margin: 1em;
-    padding-right: 25px;
-    padding-left: 25px;
+﻿ul {
+    width: fit-content;
 }
 
 .section-left {
-    float: left;
-    background-color: red;
-    width: 25%;
-    height: 100vh;
+    background-color: #1C5B78;
 }
 
 .section-right {
-    float: left;
-    width: 75%;
-    height: 100vh;
+
 }
 
-.image-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 30%;
-    background-color: blue;
+.top-bar {
+    background-color: rgb(215, 215, 215);
 }
 
-img {
-    vertical-align: central;
-    align-self: center;
-    width: 200px;
-    height: 200px;
+
+.logo-pic {
+    height: 8em;
+    width: 8em;
 }
 
-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5em;
-    width: 100%;
-    background-color: aquamarine;
+.profile-pic {
+    height: 50px;
+    width: 50px;
 }
 
 h1 {
@@ -66,15 +36,4 @@ article {
 
 p {
     text-align: justify;
-}
-
-.selected {
-    border: solid 3px deepskyblue;
-    background-color: deepskyblue;
-    color: white;
-}
-
-table {
-    background-color: whitesmoke;
-    margin-bottom: 2em;
 }

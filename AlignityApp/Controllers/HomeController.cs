@@ -32,7 +32,6 @@ namespace AlignityApp.Controllers
         public IActionResult CreateUser()
         {
                 return View();
-            
         }
 
         [HttpPost]
@@ -50,6 +49,46 @@ namespace AlignityApp.Controllers
                     );
                 return RedirectToAction("ListUsers");
             }
+        }
+
+        public IActionResult Holiday()
+        {
+            return View();
+        }
+
+        public IActionResult ListCras()
+        {
+            return View();
+        }
+
+        public IActionResult ListHolidays()
+        {
+            return View();
+        }
+
+        public IActionResult ListRtt()
+        {
+            return View();
+        }
+
+        public IActionResult Rtt()
+        {
+            return View();
+        }
+
+        public IActionResult Absence()
+        {
+            return View();
+        }
+
+        public IActionResult Training()
+        {
+            return View();
+        }
+
+        public IActionResult Service()
+        {
+            return View();
         }
     }
 }
