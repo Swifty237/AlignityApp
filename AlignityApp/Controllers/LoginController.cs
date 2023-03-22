@@ -16,7 +16,7 @@ namespace AlignityApp.Controllers
         }
         public IActionResult Index()
         {
-            ViewModels.UserViewModel viewModel = new ViewModels.UserViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
+            ViewModels.LoginViewModel viewModel = new ViewModels.LoginViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
             if (viewModel.Authentifie)
             {
                 viewModel.User = dal.GetUser(HttpContext.User.Identity.Name);
@@ -26,7 +26,7 @@ namespace AlignityApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(ViewModels.UserViewModel viewModel, string returnUrl)
+        public IActionResult Index(ViewModels.LoginViewModel viewModel, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -44,8 +44,11 @@ namespace AlignityApp.Controllers
 
                     HttpContext.SignInAsync(userPrincipal);
 
-                    if(user.UserRole.ToString()=="SALARIED")
-                        return Redirect("/listCra/?id="+user.Id);
+                    if(user.UserRole.ToString() == "SALARIED")
+                        return Redirect("/Home/Index/?id="+user.Id);
+
+                    if (user.UserRole.ToString() == "MANAGER")
+                        return Redirect("/Dashboard/Index/?id=" + user.Id);
 
                     if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);

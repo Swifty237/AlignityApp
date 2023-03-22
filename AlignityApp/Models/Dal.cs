@@ -56,8 +56,14 @@ namespace AlignityApp.Models
 
         public List<Cra> GetCrasByUserId(int id)
         {
-            List<Cra> cras = _bddContext.Cras.Where(b => b.UserId == id).ToList();
+            List<Cra> cras = _bddContext.Cras.Where(c => c.UserId == id).ToList();
             return cras;
+        }
+
+        public List<User> GetUsersByManagerId(int id)
+        {
+            List<User> users = _bddContext.Users.Where(u => u.ManagerId == id).ToList();
+            return users;
         }
 
         //public int CreateCra(int userId)

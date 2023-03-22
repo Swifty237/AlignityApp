@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>@ViewBag.Title</title>
 
     <!-- Custom fonts for this template-->
     <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
@@ -30,7 +30,7 @@
 
             <!-- Sidebar - Brand -->
             <li>
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Dashboard/Index">
                     <div class="sidebar-brand-icon">
                         <img src="~/src/logoAR.png" alt="logo" style="height: 5em; width: 5em;" class="rounded-circle">
                     </div>
@@ -44,11 +44,11 @@
             </li>
 
             <!-- Nav Item - Home / Dashboard -->
-            <li class="nav-item @((Context.Request.Path == "/") ? "active" : null)">
+            <li class="nav-item @((Context.Request.Path == "/Dashboard/Index") ? "active" : null)">
 
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="/Dashboard/Index">
                     <i class="fa fa-home" aria-hidden="true"></i>
-                    <span>Home / Tableau de bord</span>
+                    <span>Tableau de bord</span>
                 </a>
             </li>
 
@@ -65,7 +65,7 @@
             </li>
 
             <!-- Nav Item - Collapse Menu mon équipe -->
-            <li class="nav-item @((Context.Request.Path == "/Home/ListUsers" || Context.Request.Path == "/Home/CreateUser") ? "active" : null)">
+            <li class="nav-item @((Context.Request.Path == "/ListUsers/Index" || Context.Request.Path == "/ListCra/Index") ? "active" : null)">
 
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
@@ -75,8 +75,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Choisir une action:</h6>
-                        <a class="collapse-item" href="/Home/ListUsers">Mon équipe</a>
-                        <a class="collapse-item" href="/Home/ListCras"> liste des CRAs</a>
+                        <a class="collapse-item" href="/ListUsers/Index">Mon équipe</a>
+                        <a class="collapse-item" href="/ListCra/Index"> liste des CRAs</a>
                     </div>
                 </div>
             </li>
@@ -150,19 +150,6 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-                    <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                   aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-warning" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -416,8 +403,6 @@
     <!-- Page level custom scripts -->
     <script src="~/Scripts/js/demo/chart-area-demo.js"></script>
     <script src="~/Scripts/js/demo/chart-pie-demo.js"></script>
-
-    @*<script src="~/Scripts/layout.js"></script>*@
 
 </body>
 

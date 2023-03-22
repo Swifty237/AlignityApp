@@ -4,22 +4,21 @@ using System.Collections.Generic;
 
 namespace AlignityApp.Controllers
 {
-    public class ListCraController : Controller
+    public class ListUsersController : Controller
     {
-
         public IActionResult Index(int id)
         {
             using (Dal dal = new Dal())
             {
                 if (id == 0)
                 {
-                    List<Cra> list = dal.GetAllCras();
+                    List<User> list = dal.GetAllUsers();
                     return View(list);
 
                 }
                 else
                 {
-                List<Cra> list = dal.GetCrasByUserId(id);
+                    List<User> list = dal.GetUsersByManagerId(id);
                     return View(list);
                 }
             }
