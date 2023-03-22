@@ -9,8 +9,8 @@ namespace AlignityApp.Models
         public CRAState State { get; set; }
         public int UserId { get; set; }
         public virtual User User { get; set; }
-        public int? CommentId { get; set; }
-        public virtual Comment comment { get; set; }
+        public int? ObservationsId { get; set; }
+        public ICollection<Observation> Observations { get; set; }
         public DateTime CreationDate { get; set; }
     }
 

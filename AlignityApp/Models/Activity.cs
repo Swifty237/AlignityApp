@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AlignityApp.Models
 {
@@ -14,6 +15,8 @@ namespace AlignityApp.Models
         public ActivityPlace Place { get; set; }
         public int CraId { get; set; }
         public Cra Cra { get; set; }
+        public int InvoicesId { get; set; }
+        public ICollection<Invoice> Invoices { get; set; }
     }
 
     public enum ActivityTypes

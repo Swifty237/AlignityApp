@@ -30,8 +30,6 @@ namespace AlignityApp.Models
         public Status UserStatus { get; set; }
         public int? ManagerId { get; set; }
         public User Manager { get; set; }
-        public int? CustomerId { get; set; }
-        public Customer Customer { get; set; }
     }
     public enum Role
     {

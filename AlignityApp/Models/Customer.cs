@@ -12,10 +12,12 @@ namespace AlignityApp.Models
         [MaxLength(100)]
         public string Adress { get; set; }
         [MaxLength(50)]
+        public string referent { get; set; }
+        [MaxLength(50)]
         public string PhoneNumber { get; set; }
-        public int CustomerContactsId { get; set; }
         public int ActivitiesId { get; set; }
+        public int InvoicesId { get; set; }
         public ICollection<Activity> Activities { get; set; }
-        public ICollection<User> CustomerConctacts { get; set; }
+        public ICollection<Invoice> Invoices { get; set; }
     }
 }
