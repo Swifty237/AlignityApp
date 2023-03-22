@@ -5,6 +5,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.15" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15">
 			<PrivateAssets>all</PrivateAssets>
@@ -15,9 +16,12 @@
 
 	<ItemGroup>
 	  <Folder Include="wwwroot\css\listCra\" />
+<<<<<<< HEAD
 	  <Folder Include="wwwroot\css\login\" />
 	  <Folder Include="wwwroot\font\" />
 	  <Folder Include="wwwroot\src\" />
+=======
+>>>>>>> 450e2210fb6bf1640cbb2c2f00f28f69bb7e91c3
 	</ItemGroup>
 
 </Project>
