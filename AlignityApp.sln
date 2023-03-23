@@ -5,8 +5,6 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlignityApp", "AlignityApp\AlignityApp.csproj", "{54A61CD3-26EF-4A06-AB4D-6DC6E657AD6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestApp", "XUnitTestApp\XUnitTestApp.csproj", "{AD42A2E7-DD0F-4F02-876A-162430291FF2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{54A61CD3-26EF-4A06-AB4D-6DC6E657AD6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54A61CD3-26EF-4A06-AB4D-6DC6E657AD6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54A61CD3-26EF-4A06-AB4D-6DC6E657AD6F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD42A2E7-DD0F-4F02-876A-162430291FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD42A2E7-DD0F-4F02-876A-162430291FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD42A2E7-DD0F-4F02-876A-162430291FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD42A2E7-DD0F-4F02-876A-162430291FF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

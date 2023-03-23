@@ -35,15 +35,15 @@ namespace AlignityApp.Controllers
                 {
                     var userClaims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.Name, user.Id.ToString()),
-
+                        new Claim(ClaimTypes.Sid, user.Id.ToString()),
+                        new Claim(ClaimTypes.Name, user.Firstname.ToString()),
+                        new Claim(ClaimTypes.Role, user.UserRole.ToString())
                     };
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
 
                     var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
 
                     HttpContext.SignInAsync(userPrincipal);
-
                     if(user.UserRole.ToString()=="SALARIED")
                         return Redirect("/listCra/?id="+user.Id);
 

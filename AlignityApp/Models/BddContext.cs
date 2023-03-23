@@ -67,28 +67,62 @@ namespace AlignityApp.Models
                     Email = "vincent_claude@exemple.com",
                     Password = "1231",
                     UserRole = Role.ADMINISTRATOR
-                });
-
-            //this.Cras.AddRange(
-            //            new Cra { State = CRAState.DRAFT, UserId = 1, CreationDate = new DateTime(2022, 01, 11) },
-            //            new Cra { State = CRAState.SENT, UserId = 2, CreationDate = new DateTime(2023, 03, 11) },
-            //            new Cra { State = CRAState.ALERT, UserId = 1, CreationDate = new DateTime(1992, 03, 11) },
-            //            new Cra { State = CRAState.VALIDATED, UserId = 2, CreationDate = new DateTime(1996, 03, 11) },
-            //            new Cra { State = CRAState.VALIDATED, UserId = 1, CreationDate = new DateTime(2002, 03, 11) }
-            //        );
-
-            /*            this.Activities.AddRange(
-                            new Activity() { },
-                            new Activity() { },
-                            new Activity() { },
-                            new Activity() { }
-                        );*/
-
-            /*            this.Customers.AddRange(
-                            new Customer { },
-                            new Customer { },
-                            new Customer { }
-                        );*/
+                },
+                new User
+                {
+                    Name = "Tabut",
+                    Firstname = "Lucile",
+                    Birthdate = new DateTime(1988, 11, 28),
+                    Email = "tabutlucile@exemple.com",
+                    Password = "11111",
+                    UserRole = Role.SALARIED
+                },
+                new User
+                {
+                Name = "Kayser",
+                Firstname = "Sozé",
+                Birthdate = new DateTime(1995, 07, 19),
+                Email = "kayser-soze@exemple.com",
+                Password = "55555",
+                UserRole = Role.SALARIED
+                 },
+                new User
+                {
+                Name = "Maitrias",
+                Firstname = "Camille",
+                Birthdate = new DateTime(1992, 12, 12),
+                Email = "jeanne123@exemple.fr",
+                Password = "95959",
+                UserRole = Role.SALARIED
+                }
+                //new User
+                //{
+                //    Name = "Bartelet",
+                //    Firstname = "Claire",
+                //    Birthdate = new DateTime(1978, 15, 02),
+                //    Email = "vincent_claude@exemple.com",
+                //    Password = "31313",
+                //    UserRole = Role.SALARIED
+                //}
+                //    new User
+                //{
+                //    Name = "Zahner",
+                //    Firstname = "Nicolas",
+                //    Birthdate = new DateTime(1979, 21, 08),
+                //    Email = "zahner78@exemple.com",
+                //    Password = "33333",
+                //    UserRole = Role.SALARIED
+                //},
+                //    new User
+                //{
+                //    Name = "Lauga",
+                //    Firstname = "Matteo",
+                //    Birthdate = new DateTime(1984, 12, 10),
+                //    Email = "matteo_lauga@exemple.com",
+                //    Password = "22222",
+                //    UserRole = Role.MANAGER
+                //}
+                );
 
             this.SaveChanges();
         }
@@ -105,20 +139,24 @@ namespace AlignityApp.Models
                         new Cra { State = CRAState.VALIDATED, UserId = 1, CreationDate = new DateTime(2002, 03, 11) }
                     );
 
-            /*            this.Activities.AddRange(
-                            new Activity() { },
-                            new Activity() { },
-                            new Activity() { },
-                            new Activity() { }
-                        );*/
-
-            /*            this.Customers.AddRange(
-                            new Customer { },
-                            new Customer { },
-                            new Customer { }
-                        );*/
 
             this.SaveChanges();
         }
-    }
+
+		public void InitializeActivity()
+		{
+
+
+			this.Activities.AddRange(
+							new Activity() {Date= new DateTime(2022, 01, 11),Duration=8,Type=ActivityTypes.SERVICE,Place=ActivityPlace.EXTERNAL,Description="j'ai fait 1h de sup" , CraId=1},
+							new Activity() {Date= new DateTime(2022, 01, 12),Duration=8,Type=ActivityTypes.INTERCONTRACT,Place=ActivityPlace.INTERNAL,Description="j'ai fait 1h de sup" , CraId=1},
+							new Activity() {Date= new DateTime(2022, 01, 13),Duration=8,Type=ActivityTypes.HOLIDAYS,Place=ActivityPlace.EXTERNAL,Description="j'ai fait 3h de sup" , CraId=1},
+							new Activity() {Date= new DateTime(2022, 01, 14),Duration=8,Type=ActivityTypes.TRAINING,Place=ActivityPlace.INTERNAL, Description="j'ai fait 4h de sup" , CraId=1},
+							new Activity() {Date= new DateTime(2022, 01, 15),Duration=8,Type=ActivityTypes.RTT,Place=ActivityPlace.EXTERNAL,Description="j'ai fait 5h de sup" , CraId=1}
+					);
+
+			this.SaveChanges();
+		}
+	}
 }
+

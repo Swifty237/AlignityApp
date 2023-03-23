@@ -35,7 +35,9 @@ namespace AlignityApp
             {
                 ctx.InitializeDb();
                 ctx.InitializeCra();
-            }
+                ctx.InitializeActivity();
+
+			}
 
             app.UseStaticFiles();
             app.UseRouting();

@@ -60,18 +60,18 @@ namespace AlignityApp.Models
             return cras;
         }
 
-        //public int CreateCra(int userId)
-        //{
-        //    Cra cra = new Cra() { 
-        //        State = CRAState.DRAFT, 
-        //        CreationDate = DateTime.Now, 
-        //        UserOfCraId = userId  
-        //    };
+        public List<Activity> FindCra(int id)
+        {
+			List<Activity> list = _bddContext.Activities.Where(b => b.CraId == id).ToList();
+            return list;
+		}
 
-        //    _bddContext.Cras.Add(cra);
-        //    _bddContext.SaveChanges();
-        //    return cra.Id;
-        //}
+        public int CreateCra(Cra cra)
+        {
+            _bddContext.Cras.Add(cra);
+            _bddContext.SaveChanges();
+            return cra.Id;
+        }
 
         //public void ModifyCra(int craId, CRAState state)
         //{

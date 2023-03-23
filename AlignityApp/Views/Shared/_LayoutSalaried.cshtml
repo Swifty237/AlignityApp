@@ -1,5 +1,7 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using System.Security.Claims
+@using AlignityApp.Models
+<!DOCTYPE html>
+<html lang="fr">
 
 <head>
 
@@ -17,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="~/css/sb-admin-2.css" rel="stylesheet">
-
+    @RenderSection("Css", required: false)
 </head>
 
 <body id="page-top">
@@ -25,7 +27,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-         <!-- Sidebar -->
+        <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -44,13 +46,17 @@
             </li>
 
             <!-- Nav Item - Home -->
-            <li class="nav-item @((Context.Request.Path == "/") ? "active" : null)">
+            @if (User.IsInRole("SALARIED"))
+            {
+                <li class="nav-item @((Context.Request.Path == "/") ? "active" : null)">
 
-                <a class="nav-link" href="/">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    <span>Home</span>
-                </a>
-            </li>
+                    <a class="nav-link" href="/">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+
+            }
 
             <!-- Divider -->
             <li>
@@ -75,10 +81,10 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Choisir une action:</h6>
-                        <a class="collapse-item" href="/Home/ListUsers">Saisir</a>
+                        <a class="collapse-item" href="/listCra/createCra/?id=@int.Parse(@User.FindFirst(ClaimTypes.Sid).Value)&todo=1">Saisir</a>
                         <a class="collapse-item" href="/Home/CreateUser">Demande de modification</a>
                         <hr class="collapse-item" />
-                        <a class="collapse-item" href="/Home/ListCras">Mes Cras</a>
+                        <a class="collapse-item" href="/listCra/?id=@User.FindFirst(ClaimTypes.Sid).Value">Mes Cras</a>
                     </div>
                 </div>
             </li>
@@ -134,6 +140,7 @@
                 </div>
             </li>
 
+
             <!-- Absences -->
             <li class="nav-item @((Context.Request.Path == "/Home/Absence") ? "active" : null)">
                 <a class="nav-link" href="/Home/Absence">
@@ -141,6 +148,7 @@
                     <span>Mes absences</span>
                 </a>
             </li>
+
 
             <!-- Divider -->
             <li>
@@ -158,14 +166,13 @@
             <li>
                 <div class="sidebar-card d-none d-lg-flex">
                     <img class="sidebar-card-illustration mb-2" src="~/src/undraw_rocket.svg" alt="...">
-                    <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                    <a class="btn btn-warning btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+                    <p class="text-center mb-2"><strong>AlignityApp</strong> is packed with premium features, and more!</p>
+                    <a class="btn btn-warning btn-sm" href="#">Upgrade to Pro!</a>
                 </div>
             </li>
 
         </ul>
         <!-- End of Sidebar -->
-       
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -181,17 +188,17 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                   aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-warning" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    @* <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                    aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                    <button class="btn btn-warning" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                    </button>
+                    </div>
+                    </div>
+                    </form>*@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -352,7 +359,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@User.Identity.Name</span>
                                 <img class="img-profile rounded-circle" src="~/src/portrait.png">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -423,7 +430,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="/login/Deconnexion">Logout</a>
                 </div>
             </div>
         </div>
@@ -446,8 +453,8 @@
     <script src="~/Scripts/js/demo/chart-area-demo.js"></script>
     <script src="~/Scripts/js/demo/chart-pie-demo.js"></script>
 
-    @*<script src="~/Scripts/layout.js"></script>*@
+
+    @RenderSection("Scripts", required: false)
 
 </body>
-
 </html>

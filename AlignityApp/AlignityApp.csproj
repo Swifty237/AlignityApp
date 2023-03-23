@@ -16,12 +16,9 @@
 
 	<ItemGroup>
 	  <Folder Include="wwwroot\css\listCra\" />
-<<<<<<< HEAD
 	  <Folder Include="wwwroot\css\login\" />
 	  <Folder Include="wwwroot\font\" />
 	  <Folder Include="wwwroot\src\" />
-=======
->>>>>>> 450e2210fb6bf1640cbb2c2f00f28f69bb7e91c3
 	</ItemGroup>
 
 </Project>
