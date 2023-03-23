@@ -33,7 +33,8 @@ namespace AlignityApp
 
             using (BddContext ctx = new BddContext())
             {
-                ctx.InitializeDb();
+                ctx.InitializeManagers();
+                ctx.InitializeSalaries();
                 ctx.InitializeCra();
             }
 

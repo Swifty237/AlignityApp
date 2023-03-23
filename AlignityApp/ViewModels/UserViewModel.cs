@@ -2,7 +2,7 @@
 
 namespace AlignityApp.ViewModels
 {
-    public class LoginViewModel
+    public class UserViewModel
     {
         public User User { get; set; }
         public bool Authentifie { get; set; }

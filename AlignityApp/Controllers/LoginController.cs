@@ -1,4 +1,5 @@
 ﻿using AlignityApp.Models;
+using AlignityApp.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,7 +17,7 @@ namespace AlignityApp.Controllers
         }
         public IActionResult Index()
         {
-            ViewModels.LoginViewModel viewModel = new ViewModels.LoginViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
+            UserViewModel viewModel = new UserViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
             if (viewModel.Authentifie)
             {
                 viewModel.User = dal.GetUser(HttpContext.User.Identity.Name);
@@ -26,7 +27,7 @@ namespace AlignityApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(ViewModels.LoginViewModel viewModel, string returnUrl)
+        public IActionResult Index(UserViewModel viewModel, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -36,6 +37,7 @@ namespace AlignityApp.Controllers
                     var userClaims = new List<Claim>()
                     {
                         new Claim(ClaimTypes.Name, user.Id.ToString()),
+                        new Claim(ClaimTypes.Role, user.UserRole.ToString())
 
                     };
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
@@ -45,10 +47,10 @@ namespace AlignityApp.Controllers
                     HttpContext.SignInAsync(userPrincipal);
 
                     if(user.UserRole.ToString() == "SALARIED")
-                        return Redirect("/Home/Index/?id="+user.Id);
+                        return Redirect("/Home/Index/id=" + user.Id);
 
                     if (user.UserRole.ToString() == "MANAGER")
-                        return Redirect("/Dashboard/Index/?id=" + user.Id);
+                        return Redirect("/ListEmployees/Index/id=" + user.Id);
 
                     if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);
@@ -64,28 +66,6 @@ namespace AlignityApp.Controllers
         {
             return View();
         }
-
-        //[HttpPost]
-        //public IActionResult CreerCompte(Utilisateur utilisateur)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        int id = dal.AjouterUtilisateur(utilisateur.Prenom, utilisateur.Password);
-
-        //        var userClaims = new List<Claim>()
-        //        {
-        //            new Claim(ClaimTypes.Name, id.ToString()),
-        //        };
-
-        //        var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
-
-        //        var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
-        //        HttpContext.SignInAsync(userPrincipal);
-
-        //        return Redirect("/");
-        //    }
-        //    return View(utilisateur);
-        //}
 
         public ActionResult Deconnexion()
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AlignityApp.Controllers
 {
-    public class ListUsersController : Controller
+    public class ListEmployeesController : Controller
     {
         public IActionResult Index(int id)
         {
@@ -14,7 +14,6 @@ namespace AlignityApp.Controllers
                 {
                     List<User> list = dal.GetAllUsers();
                     return View(list);
-
                 }
                 else
                 {
