@@ -34,8 +34,8 @@
             {
                 <!-- Sidebar - Brand -->
                 <li>
-                    <a class="sidebar-brand d-flex align-items-center justify-content-center" 
-                        href="~/Home/Index/@(User.Identity.Name)">
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                       href="~/Home/Index/@(User.FindFirst("Sid").Value)">
 
                         <div class="sidebar-brand-icon">
                             <img src="~/src/logoAR.png" alt="logo" style="height: 5em; width: 5em;" class="rounded-circle">
