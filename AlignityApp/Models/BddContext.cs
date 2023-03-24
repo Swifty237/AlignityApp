@@ -49,21 +49,28 @@ namespace AlignityApp.Models
                     Password = "55555",
                     UserRole = Role.MANAGER,
                     CreationDate = DateTime.Now
-                },
-
-               new User
-               {
-                   Name = "Lauga",
-                   Firstname = "Matteo",
-                   Birthdate = new DateTime(1984, 12, 10),
-                   Email = "matteo_lauga@exemple.com",
-                   Password = "22222",
-                   UserRole = Role.MANAGER
-               });
+                });
 
             this.SaveChanges();
 
         }
+
+        public void IntializeAdmins()
+        {
+            this.Users.AddRange(
+                new User
+                {
+                    Name = "Lauga",
+                    Firstname = "Matteo",
+                    Birthdate = new DateTime(1984, 12, 10),
+                    Email = "matteo_lauga@exemple.com",
+                    Password = "22222",
+                    UserRole = Role.MANAGER
+                });
+
+            this.SaveChanges();
+        }
+        
 
         public void InitializeSalaries()
         {
@@ -79,6 +86,7 @@ namespace AlignityApp.Models
                     Password = "12345",
                     UserRole = Role.SALARIED,
                     ManagerId = 1,
+                    RateTjm = 521,
                     CreationDate = DateTime.Now
                 },
 
@@ -91,6 +99,7 @@ namespace AlignityApp.Models
                     Password = "56789",
                     UserRole = Role.SALARIED,
                     ManagerId = 1,
+                    RateTjm = 472,
                     CreationDate = DateTime.Now
                 },
 
@@ -103,6 +112,7 @@ namespace AlignityApp.Models
                     Password = "12312",
                     UserRole = Role.SALARIED,
                     ManagerId = 1,
+                    RateTjm = 537,
                     CreationDate = DateTime.Now
                 },
 
@@ -115,6 +125,7 @@ namespace AlignityApp.Models
                     Password = "11111",
                     UserRole = Role.SALARIED,
                     ManagerId = 2,
+                    RateTjm = 516,
                     CreationDate = DateTime.Now
                 },
 
@@ -127,6 +138,7 @@ namespace AlignityApp.Models
                     Password = "95959",
                     UserRole = Role.SALARIED,
                     ManagerId = 2,
+                    RateTjm = 633,
                     CreationDate = DateTime.Now
                 },
 
@@ -139,6 +151,7 @@ namespace AlignityApp.Models
                     Password = "31313",
                     UserRole = Role.SALARIED,
                     ManagerId = 2,
+                    RateTjm = 615,
                     CreationDate = DateTime.Now
                 },
 
@@ -151,6 +164,7 @@ namespace AlignityApp.Models
                     Password = "33333",
                     UserRole = Role.SALARIED,
                     ManagerId = 1,
+                    RateTjm = 587,
                     CreationDate = DateTime.Now
                 });
 
