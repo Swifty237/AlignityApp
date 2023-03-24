@@ -13,7 +13,6 @@ namespace AlignityApp.Models
         public string Description { get; set; }
         public int CraId { get; set; }
         public virtual Cra Cra { get; set; }
-        public Cra Cra { get; set; }
         public int InvoicesId { get; set; }
         public ICollection<Invoice> Invoices { get; set; }
     }

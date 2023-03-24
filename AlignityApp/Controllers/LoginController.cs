@@ -47,7 +47,7 @@ namespace AlignityApp.Controllers
                     HttpContext.SignInAsync(userPrincipal);
 
                     if(user.UserRole.ToString() == "SALARIED")
-                        return Redirect("Home/Index/" + user.Id);
+                        return Redirect("/listCra/?id=" + user.Id);
 
                     if (user.UserRole.ToString() == "MANAGER")
                         return Redirect("TeamCras/Index/" + user.Id);
@@ -61,11 +61,27 @@ namespace AlignityApp.Controllers
             }
             return View(viewModel);
         }
+        //[HttpPost]
+        //public IActionResult CreerCompte(User user)
+        //{
+            //    if (ModelState.IsValid)
+            //    {
+            //        int id = dal.AjouterUtilisateur(utilisateur.Prenom, utilisateur.Password);
 
-        public IActionResult CreerCompte()
-        {
-            return View();
-        }
+            //        var userClaims = new List<Claim>()
+            //        {
+            //            new Claim(ClaimTypes.Name, id.ToString()),
+            //        };
+
+            //        var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
+
+            //        var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
+            //        HttpContext.SignInAsync(userPrincipal);
+
+            //        return Redirect("/");
+            //    }
+            //    return View(utilisateur);
+        //}
 
         public ActionResult Deconnexion()
         {
