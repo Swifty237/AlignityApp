@@ -30,27 +30,29 @@
          <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
-            <li>
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-                    <div class="sidebar-brand-icon">
-                        <img src="~/src/logoAR.png" alt="logo" style="height: 5em; width: 5em;" class="rounded-circle">
-                    </div>
-                    <div class="sidebar-brand-text mx-3">Alignity</div>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <li>
-                <hr class="sidebar-divider my-0">
-            </li>
-
-            <!-- Nav Item - Home -->
-            @if(User.IsInRole("SALARIED"))
+            @if (User.IsInRole("SALARIED"))
             {
-                <li class="nav-item @((Context.Request.Path == "/Home/Index") ? "active" : null)">
+                <!-- Sidebar - Brand -->
+                <li>
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" 
+                        href="~/Home/Index/@(User.Identity.Name)">
 
-                    <a class="nav-link" href="/Home/Index">
+                        <div class="sidebar-brand-icon">
+                            <img src="~/src/logoAR.png" alt="logo" style="height: 5em; width: 5em;" class="rounded-circle">
+                        </div>
+                        <div class="sidebar-brand-text mx-3">Alignity</div>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <li>
+                    <hr class="sidebar-divider my-0">
+                </li>
+
+                <!-- Nav Item - Home / Dashboard -->
+                <li class="nav-item @((Context.Request.Path == "/Home/Index" + User.Identity.Name) ? "active" : null)">
+
+                    <a class="nav-link" href="~/Home/Index">
                         <i class="fa fa-home" aria-hidden="true"></i>
                         <span>Home</span>
                     </a>
@@ -69,7 +71,8 @@
                 </li>
 
                 <!-- Nav Item - Collapse Menu CRA -->
-                <li class="nav-item @((Context.Request.Path == "/Home/ListUsers" || Context.Request.Path == "/Home/CreateUser") ? "active" : null)">
+                <li class="nav-item @((Context.Request.Path == "/Home/ListUsers" || 
+                    Context.Request.Path == "/Home/CreateUser") ? "active" : null)">
 
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                        aria-expanded="true" aria-controls="collapseTwo">
@@ -79,10 +82,10 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item" href="/Home/ListUsers">Saisir</a>
-                            <a class="collapse-item" href="/Home/CreateUser">Demande de modification</a>
+                            <a class="collapse-item text-wrap" href="~/Home/ListUsers">Saisir</a>
+                            <a class="collapse-item text-wrap" href="~/Home/CreateUser">Demande de modification</a>
                             <hr class="collapse-item" />
-                            <a class="collapse-item" href="/Home/ListCras">Mes Cras</a>
+                            <a class="collapse-item text-wrap" href="~/Home/ListCras">Mes Cras</a>
                         </div>
                     </div>
                 </li>
@@ -90,7 +93,7 @@
                 <!-- Nav Item - Service -->
                 <li class="nav-item @((Context.Request.Path == "/Home/Service") ? "active" : null)">
 
-                    <a class="nav-link" href="/Home/Service">
+                    <a class="nav-link" href="~/Home/Service">
                         <i class="fa-brands fa-servicestack" aria-hidden="true"></i>
                         <span>Mes prestations</span>
                     </a>
@@ -98,7 +101,7 @@
 
                 <li class="nav-item @((Context.Request.Path == "/Home/Training") ? "active" : null)">
 
-                    <a class="nav-link" href="/Home/Training">
+                    <a class="nav-link" href="~/Home/Training">
                         <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
                         <span>Mes formations</span>
                     </a>
@@ -129,18 +132,18 @@
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item text-wrap" href="/Home/Holiday">Faire une demande de congés</a>
-                            <a class="collapse-item text-wrap" href="/Home/Rtt">Faire une demande de RTT</a>
-                            <hr class="collapse-item" />
-                            <a class="collapse-item text-wrap" href="/Home/ListHolidays">Mes demandes de congés</a>
-                            <a class="collapse-item text-wrap" href="/Home/ListRtt">Mes demandes de RTT</a>
+                            <a class="collapse-item text-wrap" href="~/Home/Holiday">Faire une demande de congés</a>
+                            <a class="collapse-item text-wrap" href="~/Home/Rtt">Faire une demande de RTT</a>
+                            <hr class="collapse-item" />            
+                            <a class="collapse-item text-wrap" href="~/Home/ListHolidays">Mes demandes de congés</a>
+                            <a class="collapse-item text-wrap" href="~/Home/ListRtt">Mes demandes de RTT</a>
                         </div>
                     </div>
                 </li>
 
                 <!-- Absences -->
                 <li class="nav-item @((Context.Request.Path == "/Home/Absence") ? "active" : null)">
-                    <a class="nav-link" href="/Home/Absence">
+                    <a class="nav-link" href="~/Home/Absence">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Mes absences</span>
                     </a>
@@ -149,10 +152,26 @@
 
             @if(User.IsInRole("MANAGER"))
             {
-                <!-- Nav Item - Dashboard -->
-                <li class="nav-item @((Context.Request.Path == "/Dashboard/Index") ? "active" : null)">
+                <!-- Sidebar - Brand -->
+                <li>
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                       href="~/Dashboard/Index/@(User.Identity.Name)">
 
-                    <a class="nav-link" href="/Dashboard/Index">
+                        <div class="sidebar-brand-icon">
+                            <img src="~/src/logoAR.png" alt="logo" style="height: 5em; width: 5em;" class="rounded-circle">
+                        </div>
+                        <div class="sidebar-brand-text mx-3">Alignity</div>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <li>
+                    <hr class="sidebar-divider my-0">
+                </li>
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item @((Context.Request.Path == "/Dashboard/Index/" + User.Identity.Name) ? "active" : null)">
+                    <a class="nav-link" href="~/Dashboard/Index/">
                         <i class="fa fa-home" aria-hidden="true"></i>
                         <span>Tableau de bord</span>
                     </a>
@@ -171,7 +190,8 @@
                 </li>
 
                 <!-- Nav Item - Collapse Menu mon équipe -->
-                <li class="nav-item @((Context.Request.Path == "/ListEmployees/Index" || Context.Request.Path == "/ListCra/Index") ? "active" : null)">
+                <li class="nav-item @((Context.Request.Path == "/Team/Index/" + User.Identity.Name || 
+                    Context.Request.Path == "/TeamCras/Index/" + User.Identity.Name) ? "active" : null)">
 
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                        aria-expanded="true" aria-controls="collapseTwo">
@@ -181,8 +201,8 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item" href="/ListEmployees/Index">Mon équipe</a>
-                            <a class="collapse-item" href="/ListCra/Index"> liste des CRAs</a>
+                            <a class="collapse-item text-wrap" href="~/Team/Index/@(User.Identity.Name)">Mon équipe</a>
+                            <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.Identity.Name)">CRAs de mon équipe</a>
                         </div>
                     </div>
                 </li>
@@ -212,16 +232,105 @@
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item" href="/Home/Customer">Mes clients</a>
-                            <a class="collapse-item" href="/Home/Invoicing">Liste des factures</a>
+                            <a class="collapse-item text-wrap" href="~/Home/Customer">Mes clients</a>
+                            <a class="collapse-item text-wrap" href="~/Home/Invoicing">Liste des factures</a>
                             <hr class="collapse-item" />
-                            <a class="collapse-item" href="/Home/MakeInvoice">Faire une facture</a>
+                            <a class="collapse-item text-wrap" href="~/Home/MakeInvoice">Faire une facture</a>
                         </div>
                     </div>
                 </li>
             }
 
-           
+            @if (User.IsInRole("ADMINISTRATOR"))
+            {
+                <!-- Sidebar - Brand -->
+                <li>
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                       href="~/Dashboard/Index/@(User.Identity.Name)">
+
+                        <div class="sidebar-brand-icon">
+                            <img src="~/src/logoAR.png" alt="logo" style="height: 5em; width: 5em;" class="rounded-circle">
+                        </div>
+                        <div class="sidebar-brand-text mx-3">Alignity</div>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <li>
+                    <hr class="sidebar-divider my-0">
+                </li>
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item @((Context.Request.Path == "/Dashboard/Index/" + User.Identity.Name) ? "active" : null)">
+                    <a class="nav-link" href="~/Dashboard/Index">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <li>
+                    <hr class="sidebar-divider">
+                </li>
+
+                <!-- Heading -->
+                <li>
+                    <div class="sidebar-heading">
+                        Mon équipe
+                    </div>
+                </li>
+
+                <!-- Nav Item - Collapse Menu mon équipe -->
+                <li class="nav-item @((Context.Request.Path == "/Team/Index/" + User.Identity.Name ||
+                    Context.Request.Path == "/TeamCras/Index/" + User.Identity.Name) ? "active" : null)">
+
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                       aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Gérer mon équipe</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Choisir une action:</h6>
+                            <a class="collapse-item text-wrap" href="~/Team/Index/@(User.Identity.Name)">Mon équipe</a>
+                            <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.Identity.Name)">CRAs de mon équipe</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <li>
+                    <hr class="sidebar-divider">
+                </li>
+
+                <!-- Heading -->
+                <li>
+                    <div class="sidebar-heading">
+                        Mes clients
+                    </div>
+                </li>
+
+                <!-- Nav Item - Collapse Menu clients -->
+                <li class="nav-item @((Context.Request.Path == "/Home/Customer" || Context.Request.Path == "/Home/Invoicing" ||
+                    Context.Request.Path == "/Home/MakeInvoice") ? "active" : null)">
+
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                       aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span>Gérer mes clients</span>
+                    </a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                         data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Choisir une action:</h6>
+                            <a class="collapse-item text-wrap" href="~/Home/Customer">Mes clients</a>
+                            <a class="collapse-item text-wrap" href="~/Home/Invoicing">Liste des factures</a>
+                            <hr class="collapse-item" />
+                            <a class="collapse-item text-wrap" href="~/Home/MakeInvoice">Faire une facture</a>
+                        </div>
+                    </div>
+                </li>
+            }
 
             <!-- Divider -->
             <li>
@@ -300,7 +409,7 @@
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    Notifications
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
@@ -339,88 +448,19 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                 aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                             alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">
-                                            Hi there! I am wondering if you can help me with a
-                                            problem I've been having.
-                                        </div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                             alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">
-                                            I have the photos that you ordered last month, how
-                                            would you like them sent to you?
-                                        </div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                             alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">
-                                            Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!
-                                        </div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                             alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">
-                                            Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...
-                                        </div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
                         <li>
                             <div class="topbar-divider d-none d-sm-block"></div>
                         </li>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    @Model.User.Firstname @Model.User.Name
+                                </span>
+
                                 <img class="img-profile rounded-circle" src="~/src/portrait.png">
                             </a>
                             <!-- Dropdown - User Information -->

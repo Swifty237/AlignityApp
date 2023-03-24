@@ -3,17 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Xml.Linq;
 
 namespace AlignityApp.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-           
-            return View();
+            using (Dal dal = new Dal())
+            {
+                User user = dal.GetUser(id);
+                return View(user);
+            }
         }
 
         public IActionResult ListUsers()

@@ -38,7 +38,6 @@ namespace AlignityApp.Controllers
                     {
                         new Claim(ClaimTypes.Name, user.Id.ToString()),
                         new Claim(ClaimTypes.Role, user.UserRole.ToString())
-
                     };
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
 
@@ -47,15 +46,15 @@ namespace AlignityApp.Controllers
                     HttpContext.SignInAsync(userPrincipal);
 
                     if(user.UserRole.ToString() == "SALARIED")
-                        return Redirect("/Home/Index/id=" + user.Id);
+                        return Redirect("Home/Index/" + user.Id);
 
                     if (user.UserRole.ToString() == "MANAGER")
-                        return Redirect("/ListEmployees/Index/id=" + user.Id);
+                        return Redirect("TeamCras/Index/" + user.Id);
 
                     if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);
 
-                    return Redirect("/Home");
+                    return Redirect("/");
                 }
                 ModelState.AddModelError("User.Email", "Email et/ou mot de passe incorrect(s)");
             }

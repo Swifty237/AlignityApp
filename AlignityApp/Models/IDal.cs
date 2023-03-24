@@ -17,11 +17,9 @@ namespace AlignityApp.Models
             );
         List<Cra> GetAllCras();
         List<Cra> GetCrasByUserId(int id);
-        //int CreateCra(int userId);
-        //void ModifyCra(int id, CRAState state);
+        List<Cra> GetTeamCras(int id);
         User Authentifier(string email, string password);
         User GetUser(int id);
-
         List<User> GetUsersByManagerId(int id);
     }
 }

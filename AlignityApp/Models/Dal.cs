@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Identity;
 
 namespace AlignityApp.Models
 {
@@ -25,6 +26,7 @@ namespace AlignityApp.Models
         {
             return _bddContext.Users.ToList();
         }
+
         public int CreateUser(
             string name, 
             string firstname,
@@ -60,35 +62,19 @@ namespace AlignityApp.Models
             return cras;
         }
 
+        public List<Cra> GetTeamCras(int id)
+        {
+            var query = from c in _bddContext.Cras join u in _bddContext.Users on c.UserId equals u.Id where u.ManagerId == id select c;
+            List<Cra> cras = query.ToList();
+
+            return cras;
+        }
+
         public List<User> GetUsersByManagerId(int id)
         {
             List<User> users = _bddContext.Users.Where(u => u.ManagerId == id).ToList();
             return users;
         }
-
-        //public int CreateCra(int userId)
-        //{
-        //    Cra cra = new Cra() { 
-        //        State = CRAState.DRAFT, 
-        //        CreationDate = DateTime.Now, 
-        //        UserOfCraId = userId  
-        //    };
-
-        //    _bddContext.Cras.Add(cra);
-        //    _bddContext.SaveChanges();
-        //    return cra.Id;
-        //}
-
-        //public void ModifyCra(int craId, CRAState state)
-        //{
-        //    Cra cra = _bddContext.Cras.Find(craId);
-
-        //    if (cra != null && cra.UserOfCra != null)
-        //    {
-        //        cra.State = state;
-        //        _bddContext.SaveChanges();
-        //    }
-        //}
 
         public User Authentifier(string email, string password)
         {

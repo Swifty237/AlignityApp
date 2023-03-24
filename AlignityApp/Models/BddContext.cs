@@ -49,9 +49,19 @@ namespace AlignityApp.Models
                     Password = "55555",
                     UserRole = Role.MANAGER,
                     CreationDate = DateTime.Now
-                });
+                },
 
-                this.SaveChanges();
+               new User
+               {
+                   Name = "Lauga",
+                   Firstname = "Matteo",
+                   Birthdate = new DateTime(1984, 12, 10),
+                   Email = "matteo_lauga@exemple.com",
+                   Password = "22222",
+                   UserRole = Role.MANAGER
+               });
+
+            this.SaveChanges();
 
         }
 
@@ -92,6 +102,7 @@ namespace AlignityApp.Models
                     Email = "vincent_claude@exemple.com",
                     Password = "12312",
                     UserRole = Role.SALARIED,
+                    ManagerId = 1,
                     CreationDate = DateTime.Now
                 },
 
@@ -105,6 +116,42 @@ namespace AlignityApp.Models
                     UserRole = Role.SALARIED,
                     ManagerId = 2,
                     CreationDate = DateTime.Now
+                },
+
+                new User
+                {
+                    Name = "Maitrias",
+                    Firstname = "Camille",
+                    Birthdate = new DateTime(1992, 12, 12),
+                    Email = "jeanne123@exemple.fr",
+                    Password = "95959",
+                    UserRole = Role.SALARIED,
+                    ManagerId = 2,
+                    CreationDate = DateTime.Now
+                },
+
+                new User
+                {
+                    Name = "Bartelet",
+                    Firstname = "Claire",
+                    Birthdate = new DateTime(1978, 02, 15),
+                    Email = "vincent_claude@exemple.com",
+                    Password = "31313",
+                    UserRole = Role.SALARIED,
+                    ManagerId = 2,
+                    CreationDate = DateTime.Now
+                },
+
+                new User
+                {
+                    Name = "Zahner",
+                    Firstname = "Nicolas",
+                    Birthdate = new DateTime(1979, 08, 21),
+                    Email = "zahner78@exemple.com",
+                    Password = "33333",
+                    UserRole = Role.SALARIED,
+                    ManagerId = 1,
+                    CreationDate = DateTime.Now
                 });
 
                 this.SaveChanges();
@@ -113,11 +160,15 @@ namespace AlignityApp.Models
         public void InitializeCra()
         {
             this.Cras.AddRange(
-                new Cra { State = CRAState.DRAFT, UserId = 3, CreationDate = new DateTime(2022, 01, 11) },
+                new Cra { State = CRAState.DRAFT, UserId = 7, CreationDate = new DateTime(2022, 01, 11) },
                 new Cra { State = CRAState.SENT, UserId = 4, CreationDate = new DateTime(2023, 03, 11) },
-                new Cra { State = CRAState.ALERT, UserId = 5, CreationDate = new DateTime(1992, 03, 11) },
-                new Cra { State = CRAState.VALIDATED, UserId = 3, CreationDate = new DateTime(1996, 03, 11) },
-                new Cra { State = CRAState.VALIDATED, UserId = 5, CreationDate = new DateTime(2002, 03, 11) });
+                new Cra { State = CRAState.ALERT, UserId = 5, CreationDate = new DateTime(2020, 07, 11) },
+                new Cra { State = CRAState.VALIDATED, UserId = 3, CreationDate = new DateTime(2018, 02, 11) },
+                new Cra { State = CRAState.DRAFT, UserId = 7, CreationDate = new DateTime(2022, 03, 11) },
+                new Cra { State = CRAState.DRAFT, UserId = 3, CreationDate = new DateTime(2023, 03, 11) },
+                new Cra { State = CRAState.VALIDATED, UserId = 8, CreationDate = new DateTime(2023, 02, 11) },
+                new Cra { State = CRAState.VALIDATED, UserId = 9, CreationDate = new DateTime(2021, 02, 11) },
+                new Cra { State = CRAState.ALERT, UserId = 5, CreationDate = new DateTime(2023, 02, 11) });
 
             this.SaveChanges();
         }
