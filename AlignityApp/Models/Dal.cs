@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.VisualBasic;
 using Microsoft.AspNetCore.Identity;
 
 namespace AlignityApp.Models
@@ -66,10 +67,28 @@ namespace AlignityApp.Models
         {
             var query = from c in _bddContext.Cras join u in _bddContext.Users on c.UserId equals u.Id where u.ManagerId == id select c;
             List<Cra> cras = query.ToList();
-
             return cras;
         }
 
+        public List<Activity> FindCra(int id)
+        {
+			List<Activity> list = _bddContext.Activities.Where(b => b.CraId == id).ToList();
+            return list;
+		}
+
+        public int FindCraByState(int id)
+        {
+            var draftState = CRAState.DRAFT;
+            List<Cra> list = _bddContext.Cras.Where(b => b.UserId==id && b.State == draftState).ToList();
+           
+            return list[0].Id;
+        }
+
+        public int CreateCra(Cra cra)
+        {
+            _bddContext.Cras.Add(cra);
+            _bddContext.SaveChanges();
+            return cra.Id;  }
         public List<User> GetUsersByManagerId(int id)
         {
             List<User> users = _bddContext.Users.Where(u => u.ManagerId == id).ToList();

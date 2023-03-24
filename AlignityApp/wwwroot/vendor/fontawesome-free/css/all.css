@@ -4616,5 +4616,14 @@ readers do not read off random characters that represent icons */
 .fa,
 .fas {
   font-family: 'Font Awesome 5 Free';
+<<<<<<< HEAD
   font-weight: 900; 
 }
+=======
+  font-weight: 900; }
+
+  #wrapper {
+    background-color: #1C5B78;
+  }
+
+>>>>>>> profile
