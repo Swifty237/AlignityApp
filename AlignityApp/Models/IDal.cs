@@ -6,18 +6,19 @@ namespace AlignityApp.Models
     public interface IDal : IDisposable
     {
         void DeleteCreateDatabase();
+        //récupérer une liste tous les utilisateurs
         List<User> GetAllUsers();
-        int CreateUser(
-            string name, 
-            string firstname,
-            DateTime birthdate,
-            string email,
-            string password,
-            Role role
-            );
+        //récupérer une liste de tous les Cras
         List<Cra> GetAllCras();
+        //récupérer une liste des cras par id d'utilisateur
         List<Cra> GetCrasByUserId(int id);
-        List<Cra> GetTeamCras(int id);
+        //récupérer une liste des activités déjà enregistrées par id de cra
+        List<Activity> FindCra(int id);
+        //récupérer id de cra qui vient etre cré
+        int CreateCra(Cra cra);
+        //récupérer id d'un cra par id d'utilisateur qui est en état de Brouiilon
+        int FindCraByState(int id);
+
         User Authentifier(string email, string password);
         User GetUser(int id);
         List<User> GetUsersByManagerId(int id);
