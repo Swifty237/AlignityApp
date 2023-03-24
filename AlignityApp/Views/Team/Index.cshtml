@@ -5,7 +5,7 @@
 }
 
 <!-- Condition qui permet de ne pas accéder à la vue d'un autre manager par l'url -->
-@if (User.Identity.Name == Model.User.Id.ToString())
+@if (User.FindFirst("Sid").Value == Model.User.Id.ToString())
 {
     <!-- DataTales Example -->
     <div class="card shadow mb-4">

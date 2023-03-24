@@ -36,7 +36,7 @@ namespace AlignityApp.Controllers
                 {
                     var userClaims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.Sid, user.Id.ToString()),
+                        new Claim("Sid", user.Id.ToString()),
                         new Claim(ClaimTypes.Name, user.Firstname.ToString()),
                         new Claim(ClaimTypes.Role, user.UserRole.ToString())
                     };

@@ -1,10 +1,11 @@
 ﻿@model AlignityApp.ViewModels.TeamsViewModel
+@*@using System.Security.Claims*@
 @{
     Layout = "_LayoutApp";
     ViewBag.Title = "Liste des CRAs";
 }
 
-@if (User.Identity.Name == Model.User.Id.ToString())
+@if (User.FindFirst("Sid").Value == Model.User.Id.ToString())
 {
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Liste des CRAs</h1>

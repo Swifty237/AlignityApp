@@ -50,7 +50,7 @@
                 </li>
 
                 <!-- Nav Item - Home / Dashboard -->
-                <li class="nav-item @((Context.Request.Path == "/Home/Index" + User.Identity.Name) ? "active" : null)">
+                <li class="nav-item @((Context.Request.Path == "/Home/Index" + User.FindFirst("Sid").Value) ? "active" : null)">
 
                     <a class="nav-link" href="~/Home/Index">
                         <i class="fa fa-home" aria-hidden="true"></i>
@@ -155,7 +155,7 @@
                 <!-- Sidebar - Brand -->
                 <li>
                     <a class="sidebar-brand d-flex align-items-center justify-content-center"
-                       href="~/Dashboard/Index/@(User.Identity.Name)">
+                       href="~/Dashboard/Index/@(User.FindFirst("Sid").Value)">
 
                         <div class="sidebar-brand-icon">
                             <img src="~/src/logoAR.png" alt="logo" style="height: 5em; width: 5em;" class="rounded-circle">
@@ -170,8 +170,8 @@
                 </li>
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item @((Context.Request.Path == "/Dashboard/Index/" + User.Identity.Name) ? "active" : null)">
-                    <a class="nav-link" href="~/Dashboard/Index/">
+                <li class="nav-item @((Context.Request.Path == "/Dashboard/Index/" + User.FindFirst("Sid").Value) ? "active" : null)">
+                    <a class="nav-link" href="~/Dashboard/Index/@(User.FindFirst("Sid").Value)">
                         <i class="fa fa-home" aria-hidden="true"></i>
                         <span>Tableau de bord</span>
                     </a>
@@ -190,8 +190,8 @@
                 </li>
 
                 <!-- Nav Item - Collapse Menu mon équipe -->
-                <li class="nav-item @((Context.Request.Path == "/Team/Index/" + User.Identity.Name || 
-                    Context.Request.Path == "/TeamCras/Index/" + User.Identity.Name) ? "active" : null)">
+                <li class="nav-item @((Context.Request.Path == "/Team/Index/" + User.FindFirst("Sid").Value ||
+                    Context.Request.Path == "/TeamCras/Index/" + User.FindFirst("Sid").Value) ? "active" : null)">
 
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                        aria-expanded="true" aria-controls="collapseTwo">
@@ -201,8 +201,8 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item text-wrap" href="~/Team/Index/@(User.Identity.Name)">Mon équipe</a>
-                            <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.Identity.Name)">CRAs de mon équipe</a>
+                            <a class="collapse-item text-wrap" href="~/Team/Index/@(User.FindFirst("Sid").Value)">Mon équipe</a>
+                            <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.FindFirst("Sid").Value)">CRAs de mon équipe</a>
                         </div>
                     </div>
                 </li>
@@ -261,7 +261,7 @@
                 </li>
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item @((Context.Request.Path == "/Dashboard/Index/" + User.Identity.Name) ? "active" : null)">
+                <li class="nav-item @((Context.Request.Path == "/Dashboard/Index/" + User.FindFirst("Sid").Value) ? "active" : null)">
                     <a class="nav-link" href="~/Dashboard/Index">
                         <i class="fa fa-home" aria-hidden="true"></i>
                         <span>Tableau de bord</span>
@@ -281,8 +281,8 @@
                 </li>
 
                 <!-- Nav Item - Collapse Menu mon équipe -->
-                <li class="nav-item @((Context.Request.Path == "/Team/Index/" + User.Identity.Name ||
-                    Context.Request.Path == "/TeamCras/Index/" + User.Identity.Name) ? "active" : null)">
+                <li class="nav-item @((Context.Request.Path == "/Team/Index/" + User.FindFirst("Sid").Value ||
+                    Context.Request.Path == "/TeamCras/Index/" + User.FindFirst("Sid").Value) ? "active" : null)">
 
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                        aria-expanded="true" aria-controls="collapseTwo">
@@ -292,8 +292,8 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item text-wrap" href="~/Team/Index/@(User.Identity.Name)">Mon équipe</a>
-                            <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.Identity.Name)">CRAs de mon équipe</a>
+                            <a class="collapse-item text-wrap" href="~/Team/Index/@(User.FindFirst("Sid").Value)">Mon équipe</a>
+                            <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.FindFirst("Sid").Value)">CRAs de mon équipe</a>
                         </div>
                     </div>
                 </li>
