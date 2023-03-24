@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.VisualBasic;
 
 namespace AlignityApp.Models
 {
@@ -65,6 +66,14 @@ namespace AlignityApp.Models
 			List<Activity> list = _bddContext.Activities.Where(b => b.CraId == id).ToList();
             return list;
 		}
+
+        public int FindCraByState(int id)
+        {
+            var draftState = CRAState.DRAFT;
+            List<Cra> list = _bddContext.Cras.Where(b => b.UserId==id && b.State == draftState).ToList();
+           
+            return list[0].Id;
+        }
 
         public int CreateCra(Cra cra)
         {

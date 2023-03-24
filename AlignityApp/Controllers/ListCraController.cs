@@ -49,27 +49,28 @@ namespace AlignityApp.Controllers
                     {
                         Cra cra = new Cra() { State = CRAState.DRAFT, UserId = id, CreationDate = DateTime.Now };
 
+                        dal.CreateCra(cra);
+
                         List<Activity> list=new List<Activity>();   
 
-                        dal.CreateCra(cra);
 
                         return View(list);
                     }
                     else
                     {
-                        return View("Error");
+                        int idCra = dal.FindCraByState(int.Parse(User.FindFirst(ClaimTypes.Sid).Value));
+
+                        List<Activity> list =dal.FindCra(idCra);    
+
+                        return View(list);
                     }
 
                 }
                 else
                 {
-
                     List<Activity> list = dal.FindCra(id);
                     
                         return View(list);
-
-                    
-
 
                 }
             }
