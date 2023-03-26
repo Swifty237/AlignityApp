@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "_LayoutSalaried";
+    Layout = "_LayoutApp";
 }
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Liste des CRAs</h1>
@@ -57,7 +57,7 @@
                                 <td><button type="button" class="btn btn-danger btn-sm">Besoin d'une modification</button></td>
                             }
                             <td>@cra.ObservationsId</td>
-                            <td><a class=" btn btn-outline-info btn-sm" href="/listCra/createCra/?id=@cra.Id&todo=0">Voir</a></td>
+                            <td><a class=" btn btn-outline-info btn-sm" href="/listCra/createCra/?id=@cra.Id&todo=0&status=@cra.State">Voir</a></td>
                         </tr>
                     }
 

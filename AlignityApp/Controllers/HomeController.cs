@@ -1,6 +1,5 @@
 ﻿using AlignityApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +11,7 @@ namespace AlignityApp.Controllers
         {
             using (Dal dal = new Dal())
             {
-                User user = dal.GetUser(id);
+                Models.User user = dal.GetUser(id);
                 return View(user);
             }
         }
@@ -21,7 +20,7 @@ namespace AlignityApp.Controllers
         {
             using (Dal dal = new Dal())
             {
-                List<User> users = dal.GetAllUsers();
+                List<Models.User> users = dal.GetAllUsers();
                
                 if (users == null)
                 {
@@ -38,7 +37,7 @@ namespace AlignityApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser(User userCreated)
+        public IActionResult CreateUser(Models.User userCreated)
         {
             using (Dal dal = new Dal())
             {

@@ -19,7 +19,7 @@ namespace AlignityApp.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;user id=root;password=password;database=alignity_bdd");
+            optionsBuilder.UseMySql("server=localhost;user id=root;database=alignity_bdd");
         }
 
         public void InitializeManagers()
@@ -180,7 +180,11 @@ namespace AlignityApp.Models
                         new Cra { State = CRAState.DRAFT, UserId = 3, CreationDate = new DateTime(2022, 01, 11) },
                         new Cra { State = CRAState.SENT, UserId = 6, CreationDate = new DateTime(2023, 03, 11) },
                         new Cra { State = CRAState.ALERT, UserId = 5, CreationDate = new DateTime(1992, 03, 11) },
-                        new Cra { State = CRAState.VALIDATED, UserId = 6, CreationDate = new DateTime(1996, 03, 11) },
+                        new Cra { State = CRAState.SENT, UserId = 4, CreationDate = new DateTime(1996, 03, 11) },
+                        new Cra { State = CRAState.VALIDATED, UserId = 5, CreationDate = new DateTime(2002, 03, 11) },
+                        new Cra { State = CRAState.ALERT, UserId = 4, CreationDate = new DateTime(2002, 03, 11) },
+                        new Cra { State = CRAState.SENT, UserId = 5, CreationDate = new DateTime(2002, 03, 11) },
+                        new Cra { State = CRAState.VALIDATED, UserId = 4, CreationDate = new DateTime(2002, 03, 11) },
                         new Cra { State = CRAState.VALIDATED, UserId = 5, CreationDate = new DateTime(2002, 03, 11) }
                     );
 

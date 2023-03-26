@@ -18,6 +18,12 @@ namespace AlignityApp.Models
         int CreateCra(Cra cra);
         //récupérer id d'un cra par id d'utilisateur qui est en état de Brouiilon
         int FindCraByState(int id);
+        //Création d'une activité en récupérant son id
+        int CreateActivity(Activity activity);
+        //Supprimer d'une activité par id d'activité
+        void DeleteActivity(int activityId);
+        //Modifier l'état du cra par idCra
+        int ModifyCraState(int idCra);
 
         User Authentifier(string email, string password);
         User GetUser(int id);

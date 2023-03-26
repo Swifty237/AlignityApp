@@ -17,6 +17,7 @@
 	<ItemGroup>
 	  <Folder Include="wwwroot\css\listCra\" />
 	  <Folder Include="wwwroot\css\login\" />
+	  <Folder Include="wwwroot\css\user\js\" />
 	  <Folder Include="wwwroot\font\" />
 	  <Folder Include="wwwroot\src\" />
 	</ItemGroup>

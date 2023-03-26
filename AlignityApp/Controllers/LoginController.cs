@@ -31,7 +31,7 @@ namespace AlignityApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = dal.Authentifier(viewModel.User.Email, viewModel.User.Password);
+                Models.User user = dal.Authentifier(viewModel.User.Email, viewModel.User.Password);
                 if (user != null)
                 {
                     var userClaims = new List<Claim>()
