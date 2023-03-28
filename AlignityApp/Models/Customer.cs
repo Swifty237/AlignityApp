@@ -6,18 +6,20 @@ namespace AlignityApp.Models
     public class Customer
     {
         public int Id { get; set; }
-        public bool IsCorporation { get; set; }
         [MaxLength(100)]
         public string Brand { get; set; }
         [MaxLength(100)]
         public string Adress { get; set; }
+        public string PostalCode { get; set; }
+        public string City { get; set; }
         [MaxLength(50)]
-        public string referent { get; set; }
+        public string Referent { get; set; }
         [MaxLength(50)]
         public string PhoneNumber { get; set; }
-        public int ActivitiesId { get; set; }
+        public string Email { get; set; }
+        public int JobInterviewsId { get; set; }
         public int InvoicesId { get; set; }
-        public ICollection<Activity> Activities { get; set; }
+        public ICollection<JobInterview> JobInterviews { get; set; }
         public ICollection<Invoice> Invoices { get; set; }
     }
 }

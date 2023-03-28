@@ -5,6 +5,7 @@
 }
 
 <!-- Condition qui permet de ne pas accéder à la vue d'un autre manager par l'url -->
+
 @if (User.FindFirst("Sid").Value == Model.User.Id.ToString())
 {
     <!-- DataTales Example -->
@@ -55,8 +56,12 @@
                                 <td>@user.Email</td>
                                 <td>@user.CreationDate.ToString("dd/MM/yyyy")</td>
                                 <td>@user.UserJob</td>
-                                <td>@user.RateTjm</td>
-                                <td></td>
+                                @*<td>@user.TjmToPaid</td>*@
+                                <td>
+                                    <button class="btn btn-primary">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -68,7 +73,7 @@
 
 @section Css {
     <link href="/css/listCra/dataTables.bootstrap4.min.css" rel="stylesheet">
-    }
+}
 
 @section Scripts {
     <!-- Page level plugins -->
@@ -76,4 +81,4 @@
     <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <!-- Page level custom scripts -->
     <script src="/js/demo/datatables-demo.js"></script>
-    }
+}

@@ -13,7 +13,6 @@ namespace AlignityApp.Models
         public ICollection<Observation> Observations { get; set; }
         public DateTime CreationDate { get; set; }
     }
-
     public enum CRAState
     {
         DRAFT,

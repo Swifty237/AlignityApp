@@ -25,19 +25,18 @@
                         <i style="right: 5px">in</i>
                     </div>
              
-                            @using (Html.BeginForm())
+                    @using (Html.BeginForm())
                     {
-                    <div>
-                       
-                    <span>
-                        <form>
-                            <p class="form">@Html.TextBoxFor(m => m.User.Email, new { placeholder = "Email"})</p>
-                            <p class="form">@Html.PasswordFor(m => m.User.Password, new { placeholder = "Password"})</p>
-                            <input type="submit" value="Se Connecter" class="btn" style="margin-right: 20px;">
-                        </form>
-                        <a href="#">Mot de passe oublié?</a>
-                    </span>
-                    </div>
+                        <div>
+                            <span>
+                                <form>
+                                    <p class="form">@Html.TextBoxFor(m => m.User.Email, new { placeholder = "Email"})</p>
+                                    <p class="form">@Html.PasswordFor(m => m.User.Password, new { placeholder = "Password"})</p>
+                                    <input type="submit" value="Se Connecter" class="btn" style="margin-right: 20px;">
+                                </form>
+                                <a href="#">Mot de passe oublié?</a>
+                            </span>
+                        </div>
                     }
                 </div>
                 <div id="login_img">

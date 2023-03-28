@@ -13,26 +13,13 @@ namespace AlignityApp.Controllers
         {
             using (Dal dal = new Dal())
             {
-                if (id == 0)
+                TeamsViewModel tvm = new TeamsViewModel()
                 {
-                    TeamsViewModel tvm = new TeamsViewModel()
-                    {
-                        User = dal.GetUser(id),
-                        Users = dal.GetAllUsers(),
-                        Cras = dal.GetAllCras()
-                    };
-                    return View(tvm);
-                }
-                else
-                {
-                    TeamsViewModel tvm = new TeamsViewModel()
-                    {
-                        User = dal.GetUser(id),
-                        Users = dal.GetUsersByManagerId(id),
-                        Cras = dal.GetTeamCras(id)
-                    };
-                    return View(tvm);
-                }
+                    User = dal.GetUser(id),
+                    Users = dal.GetUsersByManagerId(id),
+                    Cras = dal.GetTeamCras(id)
+                };
+                return View(tvm);
             }
         }
     }

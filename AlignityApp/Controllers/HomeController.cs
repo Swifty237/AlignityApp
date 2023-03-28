@@ -1,4 +1,5 @@
 ﻿using AlignityApp.Models;
+using AlignityApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
@@ -12,8 +13,11 @@ namespace AlignityApp.Controllers
         {
             using (Dal dal = new Dal())
             {
-                User user = dal.GetUser(id);
-                return View(user);
+                HomeViewModel hvm = new HomeViewModel()
+                {
+                    User = dal.GetUser(id)
+                };
+                return View(hvm);
             }
         }
 

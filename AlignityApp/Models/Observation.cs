@@ -12,4 +12,5 @@ namespace AlignityApp.Models
         public DateTime CreationDate { get; set; }
         public string Message { get; set; }
     }
+
 }

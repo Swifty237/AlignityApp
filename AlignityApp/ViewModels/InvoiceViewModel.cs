@@ -1,9 +1,8 @@
 ﻿using AlignityApp.Models;
-using System;
 
 namespace AlignityApp.ViewModels
 {
-    public class HomeViewModel
+    public class InvoiceViewModel
     {
         public User User { get; set; }
     }

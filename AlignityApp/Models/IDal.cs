@@ -18,9 +18,13 @@ namespace AlignityApp.Models
         int CreateCra(Cra cra);
         //récupérer id d'un cra par id d'utilisateur qui est en état de Brouiilon
         int FindCraByState(int id);
-
         User Authentifier(string email, string password);
         User GetUser(int id);
         List<User> GetUsersByManagerId(int id);
+        User GetUserFromCra(Cra cra);
+        List<Customer> GetAllCustomers();
+        List<User> GetAllSalaries(int id);
+        /*int CreateJobInterview(string contractAssignement, Customer customer);*/
+        /*int ModifyJobInterview(List<User> salaries);*/
     }
 }

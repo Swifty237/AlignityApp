@@ -7,8 +7,8 @@ namespace AlignityApp.Models
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-		public int Duration { get; set; }
-		public ActivityTypes Type { get; set; }
+        public int Duration { get; set; }
+        public ActivityTypes Type { get; set; }
         public ActivityPlace Place { get; set; }
         public string Description { get; set; }
         public int CraId { get; set; }
@@ -16,7 +16,6 @@ namespace AlignityApp.Models
         public int InvoicesId { get; set; }
         public ICollection<Invoice> Invoices { get; set; }
     }
-
     public enum ActivityTypes
     {
         SERVICE,
@@ -25,10 +24,10 @@ namespace AlignityApp.Models
         RTT,
         INTERCONTRACT
     }
-
     public enum ActivityPlace
     {
         INTERNAL,
         EXTERNAL
     }
+
 }

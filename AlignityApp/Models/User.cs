@@ -24,35 +24,18 @@ namespace AlignityApp.Models
         [MaxLength(50)]
         [Required(ErrorMessage = "Le champs Password est vide!")]
         public string Password { get; set; }
-        public Job? UserJob { get; set; }
+        public string UserJob { get; set; }
         public int RateTjm { get; set; }
         public DateTime CreationDate { get; set; }
         public Role UserRole { get; set; }
-        public Status UserStatus { get; set; }
         public int? ManagerId { get; set; }
         public User Manager { get; set; }
+        public bool IsAvalaible { get; set; }
     }
     public enum Role
     {
         SALARIED, 
         MANAGER, 
-        ADMINISTRATOR,
-        EXTERNAL
-    }
-
-    public enum Job
-    {
-        TECHNICIAN,
-        HR_MANAGER,
-        COMMERCIAL,
-        SECRETARY,
-        DIRECTOR
-    }
-
-    public enum Status
-    {
-        INTERNAL_PROVIDER,
-        EXTERNAL_PROVIDER,
-        CUSTOMER_CONTACT
+        ADMINISTRATOR
     }
 }

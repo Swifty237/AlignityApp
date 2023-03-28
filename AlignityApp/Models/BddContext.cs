@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using System;
 
 namespace AlignityApp.Models
@@ -16,19 +18,15 @@ namespace AlignityApp.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerActivity> CustomerActivities { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql("server=localhost;user id=root;password=password;database=alignity_bdd");
         }
-
         public void InitializeManagers()
         {
             this.Database.EnsureDeleted();
             this.Database.EnsureCreated();
-
             this.Users.AddRange(
-
                 new User
                 {
                     Name = "Durand",
@@ -39,7 +37,6 @@ namespace AlignityApp.Models
                     UserRole = Role.MANAGER,
                     CreationDate = DateTime.Now
                 },
-
                 new User
                 {
                     Name = "Kayser",
@@ -50,11 +47,8 @@ namespace AlignityApp.Models
                     UserRole = Role.MANAGER,
                     CreationDate = DateTime.Now
                 });
-
             this.SaveChanges();
-
         }
-
         public void IntializeAdmins()
         {
             this.Users.AddRange(
@@ -67,16 +61,11 @@ namespace AlignityApp.Models
                     Password = "22222",
                     UserRole = Role.MANAGER
                 });
-
             this.SaveChanges();
         }
-        
-
         public void InitializeSalaries()
         {
-
             this.Users.AddRange(
-
                 new User
                 {
                     Name = "dupont",
@@ -89,7 +78,6 @@ namespace AlignityApp.Models
                     RateTjm = 521,
                     CreationDate = DateTime.Now
                 },
-
                 new User
                 {
                     Name = "John",
@@ -102,7 +90,6 @@ namespace AlignityApp.Models
                     RateTjm = 472,
                     CreationDate = DateTime.Now
                 },
-
                 new User
                 {
                     Name = "Vincent",
@@ -115,7 +102,6 @@ namespace AlignityApp.Models
                     RateTjm = 537,
                     CreationDate = DateTime.Now
                 },
-
                 new User
                 {
                     Name = "Tabut",
@@ -128,7 +114,6 @@ namespace AlignityApp.Models
                     RateTjm = 516,
                     CreationDate = DateTime.Now
                 },
-
                 new User
                 {
                     Name = "Maitrias",
@@ -141,7 +126,6 @@ namespace AlignityApp.Models
                     RateTjm = 633,
                     CreationDate = DateTime.Now
                 },
-
                 new User
                 {
                     Name = "Bartelet",
@@ -154,7 +138,6 @@ namespace AlignityApp.Models
                     RateTjm = 615,
                     CreationDate = DateTime.Now
                 },
-
                 new User
                 {
                     Name = "Zahner",
@@ -166,11 +149,19 @@ namespace AlignityApp.Models
                     ManagerId = 1,
                     RateTjm = 587,
                     CreationDate = DateTime.Now
+                },
+                new User
+                {
+                    Name = "Admin",
+                    Firstname = "Admin",
+                    Birthdate = new DateTime(1992, 03, 11),
+                    Email = "admin@exemple.fr",
+                    Password = "12345",
+                    UserRole = Role.ADMINISTRATOR,
+                    CreationDate = DateTime.Now
                 });
-
-                this.SaveChanges();
-            }
-
+            this.SaveChanges();
+        }
         public void InitializeCra()
         {
             this.Cras.AddRange(
@@ -180,30 +171,29 @@ namespace AlignityApp.Models
                         new Cra { State = CRAState.DRAFT, UserId = 3, CreationDate = new DateTime(2022, 01, 11) },
                         new Cra { State = CRAState.SENT, UserId = 6, CreationDate = new DateTime(2023, 03, 11) },
                         new Cra { State = CRAState.ALERT, UserId = 5, CreationDate = new DateTime(1992, 03, 11) },
-                        new Cra { State = CRAState.VALIDATED, UserId = 6, CreationDate = new DateTime(1996, 03, 11) },
+                        new Cra { State = CRAState.SENT, UserId = 4, CreationDate = new DateTime(1996, 03, 11) },
+                        new Cra { State = CRAState.VALIDATED, UserId = 5, CreationDate = new DateTime(2002, 03, 11) },
+                        new Cra { State = CRAState.ALERT, UserId = 4, CreationDate = new DateTime(2002, 03, 11) },
+                        new Cra { State = CRAState.SENT, UserId = 5, CreationDate = new DateTime(2002, 03, 11) },
+                        new Cra { State = CRAState.VALIDATED, UserId = 4, CreationDate = new DateTime(2002, 03, 11) },
                         new Cra { State = CRAState.VALIDATED, UserId = 5, CreationDate = new DateTime(2002, 03, 11) }
                     );
-
-
             this.SaveChanges();
         }
+        public void InitializeActivity()
+        {
+            this.Activities.AddRange(
+                            new Activity() { Date = new DateTime(2022, 01, 11), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 1h de sup", CraId = 5 },
+                            new Activity() { Date = new DateTime(2022, 01, 12), Duration = 8, Type = ActivityTypes.INTERCONTRACT, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 1h de sup", CraId = 5 },
+                            new Activity() { Date = new DateTime(2022, 01, 13), Duration = 8, Type = ActivityTypes.HOLIDAYS, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 3h de sup", CraId = 1 },
+                            new Activity() { Date = new DateTime(2022, 01, 14), Duration = 8, Type = ActivityTypes.TRAINING, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 4h de sup", CraId = 1 },
+                            new Activity() { Date = new DateTime(2022, 01, 11), Duration = 8, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 5h de sup", CraId = 7 },
+                            new Activity() { Date = new DateTime(2022, 01, 12), Duration = 8, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 5h de sup", CraId = 7 },
+                            new Activity() { Date = new DateTime(2022, 01, 11), Duration = 8, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 5h de sup", CraId = 7 }
+                    );
+            this.SaveChanges();
+        }
+    }
 
-		public void InitializeActivity()
-		{
-
-
-			this.Activities.AddRange(
-							new Activity() {Date= new DateTime(2022, 01, 11),Duration=8,Type=ActivityTypes.SERVICE,Place=ActivityPlace.EXTERNAL,Description="j'ai fait 1h de sup" , CraId=5},
-							new Activity() {Date= new DateTime(2022, 01, 12),Duration=8,Type=ActivityTypes.INTERCONTRACT,Place=ActivityPlace.INTERNAL,Description="j'ai fait 1h de sup" , CraId=5},
-							new Activity() {Date= new DateTime(2022, 01, 13),Duration=8,Type=ActivityTypes.HOLIDAYS,Place=ActivityPlace.EXTERNAL,Description="j'ai fait 3h de sup" , CraId=1},
-							new Activity() {Date= new DateTime(2022, 01, 14),Duration=8,Type=ActivityTypes.TRAINING,Place=ActivityPlace.INTERNAL, Description="j'ai fait 4h de sup" , CraId=1},
-							new Activity() {Date= new DateTime(2022, 01, 11),Duration=8,Type=ActivityTypes.RTT,Place=ActivityPlace.EXTERNAL,Description="j'ai fait 5h de sup" , CraId=7},
-							new Activity() {Date= new DateTime(2022, 01, 12),Duration=8,Type=ActivityTypes.RTT,Place=ActivityPlace.EXTERNAL,Description="j'ai fait 5h de sup" , CraId=7},
-							new Activity() {Date= new DateTime(2022, 01, 11),Duration=8,Type=ActivityTypes.RTT,Place=ActivityPlace.EXTERNAL,Description="j'ai fait 5h de sup" , CraId=7}
-					);
-
-			this.SaveChanges();
-		}
-	}
 }
 

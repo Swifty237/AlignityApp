@@ -117,6 +117,42 @@ namespace AlignityApp.Models
             return null;
         }
 
+        public User GetUserFromCra(Cra cra)
+        {
+            return this.GetUser(cra.UserId);
+        }
+
+        public List<Customer> GetAllCustomers()
+        {
+            return _bddContext.Customers.ToList();
+        }
+
+        public List<User> GetAllSalaries(int id)
+        {
+            return _bddContext.Users.Where(s => s.UserRole == Role.SALARIED && s.ManagerId == id ).ToList();
+        }
+
+        /*public int CreateJobInterview(string contractAssignement, Customer customer)
+        {
+            JobInterview interview = new JobInterview()
+            {
+                ContractAssignement = contractAssignement,
+                CustomerId = customer.Id,
+                Customer = customer
+            };
+
+            _bddContext.JobInterviews.Add(interview);
+            _bddContext.SaveChanges();
+            return interview.Id;
+        }*/
+
+
+
+/*        public int ModifyJobInterview(List<User> salaries)
+        {
+
+        }*/
+
         public static string EncodeMD5(string motDePasse)
         {
             string motDePasseSel = "ChoixResto" + motDePasse + "ASP.NET MVC";

@@ -1,0 +1,62 @@
+﻿@model AlignityApp.ViewModels.OpportunityViewModel
+@{
+    Layout = "_LayoutApp";
+    ViewBag.Title = "Créer une nouvelle opportunité";
+}
+
+<h1>Create opportunity</h1>
+
+<div class="row">
+
+    <div class="col-lg-6">
+
+        <!-- Basic Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Nouvelle opportunité de contrat</h6>
+            </div>
+            <div class="card-body">
+ 
+                @using (Html.BeginForm("CreateOpportunity2", "Opportunity", FormMethod.Post, new { @class = "row justify-content-around mb-4" }))
+                {
+                    <input type="hidden" name="id" value="@User.FindFirst("Sid").Value" />
+                    @Html.Label("Choisir un Client :")
+                    @Html.DropDownList("CustomerId", new SelectList(ViewBag.listCustomers, "Id", "Brand"), new {@class ="col-6"})
+                    <input class="btn btn-warning col-2" type="submit" value="Envoyer" />
+                }
+
+                @using (Html.BeginForm("CreateOpportunity3", "Opportunity", FormMethod.Post, new { @class = "row justify-content-around" }))
+                {
+                    @Html.Label("Choisir un salarié :")
+                    @Html.DropDownList("Salaried", new SelectList(ViewBag.listSalaries, "Id", "Name"), new {@class="col-6"})
+
+                    <input class="btn btn-warning col-2" type="submit" value="Envoyer" />
+                }
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
+            </div>
+            <div class="card-body">
+                The styling for this basic card example is created by using default Bootstrap
+                utility classes. By using utility classes, the style of the card component can be
+                easily modified with no need for any custom CSS!
+
+                <div class="col-12 mt-5">
+                    <button class="btn btn-warning" type="submit">Créer</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

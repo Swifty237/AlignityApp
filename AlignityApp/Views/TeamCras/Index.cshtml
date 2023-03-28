@@ -18,6 +18,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Nom</th>
                             <th>ID</th>
                             <th>Mois</th>
                             <th>Année</th>
@@ -28,6 +29,7 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>Nom</th>
                             <th>ID</th>
                             <th>Mois</th>
                             <th>Année</th>
@@ -40,6 +42,13 @@
                         @foreach (AlignityApp.Models.Cra cra in Model.Cras)
                         {
                             <tr>
+                                <td>
+                                    @foreach (AlignityApp.Models.User user in Model.Users)
+                                    {
+                                        if (user.Id == cra.UserId)
+                                            @user.Name;
+                                    }
+                                </td>
                                 <td>@cra.Id</td>
                                 <td>
                                     @cra.CreationDate.ToString("MMM", System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR"))
