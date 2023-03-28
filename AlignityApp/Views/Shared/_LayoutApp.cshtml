@@ -19,6 +19,7 @@
     <link href="~/css/sb-admin-2.css" rel="stylesheet">
     <link href="~/css/Site.css" rel="stylesheet">
     @RenderSection("Css", required: false)
+    @RenderSection("Scripts", required: false)
 
 </head>
 
@@ -280,24 +281,28 @@
                     </div>
                 </li>
 
-                <!-- Nav Item - Collapse Menu mon équipe -->
-                <li class="nav-item @((Context.Request.Path == "/Team/Index/" + User.FindFirst("Sid").Value ||
+                    <!-- Nav Item - Collapse Menu mon équipe ADMIN -->
+                <li class="nav-item @((Context.Request.Path == "/User/AjouterUser" ||
                     Context.Request.Path == "/TeamCras/Index/" + User.FindFirst("Sid").Value) ? "active" : null)">
 
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                       aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>Gérer mon équipe</span>
-                    </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item text-wrap" href="~/Team/Index/@(User.FindFirst("Sid").Value)">Mon équipe</a>
-                            <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.FindFirst("Sid").Value)">CRAs de mon équipe</a>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                           aria-expanded="true" aria-controls="collapseTwo">
+                            <i class="fas fa-fw fa-cog"></i>
+                            <span>Gérer les équipes</span>
+                        </a>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Choisir une action:</h6>
+                                <a class="collapse-item text-wrap" href="/User/AjouterUser">Ajouter un Salarié</a>
+                                <a class="collapse-item text-wrap" href="/Team">Managers de l'Alignity</a>
+                                <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.FindFirst("Sid").Value)">CRAs de mon équipe</a>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
 
+
+
+               
                 <!-- Divider -->
                 <li>
                     <hr class="sidebar-divider">
@@ -554,7 +559,7 @@
     <script src="~/Scripts/js/demo/chart-area-demo.js"></script>
     <script src="~/Scripts/js/demo/chart-pie-demo.js"></script>
 
-    @RenderSection("Scripts", required: false)
+
 
 </body>
 

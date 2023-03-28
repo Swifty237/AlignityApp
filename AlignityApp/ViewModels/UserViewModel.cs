@@ -1,4 +1,5 @@
 ﻿using AlignityApp.Models;
+using System.Collections.Generic;
 
 namespace AlignityApp.ViewModels
 {
@@ -6,5 +7,6 @@ namespace AlignityApp.ViewModels
     {
         public User User { get; set; }
         public bool Authentifie { get; set; }
+        public List<User> listUsers { get; set; }
     }
 }

@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using AlignityApp.ViewModels;
-using System.Diagnostics;
-using System.ComponentModel;
 
 namespace AlignityApp.Controllers
 {
@@ -18,7 +16,7 @@ namespace AlignityApp.Controllers
         {
             using (Dal dal = new Dal())
             {
-                if (id == 0)
+                if (User.IsInRole("ADMINISTRATOR"))
                 {
                     List<Cra> list = dal.GetAllCras();
                     return View(list);

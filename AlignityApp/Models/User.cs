@@ -36,8 +36,8 @@ namespace AlignityApp.Models
     {
         SALARIED, 
         MANAGER, 
-        ADMINISTRATOR,
-        EXTERNAL
+        ADMINISTRATOR
+     
     }
 
     public enum Job

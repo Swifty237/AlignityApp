@@ -24,6 +24,10 @@ namespace AlignityApp.Models
         void DeleteActivity(int activityId);
         //Modifier l'état du cra par idCra
         int ModifyCraState(int idCra);
+        //récupérer une liste de manager
+        List<User>GetAllManager();
+        //Créer un utilisateur par admin
+        void CreateUser(User user);
 
         User Authentifier(string email, string password);
         User GetUser(int id);

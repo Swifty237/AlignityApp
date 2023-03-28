@@ -36,22 +36,6 @@ namespace AlignityApp.Controllers
                 return View();
         }
 
-        [HttpPost]
-        public IActionResult CreateUser(Models.User userCreated)
-        {
-            using (Dal dal = new Dal())
-            {
-                dal.CreateUser(
-                    userCreated.Name, 
-                    userCreated.Firstname, 
-                    userCreated.Birthdate, 
-                    userCreated.Email, 
-                    userCreated.Password, 
-                    userCreated.UserRole
-                    );
-                return RedirectToAction("ListUsers");
-            }
-        }
 
         public IActionResult Holiday()
         {

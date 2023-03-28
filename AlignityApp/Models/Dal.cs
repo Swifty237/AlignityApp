@@ -28,29 +28,12 @@ namespace AlignityApp.Models
             return _bddContext.Users.ToList();
         }
 
-        public int CreateUser(
-            string name,
-            string firstname,
-            DateTime birthdate,
-            string email,
-            string password,
-            Role role
-            )
-        {
-            User user = new User
-            {
-                Name = name,
-                Firstname = firstname,
-                Birthdate = birthdate,
-                Email = email,
-                Password = password,
-                CreationDate = DateTime.Now,
-                UserRole = role
-            };
+        public void CreateUser(User user) { 
+           
 
             _bddContext.Users.Add(user);
             _bddContext.SaveChanges();
-            return user.Id;
+    
         }
 
         public List<Cra> GetAllCras()
@@ -123,6 +106,12 @@ namespace AlignityApp.Models
             }
                 return cra.UserId;
 
+        }
+
+       public List<User> GetAllManager()
+        {
+            List<User> user = _bddContext.Users.Where(c => c.UserRole ==Role.MANAGER).ToList();
+            return user;
         }
 
         public List<User> GetUsersByManagerId(int id)

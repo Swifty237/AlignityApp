@@ -11,26 +11,29 @@ namespace AlignityApp.Controllers
     {
         public IActionResult Index(int id)
         {
-            using (Dal dal = new Dal())
+            TeamsViewModel tvm = new TeamsViewModel();
+            using (Dal dal = new Dal()) 
             {
+                if (User.IsInRole("ADMINISTRATOR"))
+                {
+                    tvm.Users = dal.GetAllManager();
+
+                    return View(tvm);
+                }
                 if (id == 0)
                 {
-                    TeamsViewModel tvm = new TeamsViewModel()
-                    {
-                        User = dal.GetUser(id),
-                        Users = dal.GetAllUsers(),
-                        Cras = dal.GetAllCras()
-                    };
+                    tvm.User = dal.GetUser(id);
+                    tvm.Users = dal.GetAllUsers();
+                    tvm.Cras = dal.GetAllCras();
+
                     return View(tvm);
                 }
                 else
                 {
-                    TeamsViewModel tvm = new TeamsViewModel()
-                    {
-                        User = dal.GetUser(id),
-                        Users = dal.GetUsersByManagerId(id),
-                        Cras = dal.GetTeamCras(id)
-                    };
+                    tvm.User = dal.GetUser(id);
+                    tvm.Users = dal.GetUsersByManagerId(id);
+                    tvm.Cras = dal.GetTeamCras(id);
+
                     return View(tvm);
                 }
             }
