@@ -1,7 +1,6 @@
 ﻿using AlignityApp.Models;
 using AlignityApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 
@@ -25,7 +24,7 @@ namespace AlignityApp.Controllers
         {
             using (Dal dal = new Dal())
             {
-                List<User> users = dal.GetAllUsers();
+                List<Models.User> users = dal.GetAllUsers();
                
                 if (users == null)
                 {
@@ -41,22 +40,6 @@ namespace AlignityApp.Controllers
                 return View();
         }
 
-        [HttpPost]
-        public IActionResult CreateUser(User userCreated)
-        {
-            using (Dal dal = new Dal())
-            {
-                dal.CreateUser(
-                    userCreated.Name, 
-                    userCreated.Firstname, 
-                    userCreated.Birthdate, 
-                    userCreated.Email, 
-                    userCreated.Password, 
-                    userCreated.UserRole
-                    );
-                return RedirectToAction("ListUsers");
-            }
-        }
 
         public IActionResult Holiday()
         {

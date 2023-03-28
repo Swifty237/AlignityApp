@@ -37,5 +37,22 @@ namespace AlignityApp.Models
         SALARIED, 
         MANAGER, 
         ADMINISTRATOR
+     
+    }
+
+    public enum Job
+    {
+        TECHNICIAN,
+        HR_MANAGER,
+        COMMERCIAL,
+        SECRETARY,
+        DIRECTOR
+    }
+
+    public enum Status
+    {
+        INTERNAL_PROVIDER,
+        EXTERNAL_PROVIDER,
+        CUSTOMER_CONTACT
     }
 }

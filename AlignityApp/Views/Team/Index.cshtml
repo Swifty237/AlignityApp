@@ -5,8 +5,7 @@
 }
 
 <!-- Condition qui permet de ne pas accéder à la vue d'un autre manager par l'url -->
-
-@if (User.FindFirst("Sid").Value == Model.User.Id.ToString())
+@if (User.IsInRole("MANAGER"))
 {
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -69,6 +68,67 @@
             </div>
         </div>
     </div>
+}
+
+@if(User.IsInRole("ADMINISTRATOR")){
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                           
+                            <th>Téléphone</th>
+                           
+                            <th>Email</th>
+                           
+                            <th>Métier</th>
+                   
+                            <th>Editer</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                           
+                            <th>Téléphone</th>
+                           
+                            <th>Email</th>
+                           
+                            <th>Métier</th>
+                     
+                            <th>Editer TJM</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (AlignityApp.Models.User user in Model.Users)
+                        {
+                            <tr>
+                                <td>@user.Name</td>
+                                <td>@user.Firstname</td>
+                               
+                                <td>@user.PhoneNumber</td>
+                               
+                                <td>@user.Email</td>
+                         
+                                <td>@user.UserJob</td>
+
+                                <td><button type="button" href="#" class="btn btn-primary btn-sm">voir son équipe</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 }
 
 @section Css {

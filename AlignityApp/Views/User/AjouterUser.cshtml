@@ -1,0 +1,266 @@
+﻿@{
+    Layout = "_LayoutApp";
+
+}
+@model AlignityApp.ViewModels.UserViewModel
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Ajouter un salarié</h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <form class="form-horizontal form-label-left" method="post" action=@Url.Action("AjouterUser", "User")>
+                            <p>
+                                For alternative validation library <code>parsleyJS</code> check out in the <a href="form.html">form page</a>
+                            </p>
+
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Nom<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input class="form-control" data-validate-length-range="6" name="Name" required="required" />
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Prénom<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input class="form-control" data-validate-length-range="6" name="Firstname" required="required" />
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">email<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input class="form-control" name="Email" required="required" type="email" />
+                                </div>
+                            </div>
+
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Date de Naissance<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input class="form-control" class='date' type="date" name="Birthdate" required='required'>
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Password<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input class="form-control" type="password" id="password1" name="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@@#$%^&*]).{8,}" title="Minimum 8 Characters Including An Upper And Lower Case Letter, A Number And A Unique Character" required />
+
+                                    <span style="position: absolute;right:15px;top:7px;" onclick="hideshow()">
+                                        <i id="slash" class="fa fa-eye-slash"></i>
+                                        <i id="eye" class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Repeat password<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input class="form-control" type="password" name="password2" data-validate-linked='password' required='required' />
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Télephone<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input class="form-control" type="tel" name="PhoneNumber" />
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Adresse</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input class="form-control" name="Adress" />
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Ville</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input class="form-control" name="City" />
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Code Postal</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input class="form-control" name="PostalCode" />
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Poste<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select class="form-control" required="required" name="UserJob">
+                                        @foreach (var value in Enum.GetValues(typeof(AlignityApp.Models.Job)))
+                                        {
+                                            @if (value.ToString() == "TECHNICIAN")
+                                            {
+                                                <option value="@value">Tech</option>
+
+                                            }
+                                            @if (value.ToString() == "HR_MANAGER")
+                                            {
+                                                <option value="@value">RH</option>
+
+
+                                            }
+                                            @if (value.ToString() == "COMMERCIAL")
+                                            {
+                                                <option value="@value">Commercial</option>
+
+                                            }
+                                            @if (value.ToString() == "SECRETARY")
+                                            {
+                                                <option value="@value">Secrétaire</option>
+
+                                            }
+                                            @if (value.ToString() == "DIRECTOR")
+                                            {
+                                                <option value="@value">Directeur</option>
+
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">TJM<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input class="form-control" name="RateTjm" />
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Rôle<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select id="select1" class="form-control" required="required" name="UserRole" onchange="updateInputVisibility()">
+                                        @foreach (var value in Enum.GetValues(typeof(AlignityApp.Models.Role)))
+                                        {
+                                            @if (value.ToString() == "SALARIED")
+                                            {
+                                            <option value="@value">Salarié</option>
+                                                
+                                            }
+                                            @if (value.ToString() == "MANAGER")
+                                            {
+                                            <option value="@value">Manager</option>
+                                                
+                                            
+                                            }@if (value.ToString() == "ADMINISTRATOR")
+                                            {
+                                            <option value="@value">Administrateur</option>
+                                                
+                                            }
+                                        }
+                                    </select>
+                                    <script>
+                                        function updateInputVisibility() {
+                                            var selectValue = document.getElementById('select1').value;
+                                            var inputElement = document.getElementById('divManager');
+
+                                            if (selectValue.toString() == 'ADMINISTRATOR' || selectValue.toString() == 'MANAGER') {
+                                                inputElement.style.display = 'none';
+                                            } else {
+                                                inputElement.style.display = 'block';
+                                            }
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="field item form-group" id="divManager">
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Manager<span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select class="form-control" required="required" name="ManagerId">
+                                        @foreach (AlignityApp.Models.User user in Model.listUsers)
+                                        {
+                                            <option value=@user.Id>@user.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="ln_solid">
+                                <div class="form-group">
+                                    <div class="col-md-6 offset-md-3">
+                                        <button type='submit' class="btn btn-primary">Submit</button>
+                                        <button type='reset' class="btn btn-success">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/css/user/js/multifield.js"></script>
+<script src="/css/user/js/validator.js"></script>
+
+<!-- Javascript functions	-->
+<script>
+    function hideshow() {
+        var password = document.getElementById("password1");
+        var slash = document.getElementById("slash");
+        var eye = document.getElementById("eye");
+
+        if (password.type === 'password') {
+            password.type = "text";
+            slash.style.display = "block";
+            eye.style.display = "none";
+        }
+        else {
+            password.type = "password";
+            slash.style.display = "none";
+            eye.style.display = "block";
+        }
+
+    }
+</script>
+
+<script>
+    // initialize a validator instance from the "FormValidator" constructor.
+    // A "<form>" element is optionally passed as an argument, but is not a must
+    var validator = new FormValidator({
+        "events": ['blur', 'input', 'change']
+    }, document.forms[0]);
+    // on form "submit" event
+    document.forms[0].onsubmit = function (e) {
+        var submit = true,
+            validatorResult = validator.checkAll(this);
+        console.log(validatorResult);
+        return !!validatorResult.valid;
+    };
+    // on form "reset" event
+    document.forms[0].onreset = function (e) {
+        validator.reset();
+    };
+    // stuff related ONLY for this demo page:
+    $('.toggleValidationTooltips').change(function () {
+        validator.settings.alerts = !this.checked;
+        if (this.checked)
+            $('form .alert').remove();
+    }).prop('checked', false);
+
+</script>
+
+<!-- jQuery -->
+<script src="/css/user/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/css/user/js/bootstrap.bundle.min.js"></script>
+<!-- FastClick -->
+<script src="/css/user/js/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/css/user/js/nprogress.js"></script>
+<!-- validator -->
+<!-- <script src="../vendors/validator/validator.js"></script> -->
+<!-- Custom Theme Scripts -->
+<script src="/css/user/js/custom.min.js"></script>
+

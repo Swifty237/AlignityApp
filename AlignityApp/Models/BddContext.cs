@@ -20,7 +20,7 @@ namespace AlignityApp.Models
         public DbSet<Invoice> Invoices { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;user id=root;password=password;database=alignity_bdd");
+            optionsBuilder.UseMySql("server=localhost;user id=root;database=alignity_bdd");
         }
         public void InitializeManagers()
         {
@@ -63,6 +63,8 @@ namespace AlignityApp.Models
                 });
             this.SaveChanges();
         }
+
+
         public void InitializeSalaries()
         {
             this.Users.AddRange(
@@ -150,18 +152,21 @@ namespace AlignityApp.Models
                     RateTjm = 587,
                     CreationDate = DateTime.Now
                 },
+                
                 new User
-                {
-                    Name = "Admin",
-                    Firstname = "Admin",
-                    Birthdate = new DateTime(1992, 03, 11),
-                    Email = "admin@exemple.fr",
-                    Password = "12345",
-                    UserRole = Role.ADMINISTRATOR,
-                    CreationDate = DateTime.Now
-                });
+                  {
+                      Name = "Admin",
+                      Firstname = "Admin",
+                      Birthdate = new DateTime(1992, 03, 11),
+                      Email = "admin@exemple.fr",
+                      Password = "12345",
+                      UserRole = Role.ADMINISTRATOR,
+                      CreationDate = DateTime.Now
+                  });
+
             this.SaveChanges();
         }
+
         public void InitializeCra()
         {
             this.Cras.AddRange(
@@ -180,8 +185,11 @@ namespace AlignityApp.Models
                     );
             this.SaveChanges();
         }
+
         public void InitializeActivity()
         {
+
+
             this.Activities.AddRange(
                             new Activity() { Date = new DateTime(2022, 01, 11), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 1h de sup", CraId = 5 },
                             new Activity() { Date = new DateTime(2022, 01, 12), Duration = 8, Type = ActivityTypes.INTERCONTRACT, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 1h de sup", CraId = 5 },
@@ -191,9 +199,9 @@ namespace AlignityApp.Models
                             new Activity() { Date = new DateTime(2022, 01, 12), Duration = 8, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 5h de sup", CraId = 7 },
                             new Activity() { Date = new DateTime(2022, 01, 11), Duration = 8, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 5h de sup", CraId = 7 }
                     );
+
             this.SaveChanges();
         }
     }
-
 }
 

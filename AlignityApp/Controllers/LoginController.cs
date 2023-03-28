@@ -31,7 +31,7 @@ namespace AlignityApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = dal.Authentifier(viewModel.User.Email, viewModel.User.Password);
+                Models.User user = dal.Authentifier(viewModel.User.Email, viewModel.User.Password);
                 if (user != null)
                 {
                     var userClaims = new List<Claim>()
@@ -51,6 +51,9 @@ namespace AlignityApp.Controllers
 
                     if (user.UserRole.ToString() == "MANAGER")
                         return Redirect("Dashboard/Index/" + user.Id);
+
+                    if (user.UserRole.ToString() == "ADMINISTRATOR")
+                        return Redirect("/listCra/?id=" + user.Id);
 
                     if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);

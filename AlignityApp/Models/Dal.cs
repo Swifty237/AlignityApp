@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
-using Microsoft.VisualBasic;
-using Microsoft.AspNetCore.Identity;
+using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace AlignityApp.Models
 {
@@ -28,28 +28,12 @@ namespace AlignityApp.Models
             return _bddContext.Users.ToList();
         }
 
-        public int CreateUser(
-            string name, 
-            string firstname,
-            DateTime birthdate,
-            string email,
-            string password, 
-            Role role
-            )
-        {
-            User user = new User { 
-                Name = name, 
-                Firstname = firstname,
-                Birthdate = birthdate,
-                Email = email, 
-                Password = password, 
-                CreationDate = DateTime.Now, 
-                UserRole = role  
-                };
+        public void CreateUser(User user) { 
+           
 
             _bddContext.Users.Add(user);
             _bddContext.SaveChanges();
-            return user.Id;
+    
         }
 
         public List<Cra> GetAllCras()
@@ -72,15 +56,15 @@ namespace AlignityApp.Models
 
         public List<Activity> FindCra(int id)
         {
-			List<Activity> list = _bddContext.Activities.Where(b => b.CraId == id).ToList();
+            List<Activity> list = _bddContext.Activities.Where(b => b.CraId == id).ToList();
             return list;
-		}
+        }
 
         public int FindCraByState(int id)
         {
             var draftState = CRAState.DRAFT;
-            List<Cra> list = _bddContext.Cras.Where(b => b.UserId==id && b.State == draftState).ToList();
-           
+            List<Cra> list = _bddContext.Cras.Where(b => b.UserId == id && b.State == draftState).ToList();
+
             return list[0].Id;
         }
 
@@ -88,7 +72,48 @@ namespace AlignityApp.Models
         {
             _bddContext.Cras.Add(cra);
             _bddContext.SaveChanges();
-            return cra.Id;  }
+            return cra.Id;
+        }
+
+        public int CreateActivity(Models.Activity activity)
+        {
+            _bddContext.Activities.Add(activity);
+            _bddContext.SaveChanges();
+            return activity.Id;
+        }
+        public void DeleteActivity(int activityId)
+        {
+            var activity = _bddContext.Activities.FirstOrDefault(a => a.Id == activityId);
+
+            if (activity != null)
+            {
+                _bddContext.Activities.Remove(activity);
+                _bddContext.SaveChanges();
+            }
+        }
+
+        public int ModifyCraState(int idCra)
+        {
+            var cra = _bddContext.Cras.FirstOrDefault(p => p.Id == idCra);
+
+            if (cra != null)
+            {
+
+                cra.State = CRAState.SENT;
+
+                _bddContext.Entry(cra).State = EntityState.Modified;
+                _bddContext.SaveChanges();
+            }
+                return cra.UserId;
+
+        }
+
+       public List<User> GetAllManager()
+        {
+            List<User> user = _bddContext.Users.Where(c => c.UserRole ==Role.MANAGER).ToList();
+            return user;
+        }
+
         public List<User> GetUsersByManagerId(int id)
         {
             List<User> users = _bddContext.Users.Where(u => u.ManagerId == id).ToList();

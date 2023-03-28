@@ -19,6 +19,7 @@
     <link href="~/css/sb-admin-2.css" rel="stylesheet">
     <link href="~/css/Site.css" rel="stylesheet">
     @RenderSection("Css", required: false)
+    @RenderSection("Scripts", required: false)
 
 </head>
 
@@ -82,10 +83,10 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item text-wrap" href="~/Home/ListUsers">Saisir</a>
+                            <a class="collapse-item text-wrap" href="/listCra/createCra/?id=@int.Parse(@User.FindFirst("Sid").Value)&todo=1">Saisir</a>
                             <a class="collapse-item text-wrap" href="~/Home/CreateUser">Demande de modification</a>
                             <hr class="collapse-item" />
-                            <a class="collapse-item text-wrap" href="~/Home/ListCras">Mes Cras</a>
+                            <a class="collapse-item text-wrap" href="/listCra/?id=@User.FindFirst("Sid").Value">Mes Cras</a>
                         </div>
                     </div>
                 </li>
@@ -94,7 +95,7 @@
                 <li class="nav-item @((Context.Request.Path == "/Home/Service") ? "active" : null)">
 
                     <a class="nav-link" href="~/Home/Service">
-                        <i class="fa-brands fa-servicestack" aria-hidden="true"></i>
+                        <i class="fa fa-book fa-fw" aria-hidden="true"></i>
                         <span>Mes prestations</span>
                     </a>
                 </li>
@@ -102,7 +103,7 @@
                 <li class="nav-item @((Context.Request.Path == "/Home/Training") ? "active" : null)">
 
                     <a class="nav-link" href="~/Home/Training">
-                        <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+                        <i class="fa fa-folder fa-fw" aria-hidden="true"></i>
                         <span>Mes formations</span>
                     </a>
                 </li>
@@ -299,24 +300,28 @@
                     </div>
                 </li>
 
-                <!-- Nav Item - Collapse Menu mon équipe -->
-                <li class="nav-item @((Context.Request.Path == "/Team/Index/" + User.FindFirst("Sid").Value ||
+                    <!-- Nav Item - Collapse Menu mon équipe ADMIN -->
+                <li class="nav-item @((Context.Request.Path == "/User/AjouterUser" ||
                     Context.Request.Path == "/TeamCras/Index/" + User.FindFirst("Sid").Value) ? "active" : null)">
 
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                       aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>Gérer mon équipe</span>
-                    </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item text-wrap" href="~/Team/Index/@(User.FindFirst("Sid").Value)">Mon équipe</a>
-                            <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.FindFirst("Sid").Value)">CRAs de mon équipe</a>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                           aria-expanded="true" aria-controls="collapseTwo">
+                            <i class="fas fa-fw fa-cog"></i>
+                            <span>Gérer les équipes</span>
+                        </a>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Choisir une action:</h6>
+                                <a class="collapse-item text-wrap" href="/User/AjouterUser">Ajouter un Salarié</a>
+                                <a class="collapse-item text-wrap" href="/Team">Managers de l'Alignity</a>
+                                <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.FindFirst("Sid").Value)">CRAs de mon équipe</a>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
 
+
+
+               
                 <!-- Divider -->
                 <li>
                     <hr class="sidebar-divider">
@@ -367,8 +372,8 @@
             <li>
                 <div class="sidebar-card d-none d-lg-flex">
                     <img class="sidebar-card-illustration mb-2" src="~/src/undraw_rocket.svg" alt="...">
-                    <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                    <a class="btn btn-warning btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+                    <p class="text-center mb-2"><strong>AlignityApp Pro</strong> is packed with premium features, components, and more!</p>
+                    <a class="btn btn-warning btn-sm" href="#">Upgrade to Pro!</a>
                 </div>
             </li>
 
@@ -477,7 +482,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                    @Model.User.Firstname @Model.User.Name
+                                    @User.Identity.Name
                                 </span>
 
                                 <img class="img-profile rounded-circle" src="~/src/portrait.png">
@@ -485,7 +490,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/user?id=@int.Parse(User.FindFirst("Sid").Value)">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profil
                                 </a>
@@ -573,7 +578,7 @@
     <script src="~/Scripts/js/demo/chart-area-demo.js"></script>
     <script src="~/Scripts/js/demo/chart-pie-demo.js"></script>
 
-    @RenderSection("Scripts", required: false)
+
 
 </body>
 
