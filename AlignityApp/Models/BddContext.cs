@@ -32,10 +32,16 @@ namespace AlignityApp.Models
                     Name = "Durand",
                     Firstname = "Jeanne",
                     Birthdate = new DateTime(1992, 03, 11),
+                    Adress="15 rue drouot",
+                    City="Paris",
+                    PostalCode=75009,
+                    PhoneNumber="0667605968",
                     Email = "jeanne123@exemple.fr",
                     Password = "91011",
+                    UserJob=Job.COMMERCIAL,
                     UserRole = Role.MANAGER,
-                    CreationDate = DateTime.Now
+                    CreationDate = DateTime.Now,
+                    IsAvalaible = true
                 },
                 new User
                 {
@@ -45,7 +51,8 @@ namespace AlignityApp.Models
                     Email = "kaysersoze@exemple.com",
                     Password = "55555",
                     UserRole = Role.MANAGER,
-                    CreationDate = DateTime.Now
+                    CreationDate = DateTime.Now,
+                    IsAvalaible = true
                 });
             this.SaveChanges();
         }
@@ -59,7 +66,8 @@ namespace AlignityApp.Models
                     Birthdate = new DateTime(1984, 12, 10),
                     Email = "matteo_lauga@exemple.com",
                     Password = "22222",
-                    UserRole = Role.MANAGER
+                    UserRole = Role.MANAGER,
+                    IsAvalaible = true
                 });
             this.SaveChanges();
         }
@@ -75,10 +83,16 @@ namespace AlignityApp.Models
                     Birthdate = new DateTime(1974, 10, 01),
                     Email = "thomas@gmail.com",
                     Password = "12345",
+                    Adress = "15 rue drouot",
+                    City = "Paris",
+                    PostalCode = 75009,
+                    PhoneNumber = "0667605968",
                     UserRole = Role.SALARIED,
+                    UserJob = Job.COMMERCIAL,
                     ManagerId = 1,
                     RateTjm = 521,
-                    CreationDate = DateTime.Now
+                    CreationDate = new DateTime(2020, 10, 01),
+                    IsAvalaible = true
                 },
                 new User
                 {
@@ -90,7 +104,8 @@ namespace AlignityApp.Models
                     UserRole = Role.SALARIED,
                     ManagerId = 1,
                     RateTjm = 472,
-                    CreationDate = DateTime.Now
+                    CreationDate = new DateTime(2009, 01, 11),
+                    IsAvalaible = true
                 },
                 new User
                 {
@@ -102,19 +117,21 @@ namespace AlignityApp.Models
                     UserRole = Role.SALARIED,
                     ManagerId = 1,
                     RateTjm = 537,
-                    CreationDate = DateTime.Now
+                    CreationDate = new DateTime(2021, 11, 21),
+                    IsAvalaible = true
                 },
                 new User
                 {
                     Name = "Tabut",
                     Firstname = "Lucile",
-                    Birthdate = new DateTime(1988, 11, 28),
+                    Birthdate = new DateTime(1988, 07, 28),
                     Email = "tabutlucile@exemple.com",
                     Password = "11111",
                     UserRole = Role.SALARIED,
                     ManagerId = 2,
                     RateTjm = 516,
-                    CreationDate = DateTime.Now
+                    CreationDate = new DateTime(2011, 09, 03),
+                    IsAvalaible = true
                 },
                 new User
                 {
@@ -126,7 +143,8 @@ namespace AlignityApp.Models
                     UserRole = Role.SALARIED,
                     ManagerId = 2,
                     RateTjm = 633,
-                    CreationDate = DateTime.Now
+                    CreationDate = new DateTime(2014, 05, 01),
+                    IsAvalaible = true
                 },
                 new User
                 {
@@ -138,7 +156,8 @@ namespace AlignityApp.Models
                     UserRole = Role.SALARIED,
                     ManagerId = 2,
                     RateTjm = 615,
-                    CreationDate = DateTime.Now
+                    CreationDate = new DateTime(1999, 10, 01),
+                    IsAvalaible = true
                 },
                 new User
                 {
@@ -150,19 +169,21 @@ namespace AlignityApp.Models
                     UserRole = Role.SALARIED,
                     ManagerId = 1,
                     RateTjm = 587,
-                    CreationDate = DateTime.Now
+                    CreationDate = new DateTime(2005, 12, 01),
+                    IsAvalaible = true
                 },
-                
+
                 new User
-                  {
-                      Name = "Admin",
-                      Firstname = "Admin",
-                      Birthdate = new DateTime(1992, 03, 11),
-                      Email = "admin@exemple.fr",
-                      Password = "12345",
-                      UserRole = Role.ADMINISTRATOR,
-                      CreationDate = DateTime.Now
-                  });
+                {
+                    Name = "Admin",
+                    Firstname = "Admin",
+                    Birthdate = new DateTime(1992, 03, 11),
+                    Email = "admin@exemple.fr",
+                    Password = "12345",
+                    UserRole = Role.ADMINISTRATOR,
+                    CreationDate = new DateTime(1974, 10, 01),
+                    IsAvalaible = true
+                });
 
             this.SaveChanges();
         }

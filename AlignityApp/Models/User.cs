@@ -24,7 +24,7 @@ namespace AlignityApp.Models
         [MaxLength(50)]
         [Required(ErrorMessage = "Le champs Password est vide!")]
         public string Password { get; set; }
-        public string UserJob { get; set; }
+        public Job UserJob { get; set; }
         public int RateTjm { get; set; }
         public DateTime CreationDate { get; set; }
         public Role UserRole { get; set; }

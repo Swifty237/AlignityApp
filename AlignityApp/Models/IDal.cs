@@ -28,6 +28,10 @@ namespace AlignityApp.Models
         List<User>GetAllManager();
         //Créer un utilisateur par admin
         void CreateUser(User user);
+        //Modify un utilisateur par admin
+        void ModifyUser(User user); 
+        //Supprimer un utilisateur en changeant son paramètre IsAvalaible
+        void DeleteUser(int id);
 
         User Authentifier(string email, string password);
         User GetUser(int id);

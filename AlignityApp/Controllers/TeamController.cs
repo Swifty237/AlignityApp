@@ -2,6 +2,7 @@
 using AlignityApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace AlignityApp.Controllers
@@ -14,17 +15,10 @@ namespace AlignityApp.Controllers
             TeamsViewModel tvm = new TeamsViewModel();
             using (Dal dal = new Dal()) 
             {
-                if (User.IsInRole("ADMINISTRATOR"))
+                //ID==null
+                if (User.IsInRole("ADMINISTRATOR")&& id==0)
                 {
                     tvm.Users = dal.GetAllManager();
-
-                    return View(tvm);
-                }
-                if (id == 0)
-                {
-                    tvm.User = dal.GetUser(id);
-                    tvm.Users = dal.GetAllUsers();
-                    tvm.Cras = dal.GetAllCras();
 
                     return View(tvm);
                 }

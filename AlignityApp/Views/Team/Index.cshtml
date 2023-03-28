@@ -4,13 +4,16 @@
     ViewBag.Title = "Mon équipe";
 }
 
-<!-- Condition qui permet de ne pas accéder à la vue d'un autre manager par l'url -->
-@if (User.IsInRole("MANAGER"))
+@using Microsoft.AspNetCore.Routing;
+
+
+@if (User.IsInRole("MANAGER") || (Model.User != null))
 {
+
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Voici l'équipe du Manager @Model.User.Name</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -26,7 +29,7 @@
                             <th>Date entrée</th>
                             <th>Métier</th>
                             <th>TJM</th>
-                            <th>Editer TJM</th>
+                            <th>Editer </th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -40,7 +43,7 @@
                             <th>Date entrée</th>
                             <th>Métier</th>
                             <th>TJM</th>
-                            <th>Editer TJM</th>
+                            <th>Editer </th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -54,12 +57,36 @@
                                 <td>@user.Adress @user.PostalCode @user.City</td>
                                 <td>@user.Email</td>
                                 <td>@user.CreationDate.ToString("dd/MM/yyyy")</td>
-                                <td>@user.UserJob</td>
-                                @*<td>@user.TjmToPaid</td>*@
+                                @if (@user.UserJob.ToString() == "TECHNICIAN")
+                                {
+                                    <td>Tech</td>
+
+                                }
+                                @if (@user.UserJob.ToString() == "HR_MANAGER")
+                                {
+                                    <td>RH</td>
+
+                                }
+                                @if (@user.UserJob.ToString() == "COMMERCIAL")
+                                {
+                                    <td>Commercial</td>
+
+                                }
+                                @if (@user.UserJob.ToString() == "SECRETARY")
+                                {
+                                    <td>Secrétaire</td>
+
+                                }
+                                @if (@user.UserJob.ToString() == "DIRECTOR")
+                                {
+                                    <td>Directeur</td>
+
+                                }
+                                <td>@user.RateTjm</td>
                                 <td>
-                                    <button class="btn btn-primary">
-                                        <i class="far fa-edit"></i>
-                                    </button>
+                                    <a class="btn btn-primary" href="/user?id=@user.Id">
+                                        <i class="far fa-edit">Voir le Salarié</i>
+                                    </a>
                                 </td>
                             </tr>
                         }
@@ -70,11 +97,12 @@
     </div>
 }
 
-@if(User.IsInRole("ADMINISTRATOR")){
+@if (User.IsInRole("ADMINISTRATOR") && Model.User == null)
+{
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Les @Model.Users.Count Managers de l'Alignity</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -83,13 +111,13 @@
                         <tr>
                             <th>Nom</th>
                             <th>Prénom</th>
-                           
+
                             <th>Téléphone</th>
-                           
+
                             <th>Email</th>
-                           
+
                             <th>Métier</th>
-                   
+
                             <th>Editer</th>
                         </tr>
                     </thead>
@@ -97,14 +125,14 @@
                         <tr>
                             <th>Nom</th>
                             <th>Prénom</th>
-                           
+
                             <th>Téléphone</th>
-                           
+
                             <th>Email</th>
-                           
+
                             <th>Métier</th>
-                     
-                            <th>Editer TJM</th>
+
+                            <th>Editer </th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -113,14 +141,38 @@
                             <tr>
                                 <td>@user.Name</td>
                                 <td>@user.Firstname</td>
-                               
-                                <td>@user.PhoneNumber</td>
-                               
-                                <td>@user.Email</td>
-                         
-                                <td>@user.UserJob</td>
 
-                                <td><button type="button" href="#" class="btn btn-primary btn-sm">voir son équipe</button></td>
+                                <td>@user.PhoneNumber</td>
+
+                                <td>@user.Email</td>
+                                @if (@user.UserJob.ToString() == "TECHNICIAN")
+                                {
+                                    <td>Tech</td>
+
+                                }
+                                @if (@user.UserJob.ToString() == "HR_MANAGER")
+                                {
+                                    <td>RH</td>
+
+                                }
+                                @if (@user.UserJob.ToString() == "COMMERCIAL")
+                                {
+                                    <td>Commercial</td>
+
+                                }
+                                @if (@user.UserJob.ToString() == "SECRETARY")
+                                {
+                                    <td>Secrétaire</td>
+
+                                }
+                                @if (@user.UserJob.ToString() == "DIRECTOR")
+                                {
+                                    <td>Directeur</td>
+
+                                }
+
+                                <td><a href="/Team/?id=@user.Id" class="btn btn-primary btn-sm" style="margin-right:20px">voir son équipe</a><a href="/User/?id=@user.Id" class="btn btn-info btn-sm">voir manager</a></td>
+
                             </tr>
                         }
                     </tbody>

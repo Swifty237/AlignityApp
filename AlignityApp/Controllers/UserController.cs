@@ -2,6 +2,7 @@
 using AlignityApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace AlignityApp.Controllers
 {
@@ -10,32 +11,74 @@ namespace AlignityApp.Controllers
         UserViewModel userVM = new UserViewModel();
         public IActionResult Index(int id)
         {
-            return View();
+            using (Dal dal = new Dal())
+            {
+                userVM.User = dal.GetUser(id);
+
+            }
+
+            return View(userVM);
         }
 
-        public IActionResult AjouterUser()
+        public IActionResult AjouterUser(int id)
         {
             using (Dal dal = new Dal())
             {
-                userVM.listUsers = dal.GetAllManager();
+                if (id == 0)
+                {
+                    userVM.listUsers = dal.GetAllManager();
+                    return View(userVM);
+
+                }
+                else
+                {
+                    userVM.listUsers = dal.GetAllManager();
+                    userVM.User = dal.GetUser(id);
+                    return View(userVM);
+                }
             }
 
 
-            return View(userVM);
         }
 
         [HttpPost]
         public IActionResult AjouterUser(User user)
         {
-            user.CreationDate = DateTime.Now;
+            
             using (Dal dal = new Dal())
             {
-                userVM.listUsers = dal.GetAllManager();
-                dal.CreateUser(user);
+                User userCopy = dal.GetAllUsers().Where(r => r.Email == user.Email).FirstOrDefault();
+                if (userCopy ==null)
+                {
+                    user.CreationDate = DateTime.Now;
+                    user.IsAvalaible = true;    
+                    dal.CreateUser(user);
+                    return Redirect("/team");
+
+                }
+                else
+                {
+                    user.Id = userCopy.Id;
+                    user.IsAvalaible = true;
+                    user.CreationDate=userCopy.CreationDate;
+                    dal.ModifyUser(user);
+                    return Redirect("/team");
+                }
             }
 
 
-            return View(userVM);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteUser(int id)
+        {
+
+            using (Dal dal = new Dal())
+            {
+                dal.DeleteUser(id);
+            }
+
+            return Redirect("/team");
         }
     }
 

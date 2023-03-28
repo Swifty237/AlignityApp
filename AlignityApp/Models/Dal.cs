@@ -25,7 +25,7 @@ namespace AlignityApp.Models
 
         public List<User> GetAllUsers()
         {
-            return _bddContext.Users.ToList();
+            return _bddContext.Users.Where(c => c.IsAvalaible==true).ToList();
         }
 
         public void CreateUser(User user) { 
@@ -34,6 +34,29 @@ namespace AlignityApp.Models
             _bddContext.Users.Add(user);
             _bddContext.SaveChanges();
     
+        }
+
+       public void ModifyUser(User user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            var existingUser = _bddContext.Users.Find(user.Id);
+            if (existingUser != null)
+            {
+                _bddContext.Entry(existingUser).CurrentValues.SetValues(user);
+                _bddContext.SaveChanges();
+            }
+        }
+
+        public void DeleteUser(int id)
+        {
+          User user=_bddContext.Users.Find(id);
+            user.IsAvalaible = false;
+            _bddContext.Users.Update(user);
+            _bddContext.SaveChanges();
         }
 
         public List<Cra> GetAllCras()
@@ -110,13 +133,13 @@ namespace AlignityApp.Models
 
        public List<User> GetAllManager()
         {
-            List<User> user = _bddContext.Users.Where(c => c.UserRole ==Role.MANAGER).ToList();
+            List<User> user = _bddContext.Users.Where(c => c.UserRole ==Role.MANAGER && c.IsAvalaible==true).ToList();
             return user;
         }
 
         public List<User> GetUsersByManagerId(int id)
         {
-            List<User> users = _bddContext.Users.Where(u => u.ManagerId == id).ToList();
+            List<User> users = _bddContext.Users.Where(u => u.ManagerId == id && u.IsAvalaible == true).ToList();
             return users;
         }
 
@@ -154,29 +177,8 @@ namespace AlignityApp.Models
 
         public List<User> GetAllSalaries(int id)
         {
-            return _bddContext.Users.Where(s => s.UserRole == Role.SALARIED && s.ManagerId == id ).ToList();
+            return _bddContext.Users.Where(s => s.UserRole == Role.SALARIED && s.ManagerId == id && s.IsAvalaible == true).ToList();
         }
-
-        /*public int CreateJobInterview(string contractAssignement, Customer customer)
-        {
-            JobInterview interview = new JobInterview()
-            {
-                ContractAssignement = contractAssignement,
-                CustomerId = customer.Id,
-                Customer = customer
-            };
-
-            _bddContext.JobInterviews.Add(interview);
-            _bddContext.SaveChanges();
-            return interview.Id;
-        }*/
-
-
-
-/*        public int ModifyJobInterview(List<User> salaries)
-        {
-
-        }*/
 
         public static string EncodeMD5(string motDePasse)
         {
