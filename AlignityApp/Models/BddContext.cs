@@ -18,9 +18,11 @@ namespace AlignityApp.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerActivity> CustomerActivities { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<JobInterview> JobInterviews { get; set; }
+        public DbSet<SJobInterview> SJobInterviews { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;user id=root;database=alignity_bdd");
+            optionsBuilder.UseMySql("server=localhost;user id=root;password=password;database=alignity_bdd");
         }
         public void InitializeManagers()
         {
@@ -170,36 +172,44 @@ namespace AlignityApp.Models
         public void InitializeCra()
         {
             this.Cras.AddRange(
-                        new Cra { State = CRAState.DRAFT, UserId = 5, CreationDate = new DateTime(2022, 01, 11) },
-                        new Cra { State = CRAState.DRAFT, UserId = 1, CreationDate = new DateTime(2022, 01, 11) },
-                        new Cra { State = CRAState.DRAFT, UserId = 2, CreationDate = new DateTime(2022, 01, 11) },
-                        new Cra { State = CRAState.DRAFT, UserId = 3, CreationDate = new DateTime(2022, 01, 11) },
-                        new Cra { State = CRAState.SENT, UserId = 6, CreationDate = new DateTime(2023, 03, 11) },
-                        new Cra { State = CRAState.ALERT, UserId = 5, CreationDate = new DateTime(1992, 03, 11) },
-                        new Cra { State = CRAState.SENT, UserId = 4, CreationDate = new DateTime(1996, 03, 11) },
-                        new Cra { State = CRAState.VALIDATED, UserId = 5, CreationDate = new DateTime(2002, 03, 11) },
-                        new Cra { State = CRAState.ALERT, UserId = 4, CreationDate = new DateTime(2002, 03, 11) },
-                        new Cra { State = CRAState.SENT, UserId = 5, CreationDate = new DateTime(2002, 03, 11) },
-                        new Cra { State = CRAState.VALIDATED, UserId = 4, CreationDate = new DateTime(2002, 03, 11) },
-                        new Cra { State = CRAState.VALIDATED, UserId = 5, CreationDate = new DateTime(2002, 03, 11) }
-                    );
+                new Cra { State = CRAState.DRAFT, UserId = 5, CreationDate = new DateTime(2022, 01, 11) },
+                new Cra { State = CRAState.DRAFT, UserId = 1, CreationDate = new DateTime(2022, 01, 11) },
+                new Cra { State = CRAState.DRAFT, UserId = 2, CreationDate = new DateTime(2022, 01, 11) },
+                new Cra { State = CRAState.DRAFT, UserId = 3, CreationDate = new DateTime(2022, 01, 11) },
+                new Cra { State = CRAState.SENT, UserId = 6, CreationDate = new DateTime(2023, 03, 11) },
+                new Cra { State = CRAState.ALERT, UserId = 5, CreationDate = new DateTime(1992, 03, 11) },
+                new Cra { State = CRAState.SENT, UserId = 4, CreationDate = new DateTime(1996, 03, 11) },
+                new Cra { State = CRAState.VALIDATED, UserId = 5, CreationDate = new DateTime(2002, 03, 11) },
+                new Cra { State = CRAState.ALERT, UserId = 4, CreationDate = new DateTime(2002, 03, 11) },
+                new Cra { State = CRAState.SENT, UserId = 5, CreationDate = new DateTime(2002, 03, 11) },
+                new Cra { State = CRAState.VALIDATED, UserId = 4, CreationDate = new DateTime(2002, 03, 11) },
+                new Cra { State = CRAState.VALIDATED, UserId = 5, CreationDate = new DateTime(2002, 03, 11) }
+            );
             this.SaveChanges();
         }
 
         public void InitializeActivity()
         {
-
-
             this.Activities.AddRange(
-                            new Activity() { Date = new DateTime(2022, 01, 11), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 1h de sup", CraId = 5 },
-                            new Activity() { Date = new DateTime(2022, 01, 12), Duration = 8, Type = ActivityTypes.INTERCONTRACT, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 1h de sup", CraId = 5 },
-                            new Activity() { Date = new DateTime(2022, 01, 13), Duration = 8, Type = ActivityTypes.HOLIDAYS, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 3h de sup", CraId = 1 },
-                            new Activity() { Date = new DateTime(2022, 01, 14), Duration = 8, Type = ActivityTypes.TRAINING, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 4h de sup", CraId = 1 },
-                            new Activity() { Date = new DateTime(2022, 01, 11), Duration = 8, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 5h de sup", CraId = 7 },
-                            new Activity() { Date = new DateTime(2022, 01, 12), Duration = 8, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 5h de sup", CraId = 7 },
-                            new Activity() { Date = new DateTime(2022, 01, 11), Duration = 8, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 5h de sup", CraId = 7 }
-                    );
+                new Activity() { Date = new DateTime(2022, 01, 11), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 1h de sup", CraId = 5 },
+                new Activity() { Date = new DateTime(2022, 01, 12), Duration = 8, Type = ActivityTypes.INTERCONTRACT, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 1h de sup", CraId = 5 },
+                new Activity() { Date = new DateTime(2022, 01, 13), Duration = 8, Type = ActivityTypes.HOLIDAYS, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 3h de sup", CraId = 1 },
+                new Activity() { Date = new DateTime(2022, 01, 14), Duration = 8, Type = ActivityTypes.TRAINING, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 4h de sup", CraId = 1 },
+                new Activity() { Date = new DateTime(2022, 01, 11), Duration = 8, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 5h de sup", CraId = 7 },
+                new Activity() { Date = new DateTime(2022, 01, 12), Duration = 8, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 5h de sup", CraId = 7 },
+                new Activity() { Date = new DateTime(2022, 01, 11), Duration = 8, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, Description = "j'ai fait 5h de sup", CraId = 7 }
+            );
+            this.SaveChanges();
+        }
 
+        public void InitializeCustomers()
+        {
+            this.Customers.AddRange(
+                new Customer() { Brand = "Hopital de Créteil" },
+                new Customer() { Brand = "Pharmacie des Lilas" },
+                new Customer() { Brand = "Pharmacie les coteaux" },
+                new Customer() { Brand = "CHU Nanterre" }
+            );
             this.SaveChanges();
         }
     }

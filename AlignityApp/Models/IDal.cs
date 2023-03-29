@@ -35,7 +35,11 @@ namespace AlignityApp.Models
         User GetUserFromCra(Cra cra);
         List<Customer> GetAllCustomers();
         List<User> GetAllSalaries(int id);
-        /*int CreateJobInterview(string contractAssignement, Customer customer);*/
-        /*int ModifyJobInterview(List<User> salaries);*/
+        void CreateJobInterview(string contractAssignement, int customerid);
+        void ModifySJobInterview(int salariedId);
+        List<SJobInterview> GetSalariesByJId(int jobInterviewId);
+        JobInterview GetJIById(int jobInterviewId);
+        Customer GetCustomerById(int customerId);
+        List<User> GetSalariesById(List<SJobInterview> sJobList);
     }
 }

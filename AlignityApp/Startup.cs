@@ -38,9 +38,9 @@ namespace AlignityApp
                 ctx.InitializeSalaries();
                 ctx.InitializeCra();
                 ctx.InitializeActivity();
-                /*ctx.InitializeCustomers();*/
+                ctx.InitializeCustomers();
 
-			}
+            }
 
             app.UseStaticFiles();
             app.UseRouting();

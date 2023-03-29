@@ -56,13 +56,30 @@ namespace AlignityApp.Controllers
                     List<User> salaries = dal.GetAllSalaries(id);
                     ViewBag.listSalaries = salaries;
 
-                    OpportunityViewModel ovm = new OpportunityViewModel()
+                    Customer customer = dal.GetCustomerById(dal.GetJIById(dal.GetJobInterviewId()).CustomerId);
+                    
+                    List<SJobInterview> salariedForJob = dal.GetSalariesByJId(dal.GetJobInterviewId());
+
+                    if (customer != null)
+                    {
+                        OpportunityViewModel ovm = new OpportunityViewModel()
+                        {
+                            User = dal.GetUser(id),
+                            Salaries = dal.GetSalariesById(salariedForJob),
+                            Customer = customer
+                        };
+                        return View(ovm);
+                    }
+
+                    OpportunityViewModel ovm2 = new OpportunityViewModel()
                     {
                         User = dal.GetUser(id),
-                        Customers = dal.GetAllCustomers(),
-                        Salaries = dal.GetAllSalaries(id)
+                        Salaries = new List<User>(),
+                        Customer = new Customer()
                     };
-                    return View(ovm);
+                    return View(ovm2);
+
+
                 }
                 else
                 {
@@ -72,20 +89,13 @@ namespace AlignityApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateOpportunity2(int id, OpportunityViewModel ovm, int CustomerId)
+        public IActionResult CreateOpportunity2(int id, int CustomerId)
         {
             using (Dal dal = new Dal())
             {
                 if (id != 0)
                 {
-                    ovm = new OpportunityViewModel()
-                    {
-                        User = dal.GetUser(id),
-                        Customers = dal.GetAllCustomers(),
-                        Salaries = dal.GetAllSalaries(id)
-                    };
-
-                    /*dal.CreateJobInterview("Mon contrat", ovm.Customer);*/
+                    dal.CreateJobInterview("Mon contrat", CustomerId);
                     return RedirectToAction("CreateOpportunity", new { @id = id });
                 }
                 else
@@ -96,12 +106,13 @@ namespace AlignityApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateOpportunity3(int id, List<User> salaries)
+        public IActionResult CreateOpportunity3(int id, int salariedId)
         {
             using (Dal dal = new Dal())
             {
                 if (id != 0)
-                {/* dal.ModifyJobInterview(jobInterviewId, salaries);*/
+                {
+                    dal.ModifySJobInterview(salariedId);
                     return RedirectToAction("CreateOpportunity", new { @id = id });
                 }
                 else
@@ -110,8 +121,6 @@ namespace AlignityApp.Controllers
                 }
             }
         }
-
-
 
         public IActionResult Contract(int id)
         {

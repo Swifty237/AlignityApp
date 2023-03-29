@@ -157,26 +157,76 @@ namespace AlignityApp.Models
             return _bddContext.Users.Where(s => s.UserRole == Role.SALARIED && s.ManagerId == id ).ToList();
         }
 
-        /*public int CreateJobInterview(string contractAssignement, Customer customer)
+        public void CreateJobInterview(string contractAssignement, int customerId)
         {
             JobInterview interview = new JobInterview()
             {
                 ContractAssignement = contractAssignement,
-                CustomerId = customer.Id,
-                Customer = customer
+                CustomerId = customerId,
             };
 
             _bddContext.JobInterviews.Add(interview);
             _bddContext.SaveChanges();
-            return interview.Id;
-        }*/
+            /*return interview.Id;*/
+        }
 
-
-
-/*        public int ModifyJobInterview(List<User> salaries)
+        public int GetJobInterviewId()
         {
+            JobInterview jobInterview = _bddContext.JobInterviews.Where(j => j.Contract == StateContract.INTERVIEW).FirstOrDefault();
+            if (jobInterview != null)
+            {
+                return jobInterview.Id;
+            }
+            return 0; 
+        }
 
-        }*/
+        public void ModifySJobInterview(int salariedId)
+        {
+            SJobInterview sInterview = new SJobInterview()
+            {
+                SalariedId = salariedId,
+                JobInterviewId = this.GetJobInterviewId()
+            };
+            
+            _bddContext.SJobInterviews.Add(sInterview);
+            _bddContext.SaveChanges();
+            
+        }
+
+        public List<SJobInterview> GetSalariesByJId(int jobInterviewId)
+        {
+            List<SJobInterview> sJobList = _bddContext.SJobInterviews.Where(sji => sji.JobInterviewId == jobInterviewId).ToList();
+            if (sJobList != null)
+            {
+                return sJobList;
+            }
+            return new List<SJobInterview>();
+        }
+
+        public JobInterview GetJIById(int jobInterviewId)
+        {
+            JobInterview jobInterview = _bddContext.JobInterviews.Where(ji => ji.Id == jobInterviewId).FirstOrDefault();
+            if (jobInterview != null)
+            {
+                return jobInterview;
+            }
+            return new JobInterview();
+        }
+
+        public List<User> GetSalariesById(List<SJobInterview> sJobList)
+        {
+            List<User> listSalaried = new List<User>();
+            foreach (var item  in sJobList)
+            {
+                listSalaried.Add(this.GetUser(item.SalariedId));
+            }
+            return listSalaried;
+        }
+
+        public Customer GetCustomerById(int customerId)
+        {
+            return _bddContext.Customers.Where(c => c.Id == customerId).FirstOrDefault();
+        }
 
         public static string EncodeMD5(string motDePasse)
         {
