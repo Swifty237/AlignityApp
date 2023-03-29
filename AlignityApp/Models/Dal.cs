@@ -59,6 +59,13 @@ namespace AlignityApp.Models
             _bddContext.SaveChanges();
         }
 
+        public List<User> GetSalariedWithoutManager()
+        {
+            List<User> users = _bddContext.Users.Where(c => c.IsAvalaible && c.ManagerId !=0 && !c.Manager.IsAvalaible ).ToList();
+
+            return users;   
+        }
+
         public List<Cra> GetAllCras()
         {
             return _bddContext.Cras.ToList();
@@ -68,6 +75,13 @@ namespace AlignityApp.Models
         {
             List<Cra> cras = _bddContext.Cras.Where(c => c.UserId == id).ToList();
             return cras;
+        }
+
+        public Cra GetCraByCraId(int id)
+        {
+            Cra cra= _bddContext.Cras.Where(c=>c.Id==id).FirstOrDefault();  
+
+            return cra; 
         }
 
         public List<Cra> GetTeamCras(int id)
@@ -131,7 +145,22 @@ namespace AlignityApp.Models
 
         }
 
-       public List<User> GetAllManager()
+        public int ModifyCraStateToInvalid(int idCra,CRAState state)
+        {
+            var cra = _bddContext.Cras.FirstOrDefault(p => p.Id == idCra);
+
+            if (cra != null)
+            {
+
+                cra.State = state;
+
+                _bddContext.Entry(cra).State = EntityState.Modified;
+                _bddContext.SaveChanges();
+            }
+            return cra.UserId;
+        }
+
+        public List<User> GetAllManager()
         {
             List<User> user = _bddContext.Users.Where(c => c.UserRole ==Role.MANAGER && c.IsAvalaible==true).ToList();
             return user;
@@ -163,6 +192,14 @@ namespace AlignityApp.Models
                 return this.GetUser(id);
             }
             return null;
+        }
+
+        public void CreatCommentMannager(Cra cracopy)
+        {
+            Cra cra = _bddContext.Cras.Find(cracopy.Id);
+            cra.Observation = cracopy.Observation;
+            _bddContext.Cras.Update(cra);
+            _bddContext.SaveChanges();
         }
 
         public User GetUserFromCra(Cra cra)

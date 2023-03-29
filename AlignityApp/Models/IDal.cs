@@ -11,7 +11,9 @@ namespace AlignityApp.Models
         //récupérer une liste de tous les Cras
         List<Cra> GetAllCras();
         //récupérer une liste des cras par id d'utilisateur
-        List<Cra> GetCrasByUserId(int id);
+        List<Cra> GetCrasByUserId(int id); 
+        //récupérer un Cra par id de cra
+        Cra GetCraByCraId(int id);
         //récupérer une liste des activités déjà enregistrées par id de cra
         List<Activity> FindCra(int id);
         //récupérer id de cra qui vient etre cré
@@ -24,6 +26,8 @@ namespace AlignityApp.Models
         void DeleteActivity(int activityId);
         //Modifier l'état du cra par idCra
         int ModifyCraState(int idCra);
+        //Modifier l'état du cra par idCra en état non valide
+        int ModifyCraStateToInvalid(int idCra, CRAState state);
         //récupérer une liste de manager
         List<User>GetAllManager();
         //Créer un utilisateur par admin
@@ -31,7 +35,11 @@ namespace AlignityApp.Models
         //Modify un utilisateur par admin
         void ModifyUser(User user); 
         //Supprimer un utilisateur en changeant son paramètre IsAvalaible
-        void DeleteUser(int id);
+        void DeleteUser(int id);    
+        //récupérer une liste de salariés sans manager attribué
+        List<User>GetSalariedWithoutManager(); 
+        //récupérer une liste de salariés sans manager attribué
+        void CreatCommentMannager(Cra cra);
 
         User Authentifier(string email, string password);
         User GetUser(int id);
@@ -39,7 +47,5 @@ namespace AlignityApp.Models
         User GetUserFromCra(Cra cra);
         List<Customer> GetAllCustomers();
         List<User> GetAllSalaries(int id);
-        /*int CreateJobInterview(string contractAssignement, Customer customer);*/
-        /*int ModifyJobInterview(List<User> salaries);*/
     }
 }

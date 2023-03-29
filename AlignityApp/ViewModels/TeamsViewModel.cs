@@ -8,5 +8,7 @@ namespace AlignityApp.ViewModels
         public User User { get; set; }
         public List<User> Users { get; set; }
         public List<Cra> Cras { get; set; }
+
+        public int getScreen { get; set; }
     }
 }

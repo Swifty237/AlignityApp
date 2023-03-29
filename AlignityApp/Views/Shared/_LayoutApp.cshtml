@@ -19,7 +19,7 @@
     <link href="~/css/sb-admin-2.css" rel="stylesheet">
     <link href="~/css/Site.css" rel="stylesheet">
     @RenderSection("Css", required: false)
-    @RenderSection("Scripts", required: false)
+
 
 </head>
 
@@ -83,8 +83,7 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item text-wrap" href="/listCra/createCra/?id=@int.Parse(@User.FindFirst("Sid").Value)&todo=1">Saisir</a>
-                            <a class="collapse-item text-wrap" href="~/Home/CreateUser">Demande de modification</a>
+                            <a class="collapse-item text-wrap" href="/listCra/createCra/?id=@int.Parse(@User.FindFirst("Sid").Value)&todo=1">Créer un CRA</a>
                             <hr class="collapse-item" />
                             <a class="collapse-item text-wrap" href="/listCra/?id=@User.FindFirst("Sid").Value">Mes Cras</a>
                         </div>
@@ -100,13 +99,6 @@
                     </a>
                 </li>
 
-                <li class="nav-item @((Context.Request.Path == "/Home/Training") ? "active" : null)">
-
-                    <a class="nav-link" href="~/Home/Training">
-                        <i class="fa fa-folder fa-fw" aria-hidden="true"></i>
-                        <span>Mes formations</span>
-                    </a>
-                </li>
 
                 <!-- Divider -->
                 <li>
@@ -117,28 +109,6 @@
                 <li>
                     <div class="sidebar-heading">
                         Absences
-                    </div>
-                </li>
-
-                <!-- Nav Item - Collapse Menu Holiday/RTT -->
-                <li class="nav-item @((Context.Request.Path == "/Home/Holiday" || Context.Request.Path == "/Home/Rtt" ||
-                    Context.Request.Path == "/Home/ListHolidays" || Context.Request.Path == "/Home/ListRtt") ? "active" : null)">
-
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                       aria-expanded="true" aria-controls="collapseUtilities">
-                        <i class="fas fa-fw fa-wrench"></i>
-                        <span>Gérer mes congés / RTT</span>
-                    </a>
-                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                         data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item text-wrap" href="~/Home/Holiday">Faire une demande de congés</a>
-                            <a class="collapse-item text-wrap" href="~/Home/Rtt">Faire une demande de RTT</a>
-                            <hr class="collapse-item" />            
-                            <a class="collapse-item text-wrap" href="~/Home/ListHolidays">Mes demandes de congés</a>
-                            <a class="collapse-item text-wrap" href="~/Home/ListRtt">Mes demandes de RTT</a>
-                        </div>
                     </div>
                 </li>
 
@@ -314,7 +284,8 @@
                                 <h6 class="collapse-header">Choisir une action:</h6>
                                 <a class="collapse-item text-wrap" href="/User/AjouterUser">Ajouter un Salarié</a>
                                 <a class="collapse-item text-wrap" href="/Team">Managers de l'Alignity</a>
-                                <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.FindFirst("Sid").Value)">CRAs de mon équipe</a>
+                            <hr class="collapse-item" />
+                                <a class="collapse-item text-wrap" href="/Team?id=-1">Salarié sans Manager</a>
                             </div>
                         </div>
                     </li>
@@ -341,16 +312,13 @@
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                        aria-expanded="true" aria-controls="collapseUtilities">
                         <i class="fas fa-fw fa-wrench"></i>
-                        <span>Gérer mes clients</span>
+                        <span>Gérer les CRAs </span>
                     </a>
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item text-wrap" href="~/Home/Customer">Mes clients</a>
-                            <a class="collapse-item text-wrap" href="~/Home/Invoicing">Liste des factures</a>
-                            <hr class="collapse-item" />
-                            <a class="collapse-item text-wrap" href="~/Home/MakeInvoice">Faire une facture</a>
+                            <a class="collapse-item text-wrap" href="/team">Liste des CRAs par équipe</a>
                         </div>
                     </div>
                 </li>
@@ -577,7 +545,7 @@
     <!-- Page level custom scripts -->
     <script src="~/Scripts/js/demo/chart-area-demo.js"></script>
     <script src="~/Scripts/js/demo/chart-pie-demo.js"></script>
-
+    @RenderSection("Scripts", required: false)
 
 
 </body>

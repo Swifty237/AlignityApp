@@ -6,6 +6,8 @@
 
 }
 <div class="row">
+    @if (User.IsInRole("SALARIED"))
+    {   
     <div class="col-md-4 ">
         <div class="x_panel">
             <div class="x_title">
@@ -87,14 +89,14 @@
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-10 col-sm-10  offset-md-3">
-                            @if (Model.activities.Count > 1)
+                            @if (Model.activities.Count > 1&& User.IsInRole("SALARIED"))
                             {
                             <button type="button" class="btn btn-primary" id="tt" disabled onclick="modifyCra()">Soumettre au manager</button>
                                 
                             }
                             <script>
                                             function modifyCra() {
-                                                if (confirm('Voulew vous Soumettre à ton manager?Attention un fois vous le soumettez, vous ne pouvez plus modifier ce Cra!')) {
+                                                if (confirm('Voulez vous Soumettre à ton manager?Attention un fois vous le soumettez, vous ne pouvez plus modifier ce Cra!')) {
                                                 $.ajax({
                                                     type: "POST",
                                                     url: "/listCra/ModifyCra",
@@ -109,7 +111,11 @@
                                             }
 }
                            </script>
+                            @if (User.IsInRole("SALARIED"))
+                            {
+                                
                             <button type="submit" class="btn btn-info" id="tt" disabled>Enregistrer</button>
+                            }
                         </div>
                     </div>
 
@@ -117,6 +123,33 @@
             </div>
         </div>
     </div>
+    }
+
+    @if (User.IsInRole("MANAGER")&& Model.cra.State.ToString() !="VALIDATED")
+    {
+        <div class="col-md-4">
+            <label for="message">Remarque :</label>
+		           <textarea class="form-control" id="myTextArea" style="height:300px">@Model.cra?.Observation</textarea>
+				<br />
+                <span class="btn btn-primary" onclick="comment()">Envoyer</span>
+            </div>
+    }
+            <script>
+                function comment(){
+                    var comment = $("#myTextArea").val();
+                    $.ajax({
+                          url: "/ListCra/CreateCommentManager",
+                          type: "POST",
+                          data: {comment: comment},
+                          success: function(res) {
+                           window.location.href = "/listCra/?id="+res
+                          },
+                          error: function(xhr) {
+        
+                          }
+                        });
+                      }
+            </script>
 
     <div class="col-md-8 ">
         <div class="row">
@@ -135,7 +168,11 @@
                                         <th>Location</th>
                                         <th>Durée</th>
                                         <th>Commentaire</th>
-                                        <th>Edit</th>
+                                        @if (User.IsInRole("SALARIED"))
+                                        {
+                                          <th>Edit</th>  
+                                        }
+                                        
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -145,7 +182,10 @@
                                         <th>Location</th>
                                         <th>Durée</th>
                                         <th>Commentaire</th>
-                                        <th>Edit</th>
+                                          @if (User.IsInRole("SALARIED"))
+                                        {
+                                          <th>Edit</th>  
+                                        }
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -189,7 +229,11 @@
                                             
                                             <td>@activity.Duration</td>
                                             <td>@activity.Description</td>
+                                               @if (User.IsInRole("SALARIED"))
+                                        {
+                                   
                                             <td><button class=" btn btn-outline-danger btn-sm" onclick="deleteActivity(@activity.Id)" id="tt" disabled>Supprimer</button</td>
+                                        }
 
                                         </tr>
                                     }
@@ -230,6 +274,8 @@
 
 
     </div>
+
+
 </div>
 
 @section Css{

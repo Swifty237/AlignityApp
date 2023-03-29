@@ -7,19 +7,27 @@
 @using Microsoft.AspNetCore.Routing;
 
 
-@if (User.IsInRole("MANAGER") || (Model.User != null))
+@if (User.IsInRole("MANAGER") || (Model.User != null)|| Model.getScreen==1)
 {
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Voici l'équipe du Manager @Model.User.Name</h6>
+            @if(Model.User != null)
+            {
+                <h6 class="m-0 font-weight-bold text-primary">Voici l'équipe du Manager @Model?.User.Name</h6>
+            }
+            else
+            {
+                <h6 class="m-0 font-weight-bold text-primary">Voici les @Model.Users.Count salariés sans manager</h6>
+            }
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Editer </th>
                             <th>Nom</th>
                             <th>Prénom</th>
                             <th>Date de naissance</th>
@@ -34,6 +42,7 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>Editer </th>
                             <th>Nom</th>
                             <th>Prénom</th>
                             <th>Date de naissance</th>
@@ -50,6 +59,11 @@
                         @foreach (AlignityApp.Models.User user in Model.Users)
                         {
                             <tr>
+                                <td>
+                                    <a class="btn btn-primary" href="/listCra/?id=@user.Id">
+                                        <i class="far fa-eye">Voir les CRAs</i>
+                                    </a>
+                                </td>
                                 <td>@user.Name</td>
                                 <td>@user.Firstname</td>
                                 <td>@user.Birthdate.ToString("dd/MM/yyyy")</td>
@@ -97,7 +111,7 @@
     </div>
 }
 
-@if (User.IsInRole("ADMINISTRATOR") && Model.User == null)
+@if (User.IsInRole("ADMINISTRATOR") && Model.User == null &&Model.getScreen==0)
 {
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
