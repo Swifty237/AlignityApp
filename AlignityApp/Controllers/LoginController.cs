@@ -47,7 +47,7 @@ namespace AlignityApp.Controllers
                     HttpContext.SignInAsync(userPrincipal);
 
                     if(user.UserRole.ToString() == "SALARIED")
-                        return Redirect("Home/Index/" + user.Id);
+                        return Redirect("listCra?id=" + user.Id);
 
                     if (user.UserRole.ToString() == "MANAGER")
                         return Redirect("Dashboard/Index/" + user.Id);

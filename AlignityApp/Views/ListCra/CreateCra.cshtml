@@ -6,7 +6,7 @@
 
 }
 <div class="row">
-    @if (User.IsInRole("SALARIED"))
+    @if (User.IsInRole("SALARIED")&&(Model.cra?.State.ToString() == "DRAFT"||Model.cra?.State.ToString() == "ALERT" ))
     {   
     <div class="col-md-4 ">
         <div class="x_panel">
@@ -91,7 +91,7 @@
                         <div class="col-md-10 col-sm-10  offset-md-3">
                             @if (Model.activities.Count > 1&& User.IsInRole("SALARIED"))
                             {
-                            <button type="button" class="btn btn-primary" id="tt" disabled onclick="modifyCra()">Soumettre au manager</button>
+                            <button type="button" class="btn btn-primary" id="tt" onclick="modifyCra()">Soumettre au manager</button>
                                 
                             }
                             <script>
@@ -114,7 +114,7 @@
                             @if (User.IsInRole("SALARIED"))
                             {
                                 
-                            <button type="submit" class="btn btn-info" id="tt" disabled>Enregistrer</button>
+                            <button type="submit" class="btn btn-info" id="tt" >Enregistrer</button>
                             }
                         </div>
                     </div>
@@ -125,22 +125,25 @@
     </div>
     }
 
-    @if (User.IsInRole("MANAGER")&& Model.cra.State.ToString() !="VALIDATED")
+    @if (User.IsInRole("MANAGER")&& Model.cra.State.ToString() =="SENT")
     {
         <div class="col-md-4">
             <label for="message">Remarque :</label>
 		           <textarea class="form-control" id="myTextArea" style="height:300px">@Model.cra?.Observation</textarea>
 				<br />
-                <span class="btn btn-primary" onclick="comment()">Envoyer</span>
+                <span class="btn btn-success" onclick="comment()">Valider</span>
+                <span class="btn btn-danger" onclick="comment()">Refuser</span>
             </div>
     }
             <script>
                 function comment(){
                     var comment = $("#myTextArea").val();
+                    if(confirm('Confirmez?')){
                     $.ajax({
                           url: "/ListCra/CreateCommentManager",
                           type: "POST",
-                          data: {comment: comment},
+                          data: {comment: comment
+                                   },
                           success: function(res) {
                            window.location.href = "/listCra/?id="+res
                           },
@@ -149,6 +152,8 @@
                           }
                         });
                       }
+                      }
+                
             </script>
 
     <div class="col-md-8 ">
@@ -168,7 +173,7 @@
                                         <th>Location</th>
                                         <th>Durée</th>
                                         <th>Commentaire</th>
-                                        @if (User.IsInRole("SALARIED"))
+                                        @if (User.IsInRole("SALARIED")&&(Model.cra.State.ToString() == "DRAFT"||Model.cra.State.ToString() == "ALERT" ))
                                         {
                                           <th>Edit</th>  
                                         }
@@ -182,7 +187,7 @@
                                         <th>Location</th>
                                         <th>Durée</th>
                                         <th>Commentaire</th>
-                                          @if (User.IsInRole("SALARIED"))
+                                          @if (User.IsInRole("SALARIED")&&(Model.cra.State.ToString() == "DRAFT"||Model.cra.State.ToString() == "ALERT" ))
                                         {
                                           <th>Edit</th>  
                                         }
@@ -229,17 +234,17 @@
                                             
                                             <td>@activity.Duration</td>
                                             <td>@activity.Description</td>
-                                               @if (User.IsInRole("SALARIED"))
+                                               @if (User.IsInRole("SALARIED")&&(Model.cra.State.ToString() == "DRAFT"||Model.cra.State.ToString() == "ALERT" ))
                                         {
                                    
-                                            <td><button class=" btn btn-outline-danger btn-sm" onclick="deleteActivity(@activity.Id)" id="tt" disabled>Supprimer</button</td>
+                                            <td><button class=" btn btn-outline-danger btn-sm" onclick="deleteActivity(@activity.Id)" id="tt">Supprimer</button</td>
                                         }
 
                                         </tr>
                                     }
                                         <script>
                                         function deleteActivity(activityId) {
-                                            if (confirm('Voulew vous supprimer cette activité?')) {
+                                            if (confirm('Voulez vous supprimer cette activité?')) {
                                                 $.ajax({
                                                     type: "POST",
                                                     url: "/listCra/deleteActivity",
@@ -254,14 +259,7 @@
                                                 });
                                             }
                                         }
-                                          var urlParams = new URLSearchParams(window.location.search);
-                                            var paramValue = urlParams.get("status");
-                                            if (paramValue === "DRAFT"||paramValue === "ALERT"||paramValue ==null) {
-                                                var element =document.querySelectorAll("button#tt");
-                                               for (var i = 0; i < element.length; i++) {
-                                                element[i].disabled = false;
-                                                 }
-                                            }
+                                         
                                         </script>
                                 </tbody>
                             </table>

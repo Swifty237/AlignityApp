@@ -58,6 +58,7 @@ namespace AlignityApp.Controllers
 
                         //List<Activity> list =dal.FindCra(idCra);
                         activityVM.activities = dal.FindCra(idCra);
+                        activityVM.cra = dal.GetCraByCraId(id);
 
                         return View(activityVM);
                     }
@@ -127,13 +128,22 @@ namespace AlignityApp.Controllers
             }
         }
         [HttpPost]
-        public int CreateCommentManager(string comment)
+        public int CreateCommentManager(string comment, int statut)
         {
             int id = (int)TempData["idCra"];
             using (Dal dal = new Dal())
             {
                 Cra cra = dal.GetCraByCraId(id);
                 cra.Observation = comment;
+                if (statut == 0)
+                {
+                    cra.State = CRAState.ALERT;
+
+                }
+                else
+                {
+                    cra.State = CRAState.VALIDATED;
+                }
                 dal.CreatCommentMannager(cra);
                 return cra.UserId;
             }

@@ -72,8 +72,8 @@
                 </li>
 
                 <!-- Nav Item - Collapse Menu CRA -->
-                <li class="nav-item @((Context.Request.Path == "/ListCra/CreateCra" || 
-                    Context.Request.Path == "/ListCra/CreateUser") ? "active" : null)">
+                <li class="nav-item @((Context.Request.Path == "/Home/ListUsers" || 
+                    Context.Request.Path == "/Home/CreateUser") ? "active" : null)">
 
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                        aria-expanded="true" aria-controls="collapseTwo">
@@ -85,7 +85,7 @@
                             <h6 class="collapse-header">Choisir une action:</h6>
                             <a class="collapse-item text-wrap" href="/listCra/createCra/?id=@int.Parse(@User.FindFirst("Sid").Value)&todo=1">Créer un CRA</a>
                             <hr class="collapse-item" />
-                            <a class="collapse-item text-wrap" href="/listCra/Index/@User.FindFirst("Sid").Value">Mes Cras</a>
+                            <a class="collapse-item text-wrap" href="/listCra/?id=@User.FindFirst("Sid").Value">Mes Cras</a>
                         </div>
                     </div>
                 </li>
@@ -450,7 +450,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                    @*@Model.User.Firstname @Model.User.Name*@
+                                    @User.Identity.Name
                                 </span>
 
                                 <img class="img-profile rounded-circle" src="~/src/portrait.png">
@@ -471,7 +471,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="~/Login/Deconnexion" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Déconnexion
                                 </a>
