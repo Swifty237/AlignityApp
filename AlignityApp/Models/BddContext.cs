@@ -22,7 +22,7 @@ namespace AlignityApp.Models
         public DbSet<SJobInterview> SJobInterviews { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;user id=root;password=password;database=alignity_bdd");
+            optionsBuilder.UseMySql("server=localhost;user id=root;database=alignity_bdd");
         }
         public void InitializeUsers()
         {
@@ -291,6 +291,7 @@ namespace AlignityApp.Models
                             new Activity() { Date = new DateTime(2023, 03, 06), Duration = 9, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, CraId = 17 },
                             new Activity() { Date = new DateTime(2023, 03, 07), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, CraId = 17 }
                     );
+            this.SaveChanges();
         }
             public void InitializeCustomers()
             {

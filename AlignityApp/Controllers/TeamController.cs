@@ -2,10 +2,6 @@
 using AlignityApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Collections.Generic;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace AlignityApp.Controllers
 {
@@ -20,8 +16,8 @@ namespace AlignityApp.Controllers
                 if (id == -1)
                 {
                     tvm.getScreen = 1;
-                    tvm.Users = dal.GetSalariedWithoutManager();
-                    tvm.Salaries = dal.GetAllManager();
+                    tvm.Salaries = dal.GetSalariedWithoutManager();
+                    //tvm.Users = dal.GetAllManager();
                     tvm.User = dal.GetUser(id);
 
                     return View(tvm);

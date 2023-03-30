@@ -61,6 +61,11 @@ namespace AlignityApp.Controllers
                     user.Id = userCopy.Id;
                     user.IsAvalaible = true;
                     user.CreationDate=userCopy.CreationDate;
+                    if(user.UserRole.ToString()=="MANAGER"|| user.UserRole.ToString() == "ADMINISTRATOR")
+                    {
+                        user.Manager = null;
+                        user.ManagerId = null;
+                    }
                     dal.ModifyUser(user);
                     return Redirect("/team");
                 }
