@@ -7,22 +7,21 @@
 @using Microsoft.AspNetCore.Routing;
 
 
-@if (User.IsInRole("MANAGER") || (Model.User != null)|| Model.getScreen==1)
+@if (User.IsInRole("MANAGER") || (Model.User != null) || Model.getScreen == 1)
 {
 
     <!-- DataTales Example -->
     <!-- DataTales -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            @if(Model.User != null)
+            @if (Model.User != null)
             {
                 <h6 class="m-0 font-weight-bold text-primary">Voici l'équipe du Manager @Model?.User.Name</h6>
             }
             else
             {
-                <h6 class="m-0 font-weight-bold text-primary">Voici les @Model.Users.Count salariés sans manager</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Voici les @Model.Salaries?.Count salariés sans manager</h6>
             }
-            <h6 class="m-0 font-weight-bold text-primary">Mon Equipe</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -32,7 +31,6 @@
                             <th>Editer </th>
                             <th>Nom</th>
                             <th>Prénom</th>
-                            <th>Date de naissance</th>
                             <th>Téléphone</th>
                             <th>Adresse</th>
                             <th>Email</th>
@@ -47,7 +45,6 @@
                             <th>Editer </th>
                             <th>Nom</th>
                             <th>Prénom</th>
-                            <th>Date de naissance</th>
                             <th>Téléphone</th>
                             <th>Adresse</th>
                             <th>Email</th>
@@ -68,7 +65,6 @@
                                 </td>
                                 <td>@salaried.Name</td>
                                 <td>@salaried.Firstname</td>
-                                <td>@salaried.Birthdate.ToString("dd/MM/yyyy")</td>
                                 <td>@salaried.PhoneNumber</td>
                                 <td>@salaried.Adress @salaried.PostalCode @salaried.City</td>
                                 <td>@salaried.Email</td>
@@ -98,23 +94,9 @@
                                     <td>Directeur</td>
 
                                 }
-                                @*<td>@user.RateTjm</td>*@
-                                <td>@salaried.Name</td>
-                                <td>@salaried.Firstname</td>
-                                <td>@salaried.Birthdate.ToString("dd/MM/yyyy")</td>
-                                <td>@salaried.PhoneNumber</td>
-                                <td>@salaried.Adress @salaried.PostalCode @salaried.City</td>
-                                <td>@salaried.Email</td>
-                                <td>@salaried.CreationDate.ToString("dd/MM/yyyy")</td>
-                                <td>@salaried.UserJob</td>
-                                <td>@salaried.RateTjm</td>
-                                <td>
-                                    <a class="btn btn-primary" href="/user?id=@salaried.Id">
-                                        <i class="far fa-edit">Voir le Salarié</i>
-                                    </a>
-                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-@salaried.Id">
-                                        <i class="far fa-edit"></i>
-                                   </button>
+                                <td>@salaried.RateTjm  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-@salaried.Id">
+                                        <i class="far fa-edit">Editer TJM</i>
+                                    </button>
                                     <div class="modal fade" id="modal-@salaried.Id" tabindex="-1" role="dialog" aria-labelledby="modal-@salaried.Id-label" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -142,7 +124,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div></td>
+                                
+                                <td>
+                                    <a class="btn btn-primary" href="/user?id=@salaried.Id">
+                                        <i class="far fa-edit">Voir le Salarié</i>
+                                    </a>
                                 </td>
                             </tr>
                         }
@@ -153,7 +140,7 @@
     </div>
 }
 
-@if (User.IsInRole("ADMINISTRATOR") && Model.User == null &&Model.getScreen==0)
+@if (User.IsInRole("ADMINISTRATOR") && Model.User == null && Model.getScreen == 0)
 {
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -192,7 +179,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach (AlignityApp.Models.User user in Model.Salaries)
+                        @foreach (AlignityApp.Models.User user in Model.Users)
                         {
                             <tr>
                                 <td>@user.Name</td>
