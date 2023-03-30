@@ -9,13 +9,13 @@ namespace AlignityApp.Controllers
 {
     public class ListCraController : Controller
     {
+        ActivityViewModel activityVM = new ActivityViewModel();
         private int idCra;
 
         public IActionResult Index(int id)
         {
             using (Dal dal = new Dal())
             {
-                ActivityViewModel activityVM = new ActivityViewModel();
                 activityVM.User = dal.GetUser(id);
 
                 if (User.IsInRole("ADMINISTRATOR"))
