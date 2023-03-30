@@ -22,28 +22,6 @@ namespace AlignityApp.Controllers
             }
         }
 
-        /*        [HttpPost]
-                public IActionResult Form1(MyData data)
-                {
-                    if (ModelState.IsValid)
-                    {
-                        // Code pour enregistrer la donnée dans la base de données
-                        return RedirectToAction("Index");
-                    }
-                    return View("Index");
-                }
-
-                [HttpPost]
-                public IActionResult Form2(MyData data)
-                {
-                    if (ModelState.IsValid)
-                    {
-                        // Code pour enregistrer la donnée dans la base de données
-                        return RedirectToAction("Index");
-                    }
-                    return View("Index");
-                }*/
-
         public IActionResult CreateOpportunity(int id)
         {
             using (Dal dal = new Dal())
@@ -78,8 +56,6 @@ namespace AlignityApp.Controllers
                         Customer = new Customer()
                     };
                     return View(ovm2);
-
-
                 }
                 else
                 {
@@ -106,13 +82,13 @@ namespace AlignityApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateOpportunity3(int id, int salariedId)
+        public IActionResult CreateOpportunity3(int id, int SalariedId)
         {
             using (Dal dal = new Dal())
             {
                 if (id != 0)
                 {
-                    dal.ModifySJobInterview(salariedId);
+                    dal.ModifySJobInterview(SalariedId);
                     return RedirectToAction("CreateOpportunity", new { @id = id });
                 }
                 else

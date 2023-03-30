@@ -41,5 +41,6 @@ namespace AlignityApp.Models
         JobInterview GetJIById(int jobInterviewId);
         Customer GetCustomerById(int customerId);
         List<User> GetSalariesById(List<SJobInterview> sJobList);
+        void UpdateTJM(int salariedId, int tjm);
     }
 }

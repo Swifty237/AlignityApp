@@ -45,19 +45,18 @@
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Prochaine opportunité d'embauche</h6>
             </div>
             <div class="card-body">
 
-                <p>@Model.Customer.Brand</p>
-                <br>
+                <span class="card-title">@Model.Customer.Brand</span>
                 
                 @if(Model.Salaries != null )
                 {
-                    foreach(AlignityApp.Models.User salaried in Model.Salaries)
+                    @foreach(AlignityApp.Models.User salaried in Model.Salaries)
                     {
-                        <p>@salaried.Name</p>
-                        <p>@salaried.Firstname</p>
+                        <p class="card-text">@salaried.Name</p>
+                        <p class="card-text">@salaried.Firstname</p>
                     }
                 }
 

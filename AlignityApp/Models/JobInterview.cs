@@ -7,7 +7,7 @@ namespace AlignityApp.Models
     {
         public int Id { get; set; }
         public DateTime? InterviewDate { get; set; }
-        public StateContract Contract { get; set; } = StateContract.INTERVIEW;
+        public StateContract Contract { get; set; } = StateContract.CREATION;
         public string ContractAssignement { get; set; } // Mission
         public DateTime? ContractStartAt { get; set; }
         public DateTime? ContractEndAt { get; set; }
@@ -20,6 +20,7 @@ namespace AlignityApp.Models
 
     public enum StateContract
     {
+        CREATION,
         INTERVIEW,
         VALIDATED,
         IN_PROGRESS,

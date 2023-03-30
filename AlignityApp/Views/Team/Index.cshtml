@@ -7,10 +7,48 @@
 <!-- Condition qui permet de ne pas accéder à la vue d'un autre manager par l'url -->
 @if (User.IsInRole("MANAGER"))
 {
+    <!-- Modal -->
+
+    <div class="modal fade" id="tjmToEdit" tabindex="-1" role="dialog" aria-labelledby=tjmToEditLabel
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id=tjmToEditLabel> Name </h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm())
+                    {
+                        <fieldset>
+                            <legend>Modification TJM </legend>
+                            @if (Model.Salaries != null)
+                            {
+                                foreach (AlignityApp.Models.User salaried in Model.Salaries)
+                                {
+                                    @Html.TextBoxFor(m => salaried.RateTjm)
+                                    @Html.ValidationMessageFor(m => salaried.RateTjm)
+                                }
+                            }
+                            <br />
+                            <input class="btn btn-warning" type="submit" value="Modifier" />
+                        </fieldset>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    @*<button type="submit" class="btn btn-primary" href="~/Team/ModifyTjm">Confirmer</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Mon Equipe</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -44,22 +82,50 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach (AlignityApp.Models.User user in Model.Users)
+                        @foreach (AlignityApp.Models.User salaried in Model.Salaries)
                         {
                             <tr>
-                                <td>@user.Name</td>
-                                <td>@user.Firstname</td>
-                                <td>@user.Birthdate.ToString("dd/MM/yyyy")</td>
-                                <td>@user.PhoneNumber</td>
-                                <td>@user.Adress @user.PostalCode @user.City</td>
-                                <td>@user.Email</td>
-                                <td>@user.CreationDate.ToString("dd/MM/yyyy")</td>
-                                <td>@user.UserJob</td>
-                                @*<td>@user.TjmToPaid</td>*@
+                                <td>@salaried.Name</td>
+                                <td>@salaried.Firstname</td>
+                                <td>@salaried.Birthdate.ToString("dd/MM/yyyy")</td>
+                                <td>@salaried.PhoneNumber</td>
+                                <td>@salaried.Adress @salaried.PostalCode @salaried.City</td>
+                                <td>@salaried.Email</td>
+                                <td>@salaried.CreationDate.ToString("dd/MM/yyyy")</td>
+                                <td>@salaried.UserJob</td>
+                                <td>@salaried.RateTjm</td>
                                 <td>
-                                    <button class="btn btn-primary">
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-@salaried.Id">
                                         <i class="far fa-edit"></i>
-                                    </button>
+                                   </button>
+                                    <div class="modal fade" id="modal-@salaried.Id" tabindex="-1" role="dialog" aria-labelledby="modal-@salaried.Id-label" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modal-@salaried.Id-label">TJM @salaried.Name @salaried.Firstname</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @using (Html.BeginForm("ModalIndex", "Team", FormMethod.Post))
+                                                    {
+                                                        <input type="hidden" name="id" value="@User.FindFirst("Sid").Value" />
+                                                        <fieldset class="d-flex justify-content-between">
+                                                            <legend>Entrer le nouveau TJM</legend>
+                                                            @Html.TextBoxFor(m => salaried.Id, new {@class = "d-none"})
+                                                            @Html.TextBoxFor(m => salaried.RateTjm)
+                                                            @Html.ValidationMessageFor(m => salaried.RateTjm)
+                                                            <input class="btn btn-warning" type="submit" value="Modifier" />
+                                                        </fieldset>
+                                                    }
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -108,7 +174,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach (AlignityApp.Models.User user in Model.Users)
+                        @foreach (AlignityApp.Models.User user in Model.Salaries)
                         {
                             <tr>
                                 <td>@user.Name</td>

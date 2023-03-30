@@ -1,8 +1,8 @@
-﻿@* @model List<AlignityApp.Models.Activity> *@
-@model AlignityApp.ViewModels.ActivityViewModel
+﻿@model AlignityApp.ViewModels.ActivityViewModel
 
 @{
     Layout = "_LayoutApp";
+    ViewBag.Title = "Edition CRA";
 
 }
 <div class="row">
@@ -93,21 +93,20 @@
                                 
                             }
                             <script>
-                                            function modifyCra() {
-                                                if (confirm('Voulew vous Soumettre à ton manager?Attention un fois vous le soumettez, vous ne pouvez plus modifier ce Cra!')) {
-                                                $.ajax({
-                                                    type: "POST",
-                                                    url: "/listCra/ModifyCra",
-                                                    success: function(res) {
-                                                        window.location.href = "/listCra/?id="+res
-                                                      
-                                                    },
-                                                    error: function() {
-                                                        
-                                                    }
-                                                });
+                                function modifyCra() {
+                                    if (confirm('Voulez vous Soumettre à votre manager? Attention un fois vous le soumettez, vous ne pouvez plus modifier ce Cra!')) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/listCra/ModifyCra",
+                                            success: function(res) {
+                                                window.location.href = "/listCra/?id="+res
+                                        },
+                                            error: function() {
+                                            
                                             }
-}
+                                        });
+                                    }
+                                }
                            </script>
                             <button type="submit" class="btn btn-info" id="tt" disabled>Enregistrer</button>
                         </div>

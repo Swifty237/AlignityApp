@@ -16,7 +16,7 @@ namespace AlignityApp.Controllers
                 TeamsViewModel tvm = new TeamsViewModel() 
                 { 
                     User = dal.GetUser(id),
-                    Users = dal.GetUsersByManagerId(id),
+                    Salaries = dal.GetUsersByManagerId(id),
                     Cras = dal.GetTeamCras(id) 
                 };
                 return View(tvm); 

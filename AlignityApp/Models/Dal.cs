@@ -172,7 +172,7 @@ namespace AlignityApp.Models
 
         public int GetJobInterviewId()
         {
-            JobInterview jobInterview = _bddContext.JobInterviews.Where(j => j.Contract == StateContract.INTERVIEW).FirstOrDefault();
+            JobInterview jobInterview = _bddContext.JobInterviews.Where(j => j.Contract == StateContract.CREATION).FirstOrDefault();
             if (jobInterview != null)
             {
                 return jobInterview.Id;
@@ -226,6 +226,18 @@ namespace AlignityApp.Models
         public Customer GetCustomerById(int customerId)
         {
             return _bddContext.Customers.Where(c => c.Id == customerId).FirstOrDefault();
+        }
+
+        public void UpdateTJM(int salariedId, int tjm)
+        {
+            User salaried = this.GetUser(salariedId);
+
+            if (salaried != null)
+            {
+                salaried.RateTjm = tjm;
+                _bddContext.Users.Update(salaried);
+                _bddContext.SaveChanges();
+            }
         }
 
         public static string EncodeMD5(string motDePasse)
