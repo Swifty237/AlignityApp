@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using AlignityApp.ViewModels;
-using System.Diagnostics;
+using System.Linq;
 
 namespace AlignityApp.Controllers
 {
@@ -14,10 +14,9 @@ namespace AlignityApp.Controllers
 
         public IActionResult Index(int id)
         {
+            CraViewModel craVM = new CraViewModel();
             using (Dal dal = new Dal())
             {
-                activityVM.User = dal.GetUser(id);
-
                 if (User.IsInRole("ADMINISTRATOR"))
                 {
                     List<Cra> list = dal.GetAllCras();
@@ -29,6 +28,8 @@ namespace AlignityApp.Controllers
                     List<Cra> list = dal.GetCrasByUserId(id);
                     return View(list);
                 }
+
+
             }
         }
 
@@ -75,6 +76,7 @@ namespace AlignityApp.Controllers
                 else
                 {
                     activityVM.activities = dal.FindCra(id);
+                    activityVM.cra = dal.GetCraByCraId(id);
                     idCra = id;
                     TempData["idCra"] = this.idCra;
                     return View(activityVM);
@@ -86,7 +88,7 @@ namespace AlignityApp.Controllers
         [HttpPost]
         public IActionResult CreateCra(DateTime Date, ActivityTypes Type, ActivityPlace Place, int Duration, String Comments)
         {
-            
+
             int id = (int)TempData["idCra"];
             Models.Activity activity = new Models.Activity() { Date = Date, CraId = id, Place = Place, Type = Type, Duration = Duration, Description = Comments };
 
@@ -103,11 +105,11 @@ namespace AlignityApp.Controllers
         public int DeleteActivity(int activityId)
         {
             int idCra = (int)TempData["idCra"];
-           
+
             using (Dal dal = new Dal())
             {
                 dal.DeleteActivity(activityId);
-                
+
                 return idCra;
             }
         }
@@ -122,6 +124,30 @@ namespace AlignityApp.Controllers
                 return dal.ModifyCraState(idCra);
 
             }
+        }
+
+        [HttpPost]
+        public int ModifyCraByState(int id)
+        {
+
+            using (Dal dal = new Dal())
+            {
+                return dal.ModifyCraStateToInvalid(id, CRAState.ALERT);
+
+            }
+        }
+        [HttpPost]
+        public int CreateCommentManager(string comment)
+        {
+            int id = (int)TempData["idCra"];
+            using (Dal dal = new Dal())
+            {
+                Cra cra = dal.GetCraByCraId(id);
+                cra.Observation = comment;
+                dal.CreatCommentMannager(cra);
+                return cra.UserId;
+            }
+
         }
     }
 }

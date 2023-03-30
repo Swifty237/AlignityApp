@@ -7,6 +7,8 @@ namespace AlignityApp.ViewModels
     {
         public Activity activity { get; set; }
         public List<Activity> activities { get; set; }
+
+        public Cra cra { get; set; }        
         public User User { get; set; }
     }
 }

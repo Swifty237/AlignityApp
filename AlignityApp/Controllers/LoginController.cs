@@ -53,7 +53,7 @@ namespace AlignityApp.Controllers
                         return Redirect("Dashboard/Index/" + user.Id);
 
                     if (user.UserRole.ToString() == "ADMINISTRATOR")
-                        return Redirect("/listCra/?id=" + user.Id);
+                        return Redirect("/Dashboard");
 
                     if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);

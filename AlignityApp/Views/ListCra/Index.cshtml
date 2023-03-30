@@ -1,12 +1,20 @@
 ﻿@{
     Layout = "_LayoutApp";
 }
+@model AlignityApp.ViewModels.CraViewModel
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Liste des CRAs</h1>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">@User.Identity.Name</h6>
+        @if (User.IsInRole("ADMINISTRATOR") || User.IsInRole("MANAGER"))
+        {
+            <h6 class="m-0 font-weight-bold text-primary">Liste des CRAs de @Model.User.Name</h6>
+        }
+        else
+        {
+            <h6 class="m-0 font-weight-bold text-primary">@Model.User.Name</h6>
+        }
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -32,7 +40,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach (AlignityApp.Models.Cra cra in @Model)
+                    @foreach (AlignityApp.Models.Cra cra in Model.listCras)
                     {
                         <tr>
                             <td>@cra.Id</td>
@@ -56,10 +64,35 @@
                             {
                                 <td><button type="button" class="btn btn-danger btn-sm">Besoin d'une modification</button></td>
                             }
-                            <td>@cra.ObservationsId</td>
+                            <td>@cra.Observation</td>
                             <td><a class=" btn btn-outline-info btn-sm" href="/listCra/createCra/?id=@cra.Id&todo=0&status=@cra.State">Voir</a></td>
+                            @if (User.IsInRole("ADMINISTRATOR") && (@cra.State.ToString() == "VALIDATED"))
+                            {
+                                <td><button class=" btn btn-outline-primary btn-sm" onclick="modifyCraState(@cra.Id)" id="myButton">Débloquer Statut</button></td>
+                            }
+                            <script>
+                                function modifyCraState(id) {
+                                    console.log(id)
+                                    if (confirm("Voulez vous modifier l'état du cra? ")) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/ListCra/ModifyCraByState",
+                                            data: { id: id },
+                                            success: function (res) {
+                                                window.location.href = "/listCra/?id=" + res
+
+                                            },
+                                            error: function () {
+
+                                            }
+                                        });
+                                      
+                                    }
+                                }
+                            </script>
                         </tr>
                     }
+
 
                 </tbody>
             </table>
@@ -67,14 +100,14 @@
         </div>
     </div>
 </div>
-            @section Css{
-                <link href="/css/listCra/dataTables.bootstrap4.min.css" rel="stylesheet">
+@section Css{
+    <link href="/css/listCra/dataTables.bootstrap4.min.css" rel="stylesheet">
             }
-            @section Scripts{
-                <!-- Page level plugins -->
-                <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
-                <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+@section Scripts{
+    <!-- Page level plugins -->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-                <!-- Page level custom scripts -->
-                <script src="/js/demo/datatables-demo.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="/js/demo/datatables-demo.js"></script>
             }

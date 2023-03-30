@@ -26,32 +26,32 @@
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Nom<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" data-validate-length-range="6" name="Name" required="required" />
+                                    <input class="form-control" data-validate-length-range="6" name="Name" required="required" value=@Model.User?.Name />
                                 </div>
                             </div>
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Prénom<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" data-validate-length-range="6" name="Firstname" required="required" />
+                                    <input class="form-control" data-validate-length-range="6" name="Firstname" required="required" value=@Model.User?.Firstname />
                                 </div>
                             </div>
                             <div class="field item form-group">
-                                <label class="col-form-label col-md-3 col-sm-3  label-align">email<span class="required">*</span></label>
+                                <label class="col-form-label col-md-3 col-sm-3  label-align">Email<span class="required" *</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" name="Email" required="required" type="email" />
+                                    <input class="form-control" name="Email" required="required" type="email" value=@Model.User?.Email />
                                 </div>
                             </div>
 
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Date de Naissance<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" class='date' type="date" name="Birthdate" required='required'>
+                                    <input class="form-control" type="date" name="Birthdate" required='required' value=@Model.User?.Birthdate.ToString("yyyy-MM-dd") />
                                 </div>
                             </div>
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Password<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" type="password" id="password1" name="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@@#$%^&*]).{8,}" title="Minimum 8 Characters Including An Upper And Lower Case Letter, A Number And A Unique Character" required />
+                                    <input class="form-control" type="password" id="password1" name="Password" value=@Model.User?.Password pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@@#$%^&*]).{8,}" title="Minimum 8 caractères Including An Upper And Lower Case Letter, A Number And A Unique Character" required />
 
                                     <span style="position: absolute;right:15px;top:7px;" onclick="hideshow()">
                                         <i id="slash" class="fa fa-eye-slash"></i>
@@ -63,63 +63,63 @@
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Repeat password<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" type="password" name="password2" data-validate-linked='password' required='required' />
+                                    <input class="form-control" type="password" name="password2" value=@Model.User?.Password data-validate-linked='password' required='required' />
                                 </div>
                             </div>
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Télephone<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" type="tel" name="PhoneNumber" />
+                                    <input class="form-control" type="tel" name="PhoneNumber" value=@Model.User?.PhoneNumber />
                                 </div>
                             </div>
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Adresse</label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" name="Adress" />
+                                    <input class="form-control" name="Adress" value="@Model.User?.Adress" />
                                 </div>
                             </div>
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Ville</label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" name="City" />
+                                    <input class="form-control" name="City" value="@Model.User?.City" />
                                 </div>
                             </div>
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Code Postal</label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" name="PostalCode" />
+                                    <input class="form-control" name="PostalCode" value=@Model.User?.PostalCode />
                                 </div>
                             </div>
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Poste<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <select class="form-control" required="required" name="UserJob">
+                                    <select class="form-control" required="required" name="UserJob" value=@Model.User?.UserJob>
                                         @foreach (var value in Enum.GetValues(typeof(AlignityApp.Models.Job)))
                                         {
                                             @if (value.ToString() == "TECHNICIAN")
                                             {
-                                                <option value="@value">Tech</option>
+                                                <option value="@value" @(Model.User?.UserJob.ToString() == "TECHNICIAN" ? "selected" : "")>Tech</option>
 
                                             }
                                             @if (value.ToString() == "HR_MANAGER")
                                             {
-                                                <option value="@value">RH</option>
+                                                <option value="@value" @(Model.User?.UserJob.ToString() == "HR_MANAGER" ? "selected" : "")>RH</option>
 
 
                                             }
                                             @if (value.ToString() == "COMMERCIAL")
                                             {
-                                                <option value="@value">Commercial</option>
+                                                <option value="@value" @(Model.User?.UserJob.ToString() == "COMMERCIAL" ? "selected" : "")>Commercial</option>
 
                                             }
                                             @if (value.ToString() == "SECRETARY")
                                             {
-                                                <option value="@value">Secrétaire</option>
+                                                <option value="@value" @(Model.User?.UserJob.ToString() == "SECRETARY" ? "selected" : "")>Secrétaire</option>
 
                                             }
                                             @if (value.ToString() == "DIRECTOR")
                                             {
-                                                <option value="@value">Directeur</option>
+                                                <option value="@value" @(Model.User?.UserJob.ToString() == "DIRECTOR" ? "selected" : "")>Directeur</option>
 
                                             }
                                         }
@@ -129,7 +129,7 @@
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">TJM<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" name="RateTjm" />
+                                    <input class="form-control" name="RateTjm" value=@Model.User?.RateTjm />
                                 </div>
                             </div>
                             <div class="field item form-group">
@@ -140,18 +140,18 @@
                                         {
                                             @if (value.ToString() == "SALARIED")
                                             {
-                                            <option value="@value">Salarié</option>
-                                                
+                                                <option value="@value" @(Model.User?.UserRole.ToString() == "SALARIED" ? "selected" : "")>Salarié</option>
+
                                             }
                                             @if (value.ToString() == "MANAGER")
                                             {
-                                            <option value="@value">Manager</option>
-                                                
-                                            
+                                                <option value="@value" @(Model.User?.UserRole.ToString() == "MANAGER" ? "selected" : "")>Manager</option>
+
+
                                             }@if (value.ToString() == "ADMINISTRATOR")
                                             {
-                                            <option value="@value">Administrateur</option>
-                                                
+                                                <option value="@value" @(Model.User?.UserRole.ToString() == "ADMINISTRATOR" ? "selected" : "")>Administrateur</option>
+
                                             }
                                         }
                                     </select>
@@ -175,7 +175,7 @@
                                     <select class="form-control" required="required" name="ManagerId">
                                         @foreach (AlignityApp.Models.User user in Model.listUsers)
                                         {
-                                            <option value=@user.Id>@user.Name</option>
+                                            <option value=@user.Id @(Model.User?.ManagerId == user.Id ? "selected" : "")>@user.Name</option>
                                         }
                                     </select>
                                 </div>
@@ -184,8 +184,30 @@
                             <div class="ln_solid">
                                 <div class="form-group">
                                     <div class="col-md-6 offset-md-3">
-                                        <button type='submit' class="btn btn-primary">Submit</button>
-                                        <button type='reset' class="btn btn-success">Reset</button>
+                                        <button type='submit' class="btn btn-primary">Confimer</button>
+                                        <button type="button" class="btn btn-danger" onclick="deleteUser()">Supprimer</button>
+                                        <script>
+                                            function deleteUser() {
+                                                const params = new URLSearchParams(window.location.search);
+                                                const id = params.get('id');
+                                                if (confirm("Voulez vous Vraiment supprimer l'utilisateur?")) {
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: "/User/DeleteUser",
+                                                        data:{id},
+                                                        success: function () {
+                                                            window.location.href = "/team"
+
+                                                        },
+                                                        error: function () {
+
+                                                        }
+                                                    });
+                                                }
+                                                
+                      
+                                            }
+                                        </script>
                                     </div>
                                 </div>
                             </div>

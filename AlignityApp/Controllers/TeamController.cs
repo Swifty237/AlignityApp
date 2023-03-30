@@ -2,6 +2,7 @@
 using AlignityApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Collections.Generic;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -14,27 +15,47 @@ namespace AlignityApp.Controllers
         public IActionResult Index(int id)
         {
             TeamsViewModel tvm = new TeamsViewModel();
-            using (Dal dal = new Dal()) 
+            using (Dal dal = new Dal())
             {
-                if (User.IsInRole("ADMINISTRATOR"))
+                if (id == -1)
                 {
+                    tvm.getScreen = 1;
+                    tvm.Users = dal.GetSalariedWithoutManager();
                     tvm.Salaries = dal.GetAllManager();
-
-                    return View(tvm);
-                }
-                if (id == 0)
-                {
                     tvm.User = dal.GetUser(id);
-                    tvm.Salaries = dal.GetAllUsers();
-                    tvm.Cras = dal.GetAllCras();
+
                     return View(tvm);
                 }
                 else
                 {
-                    tvm.User = dal.GetUser(id);
-                    tvm.Salaries = dal.GetUsersByManagerId(id);
-                    tvm.Cras = dal.GetTeamCras(id);
-                    return View(tvm);
+
+                    //ID==null
+                    if (User.IsInRole("ADMINISTRATOR") && id == 0)
+                    {
+                        tvm.Users = dal.GetAllManager();
+
+                        return View(tvm);
+                    }
+                    else
+                    {
+                        tvm.User = dal.GetUser(id);
+                        tvm.Users = dal.GetUsersByManagerId(id);
+                        tvm.Cras = dal.GetTeamCras(id);
+
+                        if (id == 0)
+                        {
+                            tvm.Salaries = dal.GetAllUsers();
+                            tvm.Cras = dal.GetAllCras();
+                            return View(tvm);
+                        }
+                        else
+                        {
+                            tvm.User = dal.GetUser(id);
+                            tvm.Salaries = dal.GetUsersByManagerId(id);
+                            tvm.Cras = dal.GetTeamCras(id);
+                            return View(tvm);
+                        }
+                    }
                 }
             }
         }

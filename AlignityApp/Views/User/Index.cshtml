@@ -2,6 +2,7 @@
     Layout = "_LayoutApp";
 
 }
+@model AlignityApp.ViewModels.UserViewModel
 
 <!-- page content -->
 <div class="right_col" role="main">
@@ -55,7 +56,7 @@
                                     <img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar" title="Change the avatar">
                                 </div>
                             </div>
-                            <h3>Samuel Doe</h3>
+                            <h3>@Model.User.Firstname @Model.User.Name</h3>
 
                             <ul class="list-unstyled user_data">
                                 <li>
@@ -72,7 +73,7 @@
                                 </li>
                             </ul>
 
-                            <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                            <a class="btn btn-success" href="/user/ajouterUser?id=@Model.User.Id"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
                             <br />
 
                             <!-- start skills -->
@@ -302,9 +303,9 @@
             }
 
 @section Scripts{
-    <script src="/css/user/js/jquery.min.js"></script>
+   @* <script src="/css/user/js/jquery.min.js"></script>*@
     <!-- Bootstrap -->
-    <script src="/css/user/js/bootstrap.bundle.min.js"></script>
+    @*<script src="/css/user/js/bootstrap.bundle.min.js"></script>*@
     <!-- FastClick -->
     <script src="/css/user/js/fastclick.js"></script>
     <!-- NProgress -->
