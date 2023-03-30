@@ -13,8 +13,9 @@ namespace AlignityApp.Controllers
             {
                 DashboardViewModel dvm = new DashboardViewModel()
                 {
-                    User = dal.GetUser(id)
-                };
+                    User = dal.GetUser(id),
+                    Salaries = dal.GetUsersByManagerId(id)
+            };
                 return View(dvm);
             }
         }
