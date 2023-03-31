@@ -7,5 +7,8 @@ namespace AlignityApp.ViewModels
     {
         public User User { get; set; }
         public List<User> Salaries { get; set; }
+        public List<Cra> Cras { get; set; }
+        public int CountCrasToValidate { get; set; }
+        public int teamCA { get; set; }
     }
 }

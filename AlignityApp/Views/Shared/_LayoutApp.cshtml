@@ -450,7 +450,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                    @Model.User.Firstname @Model.User.Name
+                                    @User.Identity.Name
                                 </span>
 
                                 <img class="img-profile rounded-circle" src="~/src/portrait.png">
@@ -546,7 +546,6 @@
     <script src="~/Scripts/js/demo/chart-area-demo.js"></script>
     <script src="~/Scripts/js/demo/chart-pie-demo.js"></script>
     @RenderSection("Scripts", required: false)
-
 
 </body>
 

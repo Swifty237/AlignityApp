@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AlignityApp.Models
@@ -31,6 +32,9 @@ namespace AlignityApp.Models
         public int? ManagerId { get; set; }
         public User Manager { get; set; }
         public bool IsAvalaible { get; set; }
+        public int? UserCrasId { get; set; }
+        public ICollection<Cra> UserCras { get; set; }
+        public int CA { get; set; }
     }
     public enum Role
     {

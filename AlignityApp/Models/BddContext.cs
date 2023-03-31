@@ -22,7 +22,7 @@ namespace AlignityApp.Models
         public DbSet<SJobInterview> SJobInterviews { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;user id=root;database=alignity_bdd");
+            optionsBuilder.UseMySql("server=localhost;user id=root;password=password;database=alignity_bdd");
         }
         public void InitializeUsers()
         {
@@ -283,14 +283,14 @@ namespace AlignityApp.Models
         public void InitializeActivity()
         {
             this.Activities.AddRange(
-                            new Activity() { Date = new DateTime(2023, 03, 01), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, CraId = 17 },
-                            new Activity() { Date = new DateTime(2023, 03, 02), Duration = 9, Type = ActivityTypes.INTERCONTRACT, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 1h de sup", CraId = 17 },
-                            new Activity() { Date = new DateTime(2023, 03, 03), Duration = 8, Type = ActivityTypes.HOLIDAYS, Place = ActivityPlace.EXTERNAL, CraId = 17 },
-                            new Activity() { Date = new DateTime(2023, 03, 04), Duration = 10, Type = ActivityTypes.TRAINING, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 2h de sup", CraId = 17 },
-                            new Activity() { Date = new DateTime(2023, 03, 05), Duration = 9, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, CraId = 17 },
-                            new Activity() { Date = new DateTime(2023, 03, 06), Duration = 9, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, CraId = 17 },
-                            new Activity() { Date = new DateTime(2023, 03, 07), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, CraId = 17 }
-                    );
+               new Activity() { Date = new DateTime(2023, 03, 01), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, CraId = 29 },
+               new Activity() { Date = new DateTime(2023, 03, 02), Duration = 9, Type = ActivityTypes.INTERCONTRACT, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 1h de sup", CraId = 17 },
+               new Activity() { Date = new DateTime(2023, 03, 03), Duration = 8, Type = ActivityTypes.HOLIDAYS, Place = ActivityPlace.EXTERNAL, CraId = 17 },
+               new Activity() { Date = new DateTime(2023, 03, 04), Duration = 10, Type = ActivityTypes.TRAINING, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 2h de sup", CraId = 17 },
+               new Activity() { Date = new DateTime(2023, 03, 05), Duration = 9, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, CraId = 11 },
+               new Activity() { Date = new DateTime(2023, 03, 06), Duration = 9, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, CraId = 3 },
+               new Activity() { Date = new DateTime(2023, 03, 07), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, CraId = 17 }
+            );
             this.SaveChanges();
         }
             public void InitializeCustomers()

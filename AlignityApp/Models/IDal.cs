@@ -54,5 +54,7 @@ namespace AlignityApp.Models
         Customer GetCustomerById(int customerId);
         List<User> GetSalariesById(List<SJobInterview> sJobList);
         void UpdateTJM(int salariedId, int tjm);
+        List<Activity> GetAllActivities();
+        int UserHourCount(User salaried);
     }
 }

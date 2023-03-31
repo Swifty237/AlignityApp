@@ -15,6 +15,7 @@ namespace AlignityApp.Models
         public Dal()
         {
             _bddContext = new BddContext();
+            this.AddCA();
         }
 
         public void DeleteCreateDatabase()
@@ -298,6 +299,41 @@ namespace AlignityApp.Models
                 _bddContext.Users.Update(salaried);
                 _bddContext.SaveChanges();
             }
+        }
+
+        public List<Activity> GetAllActivities()
+        {
+            return _bddContext.Activities.ToList();
+        }
+
+        public List<Activity> GetUserActivities(User salaried)
+        {
+            var query = from a in _bddContext.Activities 
+                        join c in _bddContext.Cras
+                        on a.CraId equals c.Id
+                        where c.UserId == salaried.Id
+                        select a; 
+            return query.ToList();
+        }
+
+        public int UserHourCount(User salaried)
+        {
+            int count = 0;
+            foreach (var activity in this.GetUserActivities(salaried))
+            {
+                count += activity.Duration;
+            }
+            return count;
+        }
+
+        private void AddCA()
+        {
+            List<User> salaries = this.GetAllUsers();
+            foreach(var salaried in salaries)
+            {
+                salaried.CA = this.UserHourCount(salaried) * salaried.RateTjm;
+            }
+            _bddContext.SaveChanges();
         }
 
         public static string EncodeMD5(string motDePasse)
