@@ -8,5 +8,7 @@ namespace AlignityApp.ViewModels
         public User User { get; set; }
         public List<User> Salaries { get; set; }
         public Customer Customer { get; set; }
+        public List<JobInterview> JobInterviews { get; set; }
+        public Dictionary<string, List<User>> SalariesCustomer { get; set; }
     }
 }

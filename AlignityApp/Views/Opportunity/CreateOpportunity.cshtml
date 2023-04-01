@@ -13,7 +13,7 @@
         <!-- Basic Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Nouvelle opportunité de contrat</h6>
+                <h6 class="m-0 font-weight-bold text-info">Nouvelle opportunité de contrat</h6>
             </div>
             <div class="card-body">
  
@@ -46,24 +46,22 @@
                 <h6 class="m-0 font-weight-bold text-primary">Prochaine opportunité d'embauche</h6>
             </div>
 
-            <div class="card-body row">
+            <div class="card-body">
 
-                @using (Html.BeginForm("ValidateOpportunity", "Team", FormMethod.Post))
+                @using (Html.BeginForm("ValidateOpportunity", "Opportunity", FormMethod.Post))
                 {
-                    <h5 class="card-title col-12"> <span>Client : </span>@Model.Customer.Brand</h5>
+                    <h5 class="card-title"> <span>Client : </span>@Model.Customer.Brand</h5>
 
                 @if (Model.Salaries != null)
                 {
-                    @*@foreach(AlignityApp.Models.User salaried in Model.Salaries)*@
                     @for (int i = 1; i < Model.Salaries.Count + 1; i++)
                     {
-                        <div class="card-body col border-bottom border-success bg-light m-3">
+                        <input type="hidden" name="id" value="@User.FindFirst("Sid").Value" />
+                        <div class="card-body border-bottom border-success bg-light">
                             <p>Candidat n° @i </p>
-                            @Html.LabelFor(m => m.Salaries[i - 1].Name)
-                            @Html.LabelFor(m => m.Salaries[i - 1].Firstname)
-
-                            @*<span class="card-text text-dark">@Model.Salaries[i - 1].Name</span>
-                    <span class="card-text text-dark">@Model.Salaries[i - 1].Firstname</span>*@
+                            @Html.TextBoxFor(m => m.Salaries[i - 1].Id, new {@class="d-none"})
+                            @Html.TextBoxFor(m => m.Salaries[i - 1].Name)
+                            @Html.TextBoxFor(m => m.Salaries[i - 1].Firstname)
                         </div>
                     }
                 }

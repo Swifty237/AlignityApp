@@ -5,3 +5,31 @@
 }
 
 <h1>List opportunities</h1>
+
+<div class="row">
+    @foreach (var salariesCustomer in Model.SalariesCustomer)
+    {
+        <div class="col-lg-4">
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Entretiens en cours</h6>
+                </div>
+
+                <div class="card-body">
+
+                    <h5 class="card-title"> <span>Client : </span>@salariesCustomer.Key</h5>
+
+                    @foreach (var salaried in salariesCustomer.Value)
+                    {
+                        <p>@salaried.Name</p>
+                        <p>@salaried.Firstname</p>
+                        <p>@salaried.RateTjm</p>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
