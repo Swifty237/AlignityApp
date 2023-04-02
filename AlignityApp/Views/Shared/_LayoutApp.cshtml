@@ -200,7 +200,7 @@
 
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOpportunity"
                        aria-expanded="true" aria-controls="collapseOpportunity">
-                        <i class="fab fa-artstation"></i>
+                        <i class="fas fa-folder-open"></i>
                         <span class="text-wrap">Opportunités</span>
                     </a>
                     <div id="collapseOpportunity" class="collapse" aria-labelledby="headingOpportunity"
@@ -338,14 +338,14 @@
                 </div>
             </li>
 
-            <!-- Sidebar Message -->
+@*            <!-- Sidebar Message -->
             <li>
                 <div class="sidebar-card d-none d-lg-flex">
                     <img class="sidebar-card-illustration mb-2" src="~/src/undraw_rocket.svg" alt="...">
                     <p class="text-center mb-2"><strong>AlignityApp Pro</strong> is packed with premium features, components, and more!</p>
                     <a class="btn btn-warning btn-sm" href="#">Upgrade to Pro!</a>
                 </div>
-            </li>
+            </li>*@
 
         </ul>
         <!-- End of Sidebar -->
@@ -359,6 +359,8 @@
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
+                        <h4 class="text-primary align-self-center">Alignity Gestion PRO</h4>
+                    
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
@@ -403,7 +405,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                    @User.Identity.Name 
+                                    @User.Identity.Name
                                 </span>
 
                                 <img class="img-profile rounded-circle" src="~/src/portrait.png">
@@ -492,7 +494,6 @@
     <script src="~/Scripts/js/demo/chart-area-demo.js"></script>
     <script src="~/Scripts/js/demo/chart-pie-demo.js"></script>
     @RenderSection("Scripts", required: false)
-
 
 </body>
 

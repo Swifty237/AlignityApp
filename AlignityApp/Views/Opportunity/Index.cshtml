@@ -4,4 +4,33 @@
     ViewBag.Title = "Opportunités d'embauche";
 }
 
-<h1>List opportunities</h1>
+<h3 class="text-center text-primary mb-5">Mes opprotunités de contrat</h3>
+
+<div class="row">
+    @foreach (var salariesCustomer in Model.SalariesCustomer)
+    {
+        <div class="col-lg-4">
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Entretien en cours</h6>
+                </div>
+
+                <div class="card-body">
+
+                    <h5 class="card-title p-2 border-bottom-primary"> <span>Client : </span>@salariesCustomer.Key</h5>
+
+                    @foreach (var salaried in salariesCustomer.Value)
+                    {
+                        <div class="px-2 pt-3 border-bottom border-primary">
+                            <span>Candidat : @salaried.Name @salaried.Firstname</span>
+                            <p>TJM : @salaried.RateTjm</p>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    }
+</div>

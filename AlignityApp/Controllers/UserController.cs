@@ -21,7 +21,6 @@ namespace AlignityApp.Controllers
    
 
             }
-
             return View(userVM);
         }
 
@@ -33,7 +32,6 @@ namespace AlignityApp.Controllers
                 {
                     userVM.listUsers = dal.GetAllManager();
                     return View(userVM);
-
                 }
                 else
                 {
@@ -42,14 +40,11 @@ namespace AlignityApp.Controllers
                     return View(userVM);
                 }
             }
-
-
         }
 
         [HttpPost]
         public IActionResult AjouterUser(User user)
         {
-            
             using (Dal dal = new Dal())
             {
                 User userCopy = dal.GetAllUsers().Where(r => r.Email == user.Email).FirstOrDefault();
@@ -59,7 +54,6 @@ namespace AlignityApp.Controllers
                     user.IsAvalaible = true;    
                     dal.CreateUser(user);
                     return Redirect("/team");
-
                 }
                 else
                 {

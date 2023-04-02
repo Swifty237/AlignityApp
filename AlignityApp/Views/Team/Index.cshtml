@@ -16,119 +16,131 @@
         <div class="card-header py-3">
             @if (Model.User != null)
             {
-                <h6 class="m-0 font-weight-bold text-primary">Voici l'équipe du Manager @Model?.User.Name</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Manager @Model.User.Name</h6>
             }
             else
             {
-                <h6 class="m-0 font-weight-bold text-primary">Voici les @Model.Salaries?.Count salariés sans manager</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Voici les @Model.Salaries.Count salariés sans manager</h6>
             }
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr>
-                            <th>Editer </th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Téléphone</th>
-                            <th>Adresse</th>
-                            <th>Email</th>
-                            <th>Date entrée</th>
-                            <th>Métier</th>
-                            <th>TJM</th>
-                            <th>Editer </th>
+                        <tr class="table-dark">
+                            <th class="bg-dark" scope="col">Nom</th>
+                            <th class="bg-dark" scope="col">Prénom</th>
+                            <th class="bg-dark" scope="col">Téléphone</th>
+                            <th class="bg-dark" scope="col">Code postal</th>
+                            <th class="bg-dark" scope="col">Email</th>
+                            <th class="bg-dark" scope="col">Date entrée</th>
+                            <th class="bg-dark" scope="col">Métier</th>
+                            <th class="bg-dark" scope="col">TJM</th>
+                            <th class="bg-dark" scope="col">CA</th>
+                            <th class="bg-dark" scope="col">Détails salarié</th>
+                            <th class="bg-dark" scope="col">CRAs </th>
                         </tr>
                     </thead>
                     <tfoot>
-                        <tr>
-                            <th>Editer </th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Téléphone</th>
-                            <th>Adresse</th>
-                            <th>Email</th>
-                            <th>Date entrée</th>
-                            <th>Métier</th>
-                            <th>TJM</th>
-                            <th>Editer </th>
+                        <tr class="table-dark">
+                            <th class="bg-dark" scope="col">Nom</th>
+                            <th class="bg-dark" scope="col">Prénom</th>
+                            <th class="bg-dark" scope="col">Téléphone</th>
+                            <th class="bg-dark" scope="col">Code postal</th>
+                            <th class="bg-dark" scope="col">Email</th>
+                            <th class="bg-dark" scope="col">Date entrée</th>
+                            <th class="bg-dark" scope="col">Métier</th>
+                            <th class="bg-dark" scope="col">TJM</th>
+                            <th class="bg-dark" scope="col">CA</th>
+                            <th class="bg-dark" scope="col">Détails salarié</th>
+                            <th class="bg-dark" scope="col">CRAs </th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach (AlignityApp.Models.User salaried in Model.Salaries)
                         {
                             <tr>
-                                <td>
-                                    <a class="btn btn-primary" href="/listCra/?id=@salaried.Id">
-                                        <i class="far fa-eye">Voir les CRAs</i>
-                                    </a>
-                                </td>
+                                
                                 <td>@salaried.Name</td>
                                 <td>@salaried.Firstname</td>
                                 <td>@salaried.PhoneNumber</td>
-                                <td>@salaried.Adress @salaried.PostalCode @salaried.City</td>
+                                <td>@salaried.PostalCode</td>
                                 <td>@salaried.Email</td>
                                 <td>@salaried.CreationDate.ToString("dd/MM/yyyy")</td>
                                 @if (@salaried.UserJob.ToString() == "TECHNICIAN")
                                 {
                                     <td>Tech</td>
-
                                 }
                                 @if (@salaried.UserJob.ToString() == "HR_MANAGER")
                                 {
                                     <td>RH</td>
-
                                 }
                                 @if (@salaried.UserJob.ToString() == "COMMERCIAL")
                                 {
                                     <td>Commercial</td>
-
                                 }
                                 @if (@salaried.UserJob.ToString() == "SECRETARY")
                                 {
                                     <td>Secrétaire</td>
-
                                 }
                                 @if (@salaried.UserJob.ToString() == "DIRECTOR")
                                 {
                                     <td>Directeur</td>
-
                                 }
-                                <td>@salaried.RateTjm  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-@salaried.Id">
-                                        <i class="far fa-edit">Editer TJM</i>
-                                    </button>
-                                    <div class="modal fade" id="modal-@salaried.Id" tabindex="-1" role="dialog" aria-labelledby="modal-@salaried.Id-label" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="modal-@salaried.Id-label">TJM @salaried.Name @salaried.Firstname</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
+                                <td>
+
+                                    <table class="mt-1">
+                                        <tr>
+                                            <td>@salaried.RateTjm</td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-@salaried.Id">
+                                                    <i class="far fa-edit"></i>
+                                                </button>
+
+                                                <div class="modal fade" id="modal-@salaried.Id" tabindex="-1" role="dialog" aria-labelledby="modal-@salaried.Id-label" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modal-@salaried.Id-label">TJM @salaried.Name @salaried.Firstname</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                @using (Html.BeginForm("ModalIndex", "Team", FormMethod.Post))
+                                                                {
+                                                                    <input type="hidden" name="id" value="@User.FindFirst("Sid").Value" />
+                                                                    <fieldset class="d-flex justify-content-between">
+                                                                        <legend>Entrer le nouveau TJM</legend>
+                                                                        @Html.TextBoxFor(m => salaried.Id, new {@class = "d-none"})
+                                                                        @Html.TextBoxFor(m => salaried.RateTjm)
+                                                                        @Html.ValidationMessageFor(m => salaried.RateTjm)
+                                                                        <input class="btn btn-warning" type="submit" value="Modifier" />
+                                                                    </fieldset>
+                                                                }
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="modal-body">
-                                                    @using (Html.BeginForm("ModalIndex", "Team", FormMethod.Post))
-                                                    {
-                                                        <input type="hidden" name="id" value="@User.FindFirst("Sid").Value" />
-                                                        <fieldset class="d-flex justify-content-between">
-                                                            <legend>Entrer le nouveau TJM</legend>
-                                                            @Html.TextBoxFor(m => salaried.Id, new {@class = "d-none"})
-                                                            @Html.TextBoxFor(m => salaried.RateTjm)
-                                                            @Html.ValidationMessageFor(m => salaried.RateTjm)
-                                                            <input class="btn btn-warning" type="submit" value="Modifier" />
-                                                        </fieldset>
-                                                    }
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div></td>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+
+                                <td>@salaried.CA</td>
                                 
                                 <td>
-                                    <a class="btn btn-primary" href="/user?id=@salaried.Id">
-                                        <i class="far fa-edit">Voir le Salarié</i>
+                                    <a class="btn btn-primary m-3" href="/user?id=@salaried.Id">
+                                        <i class="far fa-eye"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success m-3" href="/listCra/?id=@salaried.Id">
+                                        <i class="far fa-eye"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -149,33 +161,25 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-
-                            <th>Téléphone</th>
-
-                            <th>Email</th>
-
-                            <th>Métier</th>
-
-                            <th>Editer</th>
+                        <tr class="table-dark">
+                            <th class="bg-dark">Nom</th>
+                            <th class="bg-dark">Prénom</th>
+                            <th class="bg-dark">Téléphone</th>
+                            <th class="bg-dark">Email</th>
+                            <th class="bg-dark">Métier</th>
+                            <th class="bg-dark">Editer</th>
                         </tr>
                     </thead>
                     <tfoot>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-
-                            <th>Téléphone</th>
-
-                            <th>Email</th>
-
-                            <th>Métier</th>
-
-                            <th>Editer </th>
+                        <tr class="table-dark">
+                            <th class="bg-dark">Nom</th>
+                            <th class="bg-dark">Prénom</th>
+                            <th class="bg-dark">Téléphone</th>
+                            <th class="bg-dark">Email</th>
+                            <th class="bg-dark">Métier</th>
+                            <th class="bg-dark">Editer </th>
                         </tr>
                     </tfoot>
                     <tbody>

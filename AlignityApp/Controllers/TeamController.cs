@@ -17,15 +17,12 @@ namespace AlignityApp.Controllers
                 {
                     tvm.getScreen = 1;
                     tvm.Salaries = dal.GetSalariedWithoutManager();
-                    //tvm.Users = dal.GetAllManager();
                     tvm.User = dal.GetUser(id);
 
                     return View(tvm);
                 }
                 else
                 {
-
-                    //ID==null
                     if (User.IsInRole("ADMINISTRATOR") && id == 0)
                     {
                         tvm.Users = dal.GetAllManager();

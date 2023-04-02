@@ -11,5 +11,6 @@ namespace AlignityApp.ViewModels
         public List<Cra> Cras { get; set; }
         public int getScreen { get; set; }
         public User Salaried { get; set; }
+        public int CASalaried { get; set; }
     }
 }

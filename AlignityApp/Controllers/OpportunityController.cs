@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System;
+using System.Linq;
 
 namespace AlignityApp.Controllers
 {
@@ -14,10 +15,27 @@ namespace AlignityApp.Controllers
         {
             using (Dal dal = new Dal())
             {
+                List<JobInterview> jobInterviews = dal.GetAllJobInterviews();
+                Dictionary<string, List<User>> keyValuePairs = new Dictionary<string, List<User>>();
+                
+                foreach (var jobInterview in jobInterviews)
+                {
+                    List<User> salaries = dal.GetSalariedByCustomer(jobInterview.CustomerId);
+                    string brand = dal.GetCustomerById(jobInterview.CustomerId).Brand;
+
+                    if (!keyValuePairs.Any(kvp => kvp.Key == brand && kvp.Value.SequenceEqual(salaries)))
+                    {
+                        keyValuePairs.Add(brand, salaries);
+                    }
+                }
+
                 OpportunityViewModel ovm = new OpportunityViewModel()
                 {
-                    User = dal.GetUser(id)
+                    User = dal.GetUser(id),
+                    JobInterviews = jobInterviews,
+                    SalariesCustomer = keyValuePairs              
                 };
+
                 return View(ovm);
             }
         }
@@ -35,7 +53,7 @@ namespace AlignityApp.Controllers
                     ViewBag.listSalaries = salaries;
 
                     Customer customer = dal.GetCustomerById(dal.GetJIById(dal.GetJobInterviewId()).CustomerId);
-                    
+
                     List<SJobInterview> salariedForJob = dal.GetSalariesByJId(dal.GetJobInterviewId());
 
                     if (customer != null)
@@ -44,18 +62,20 @@ namespace AlignityApp.Controllers
                         {
                             User = dal.GetUser(id),
                             Salaries = dal.GetSalariesById(salariedForJob),
-                            Customer = customer
+                            Customer = customer,
                         };
                         return View(ovm);
                     }
-
-                    OpportunityViewModel ovm2 = new OpportunityViewModel()
+                    else
                     {
-                        User = dal.GetUser(id),
-                        Salaries = new List<User>(),
-                        Customer = new Customer()
-                    };
-                    return View(ovm2);
+                        OpportunityViewModel ovm2 = new OpportunityViewModel()
+                        {
+                            User = dal.GetUser(id),
+                            Salaries = dal.GetSalariesById(salariedForJob),
+                            Customer = new Customer(),
+                        };
+                        return View(ovm2);
+                    }
                 }
                 else
                 {
@@ -98,15 +118,38 @@ namespace AlignityApp.Controllers
             }
         }
 
-        public IActionResult Contract(int id)
+        [HttpPost]
+        public IActionResult ValidateOpportunity(int id)
         {
             using (Dal dal = new Dal())
             {
-                OpportunityViewModel ovm = new OpportunityViewModel()
+                if (id != 0)
                 {
-                    User = dal.GetUser(id)
-                };
-                return View(ovm);
+                    dal.UpdateJobInterview(dal.GetJIById(dal.GetJobInterviewId()));
+                    return RedirectToAction("CreateOpportunity", new { @id = id });
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteOpportunity(int id)
+        {
+            using (Dal dal = new Dal())
+            {
+                if (id != 0)
+                {
+                    dal.DeleteJobInterview();
+                    /*dal.DeleteSJobInterview();*/
+                    return RedirectToAction("CreateOpportunity", new { @id = id });
+                }
+                else
+                {
+                    return View("Error");
+                }
             }
         }
     }

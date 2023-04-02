@@ -15,6 +15,7 @@ namespace AlignityApp.Models
         public Dal()
         {
             _bddContext = new BddContext();
+            this.AddCA();
         }
 
         public void DeleteCreateDatabase()
@@ -330,7 +331,21 @@ namespace AlignityApp.Models
 
             _bddContext.JobInterviews.Add(interview);
             _bddContext.SaveChanges();
-            /*return interview.Id;*/
+        }
+
+        public void DeleteJobInterview()
+        {
+            JobInterview jobInterview = _bddContext.JobInterviews.Where(j => j.Contract == StateContract.CREATION).FirstOrDefault();
+            if (jobInterview != null)
+            {
+                _bddContext.JobInterviews.Remove(jobInterview);
+                _bddContext.SaveChanges();
+            }
+        }
+
+        public void DeleteSJobinterwiew()
+        {
+
         }
 
         public int GetJobInterviewId()
@@ -343,17 +358,71 @@ namespace AlignityApp.Models
             return 0;
         }
 
+        public List<JobInterview> GetAllJobInterviews()
+        {
+            return _bddContext.JobInterviews.Where(j => j.Contract == StateContract.INTERVIEW).ToList();
+        }
+
+        public List<User> GetSalariedByCustomer(int CustomerId)
+        {
+            var query = from j in _bddContext.JobInterviews 
+                        join sj in _bddContext.SJobInterviews 
+                        on j.Id equals sj.JobInterviewId
+                        join u in _bddContext.Users
+                        on sj.SalariedId equals u.Id
+                        where j.CustomerId == CustomerId && j.Contract == StateContract.INTERVIEW select u;
+
+            List<User> salaries = query.ToList();
+
+            if (query != null)
+            {
+                return salaries;
+            }
+            return new List<User>();
+        }
+
+        /*public List<SJobInterview> GetAllSJobInterviews()
+        {
+            var query = _bddContext.SJobInterviews.ToList();
+            if (query != null)
+            {
+                return query;
+            }
+            return new List<SJobInterview>();
+        }*/
+
         public void ModifySJobInterview(int salariedId)
         {
-            SJobInterview sInterview = new SJobInterview()
+            if (this.GetJobInterviewId() != 0)
             {
-                SalariedId = salariedId,
-                JobInterviewId = this.GetJobInterviewId()
-            };
+                List<SJobInterview> sJobInterviews = this.GetSalariesByJId(this.GetJobInterviewId());
 
-            _bddContext.SJobInterviews.Add(sInterview);
-            _bddContext.SaveChanges();
+                if (!this.FindSalaries(sJobInterviews, salariedId))
+                {
+                    SJobInterview sJInterview = new SJobInterview()
+                    {
+                        JobInterviewId = this.GetJobInterviewId(),
+                        SalariedId = salariedId
+                    };
 
+                    _bddContext.SJobInterviews.Add(sJInterview);
+                    _bddContext.SaveChanges();
+                }
+            }
+        }
+
+        public bool FindSalaries(List<SJobInterview> sJobInterviews, int salariedId)
+        {
+            foreach (var sJobInterview in sJobInterviews)
+            {
+                if (sJobInterview.SalariedId == salariedId)
+                {
+                    if (sJobInterview.JobInterviewId == this.GetJobInterviewId()){
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public List<SJobInterview> GetSalariesByJId(int jobInterviewId)
@@ -386,6 +455,14 @@ namespace AlignityApp.Models
             return listSalaried;
         }
 
+        public void UpdateJobInterview(JobInterview jobInterview)
+        {
+            jobInterview.InterviewDate = DateTime.Now;
+            jobInterview.Contract = StateContract.INTERVIEW;
+            _bddContext.JobInterviews.Update(jobInterview);
+            _bddContext.SaveChanges();
+        }
+
         public Customer GetCustomerById(int customerId)
         {
             return _bddContext.Customers.Where(c => c.Id == customerId).FirstOrDefault();
@@ -401,6 +478,88 @@ namespace AlignityApp.Models
                 _bddContext.Users.Update(salaried);
                 _bddContext.SaveChanges();
             }
+        }
+
+        public List<Activity> GetAllActivities()
+        {
+            return _bddContext.Activities.ToList();
+        }
+
+        public List<Activity> GetUserActivities(User salaried)
+        {
+            var query = from a in _bddContext.Activities 
+                        join c in _bddContext.Cras
+                        on a.CraId equals c.Id
+                        where c.UserId == salaried.Id
+                        select a;
+            
+            return query.ToList();
+        }
+
+        public int HoursByActivityTypesBySalaried(ActivityTypes activityType, User salaried)
+        {
+            int count = 0;
+            foreach (var activity in this.GetUserActivities(salaried))
+            {
+                if (activity.Type == activityType)
+                {
+                    count += activity.Duration;
+                }
+            }
+            return count;
+        }
+
+        public int HoursByActivityTypes(ActivityTypes activityType, List<User> salaries)
+        {
+            int count = 0;
+            foreach (var salaried in salaries)
+            {
+                count += this.HoursByActivityTypesBySalaried(activityType, salaried);
+            }
+            return count;
+        }
+
+        public int SalariedHoursProduction(User salaried)
+        {
+            int count = 0;
+            foreach (var activity in this.GetUserActivities(salaried))
+            {
+                if (activity.Type == ActivityTypes.SERVICE)
+                {
+                    count += activity.Duration;
+                }
+            }
+            return count;
+        }
+
+        public int SalariedTotalHours(User salaried)
+        {
+            int count = 0;
+            foreach (var activity in this.GetUserActivities(salaried))
+            {
+                count += activity.Duration;
+            }
+            return count;
+        }
+
+        public int TotalHours(List<User> salaries)
+        {
+            int count = 0;
+            foreach (var salaried in salaries)
+            {
+                count += this.SalariedTotalHours(salaried);
+            }
+            return count;
+        }
+
+        private void AddCA()
+        {
+            List<User> salaries = this.GetAllUsers();
+            foreach(var salaried in salaries)
+            {
+                salaried.CA = this.SalariedHoursProduction(salaried) * salaried.RateTjm;
+            }
+            _bddContext.SaveChanges();
         }
 
         public static string EncodeMD5(string motDePasse)

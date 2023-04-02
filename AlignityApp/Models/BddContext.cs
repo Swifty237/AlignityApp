@@ -22,7 +22,7 @@ namespace AlignityApp.Models
         public DbSet<SJobInterview> SJobInterviews { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;user id=root;database=alignity_bdd");
+            optionsBuilder.UseMySql("server=localhost;user id=root;password=password;database=alignity_bdd");
         }
         public void InitializeUsers()
         {

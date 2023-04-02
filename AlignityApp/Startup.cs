@@ -38,7 +38,7 @@ namespace AlignityApp
                 ctx.InitializeUsers();
                 ctx.InitializeCra();
                 ctx.InitializeActivity();
-
+                ctx.InitializeCustomers();
             }
 
             app.UseStaticFiles();

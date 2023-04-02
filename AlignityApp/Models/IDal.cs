@@ -58,8 +58,17 @@ namespace AlignityApp.Models
         void ModifySJobInterview(int salariedId);
         List<SJobInterview> GetSalariesByJId(int jobInterviewId);
         JobInterview GetJIById(int jobInterviewId);
+        void UpdateJobInterview(JobInterview jobInterview);
         Customer GetCustomerById(int customerId);
+        List<JobInterview> GetAllJobInterviews();
+        List<User> GetSalariedByCustomer(int CustomerId);
         List<User> GetSalariesById(List<SJobInterview> sJobList);
         void UpdateTJM(int salariedId, int tjm);
+        List<Activity> GetAllActivities();
+        int HoursByActivityTypesBySalaried(ActivityTypes activityType, User salaried);
+        int HoursByActivityTypes(ActivityTypes activityType, List<User> salaries);
+        int SalariedHoursProduction(User salaried);
+        int SalariedTotalHours(User salaried);
+        int TotalHours(List<User> salaries);
     }
 }
