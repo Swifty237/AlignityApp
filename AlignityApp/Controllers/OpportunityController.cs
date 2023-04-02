@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System;
+using System.Linq;
 
 namespace AlignityApp.Controllers
 {
@@ -20,7 +21,12 @@ namespace AlignityApp.Controllers
                 foreach (var jobInterview in jobInterviews)
                 {
                     List<User> salaries = dal.GetSalariedByCustomer(jobInterview.CustomerId);
-                    keyValuePairs.Add(dal.GetCustomerById(jobInterview.CustomerId).Brand, salaries);
+                    string brand = dal.GetCustomerById(jobInterview.CustomerId).Brand;
+
+                    if (!keyValuePairs.Any(kvp => kvp.Key == brand && kvp.Value.SequenceEqual(salaries)))
+                    {
+                        keyValuePairs.Add(brand, salaries);
+                    }
                 }
 
                 OpportunityViewModel ovm = new OpportunityViewModel()
@@ -129,15 +135,21 @@ namespace AlignityApp.Controllers
             }
         }
 
-        public IActionResult Contract(int id)
+        [HttpPost]
+        public IActionResult DeleteOpportunity(int id)
         {
             using (Dal dal = new Dal())
             {
-                OpportunityViewModel ovm = new OpportunityViewModel()
+                if (id != 0)
                 {
-                    User = dal.GetUser(id)
-                };
-                return View(ovm);
+                    dal.DeleteJobInterview();
+                    /*dal.DeleteSJobInterview();*/
+                    return RedirectToAction("CreateOpportunity", new { @id = id });
+                }
+                else
+                {
+                    return View("Error");
+                }
             }
         }
     }

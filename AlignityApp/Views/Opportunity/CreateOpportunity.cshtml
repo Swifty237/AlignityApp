@@ -3,17 +3,17 @@
     Layout = "_LayoutApp";
     ViewBag.Title = "Créer une nouvelle opportunité";
 }
-
-<h1>Create opportunity</h1>
+    <h3 class="text-primary text-center mb-5">Vous pouvez choisir les participants au futur entretien d'embauche</h3>
 
 <div class="row">
+
 
     <div class="col-lg-6">
 
         <!-- Basic Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-info">Nouvelle opportunité de contrat</h6>
+                <h6 class="m-0 font-weight-bold text-dark">Paticipants</h6>
             </div>
             <div class="card-body">
  
@@ -21,7 +21,7 @@
                 {
                     <input type="hidden" name="id" value="@User.FindFirst("Sid").Value" />
                     @Html.Label("Choisir un Client :")
-                    @Html.DropDownList("CustomerId", new SelectList(ViewBag.listCustomers, "Id", "Brand"), new {@class ="col-6"})
+                    @Html.DropDownList("CustomerId", new SelectList(ViewBag.listCustomers, "Id", "Brand"), new {@class ="col-6 p-2"})
                     <input class="btn btn-warning col-2" type="submit" value="Envoyer" />
                 }
 
@@ -29,7 +29,7 @@
                 {
                     <input type="hidden" name="id" value="@User.FindFirst("Sid").Value" />
                     @Html.Label("Choisir un salarié :")
-                    @Html.DropDownList("SalariedId", new SelectList(ViewBag.listSalaries, "Id", "Name"), new {@class="col-6"})
+                    @Html.DropDownList("SalariedId", new SelectList(ViewBag.listSalaries, "Id", "Name"), new {@class="col-6 p-2"})
 
                     <input class="btn btn-warning col-2" type="submit" value="Envoyer" />
                 }
@@ -43,7 +43,7 @@
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Prochaine opportunité d'embauche</h6>
+                <h6 class="m-0 font-weight-bold text-dark">Valider l'entretien</h6>
             </div>
 
             <div class="card-body">
@@ -60,19 +60,25 @@
                         <div class="card-body border-bottom border-success bg-light">
                             <p>Candidat n° @i </p>
                             @Html.TextBoxFor(m => m.Salaries[i - 1].Id, new {@class="d-none"})
-                            @Html.TextBoxFor(m => m.Salaries[i - 1].Name)
-                            @Html.TextBoxFor(m => m.Salaries[i - 1].Firstname)
+                            @Html.TextBoxFor(m => m.Salaries[i - 1].Name, new {@class="border-0", disabled="disabled"})
+                            @Html.TextBoxFor(m => m.Salaries[i - 1].Firstname, new {@class="border-0", disabled="disabled"})
+                            <div>
+                                <span>TJM : </span>
+                                @Html.TextBoxFor(m => m.Salaries[i - 1].RateTjm, new {@class="border-0", disabled="disabled"})
+                            </div>
+                            @*@Html.ActionLink("Annuler", "DeleteOpportunity", "Opportunity", new { id = Model.Salaries[i - 1], type="button" })*@
                         </div>
                     }
                 }
 
                 <div class="col-12 mt-5">
-                    <button class="btn btn-warning" type="submit">Créer</button>
+                    <button class="btn btn-warning m-2" type="submit">Valider</button>
+                    <button class="btn btn-secondary m-2" 
+                        href="~/Opportunity/DeleteOpportunity/@(int.Parse(User.FindFirst("Sid").Value))">Annuler</button>
                 </div>
                 }
             </div>
         </div>
 
     </div>
-
 </div>

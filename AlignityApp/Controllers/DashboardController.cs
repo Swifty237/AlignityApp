@@ -16,7 +16,8 @@ namespace AlignityApp.Controllers
                 {
                     User = dal.GetUser(id),
                     Salaries = dal.GetUsersByManagerId(id),
-                    Cras = dal.GetTeamCras(id)
+                    Cras = dal.GetTeamCras(id),
+                    Users = dal.GetAllUsers()
                 };
 
                 int count = 0;
@@ -37,6 +38,18 @@ namespace AlignityApp.Controllers
                     countTeamCA += dal.SalariedHoursProduction(salaried) * salaried.RateTjm;
                 }
                 dvm.teamCA = countTeamCA;
+
+                int globalCA = 0;
+
+                foreach (var user in dvm.Users)
+                {
+                    globalCA += user.CA;
+                }
+
+                dvm.GlobalCA = globalCA;
+
+                dvm.CountOpportunities = dal.GetAllJobInterviews().Count;
+
                 return View(dvm);
             }
         }

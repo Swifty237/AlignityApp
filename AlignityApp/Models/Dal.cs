@@ -227,6 +227,21 @@ namespace AlignityApp.Models
             _bddContext.SaveChanges();
         }
 
+        public void DeleteJobInterview()
+        {
+            JobInterview jobInterview = _bddContext.JobInterviews.Where(j => j.Contract == StateContract.CREATION).FirstOrDefault();
+            if (jobInterview != null)
+            {
+                _bddContext.JobInterviews.Remove(jobInterview);
+                _bddContext.SaveChanges();
+            }
+        }
+
+        public void DeleteSJobinterwiew()
+        {
+
+        }
+
         public int GetJobInterviewId()
         {
             JobInterview jobInterview = _bddContext.JobInterviews.Where(j => j.Contract == StateContract.CREATION).FirstOrDefault();
@@ -251,11 +266,11 @@ namespace AlignityApp.Models
                         on sj.SalariedId equals u.Id
                         where j.CustomerId == CustomerId && j.Contract == StateContract.INTERVIEW select u;
 
-            List<User> jobInterviews = query.ToList();
+            List<User> salaries = query.ToList();
 
             if (query != null)
             {
-                return jobInterviews;
+                return salaries;
             }
             return new List<User>();
         }
@@ -272,15 +287,36 @@ namespace AlignityApp.Models
 
         public void ModifySJobInterview(int salariedId)
         {
-            SJobInterview sInterview = new SJobInterview()
+            if (this.GetJobInterviewId() != 0)
             {
-                SalariedId = salariedId,
-                JobInterviewId = this.GetJobInterviewId()
-            };
-            
-            _bddContext.SJobInterviews.Add(sInterview);
-            _bddContext.SaveChanges();
-            
+                List<SJobInterview> sJobInterviews = this.GetSalariesByJId(this.GetJobInterviewId());
+
+                if (!this.FindSalaries(sJobInterviews, salariedId))
+                {
+                    SJobInterview sJInterview = new SJobInterview()
+                    {
+                        JobInterviewId = this.GetJobInterviewId(),
+                        SalariedId = salariedId
+                    };
+
+                    _bddContext.SJobInterviews.Add(sJInterview);
+                    _bddContext.SaveChanges();
+                }
+            }
+        }
+
+        public bool FindSalaries(List<SJobInterview> sJobInterviews, int salariedId)
+        {
+            foreach (var sJobInterview in sJobInterviews)
+            {
+                if (sJobInterview.SalariedId == salariedId)
+                {
+                    if (sJobInterview.JobInterviewId == this.GetJobInterviewId()){
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public List<SJobInterview> GetSalariesByJId(int jobInterviewId)

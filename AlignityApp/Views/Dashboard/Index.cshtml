@@ -4,176 +4,142 @@
     ViewBag.Title = "Mon tableau de bord";
 }
 
-<!-- Content Row -->
-<div class="row">
+@if (User.IsInRole("MANAGER"))
+{
+    <!-- Content Row -->
+    <div class="row">
 
-    <!-- Card Salaries -->
-    <a href="~/Team/Index/@(int.Parse(User.FindFirst("Sid").Value))" class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Mon équipe 
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Salaries.Count</div>
-                    </div>
-                    <div class="col-auto">
-                        
-                        <i class="fas fa-users fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </a>
-
-    <!-- Card CA -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            C.A de mon équipe
-                        </div>
-                        <div id="nombre" class="h5 mb-0 font-weight-bold text-gray-800">@Model.teamCA</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Card Opportunity -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            ____
-                        </div>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">____</div>
+        <!-- Card Salaries -->
+        <a href="~/Team/Index/@(int.Parse(User.FindFirst("Sid").Value))" class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Mon équipe
                             </div>
-                            <div class="col">
-                                <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar bg-info" role="progressbar"
-                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                         aria-valuemax="100"></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Salaries.Count</div>
+                        </div>
+                        <div class="col-auto">
+
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card CA -->
+        <a href="~/Team/Index/@(int.Parse(User.FindFirst("Sid").Value))" class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                C.A de mon équipe
+                            </div>
+                            <div class="d-flex">
+                                <span>€</span>
+                                <div id="nombre" class="mb-0 font-weight-bold text-gray-800">@Model.teamCA</div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card Opportunity -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Entretiens en cours
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@Model.CountOpportunities</div>
                                 </div>
+
                             </div>
                         </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pending Requests Card Example -->
-    <a href="~/TeamCras/Index/@(int.Parse(User.FindFirst("Sid").Value))" class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            CRAs à valider
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CountCrasToValidate</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-folder-open fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
         </div>
-    </a>
-</div>
 
-<!-- Content Row -->
+        <!-- Pending Requests Card Example -->
+        <a href="~/TeamCras/Index/@(int.Parse(User.FindFirst("Sid").Value))" class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                CRAs à valider
+                            </div>
 
-<div class="row">
-
-    <!-- Area Chart -->
-    <div class="col-xl-8 col-lg-7">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Evolution du chiffre d'affaire</h6>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                         aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CountCrasToValidate</div>
+                            @*<div class="col">
+                        <div class="progress progress-sm mr-2">
+                        <div class="progress-bar bg-warning" role="progressbar"
+                        style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                        </div>
+                        </div>*@
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-folder-open fa-2x text-gray-300"></i>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                </div>
-            </div>
-        </div>
+        </a>
     </div>
 
-    <!-- Pie Chart -->
-    <div class="col-xl-4 col-lg-5">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Répartition des temps d'activités</h6>
-                @*<div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                         aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>*@
+    <!-- Content Row -->
+
+    <div class="row justify-content-center">
+
+        <!-- Pie Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow">
+                <!-- Card Header - Dropdown -->
+                <div class="row card-header py-3 d-flex flex-row align-items-center justify-content-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Répartition des temps d'activités</h6>
                 </div>
             </div>
 
             <!-- Card Body -->
-            <div class="row card-body">
-                
-                <div class="col-6 bg-gradient-info border-right border-white">
-                    <h5 class="mt-4 text-white">Mon équipe</h5>
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="teamPieChart"></canvas>
-                    </div>
-                    
-                </div>
+            <div class="card-body">
 
-                <div class="col-6 bg-gradient-info border-left border-white">
+                <div class="row justify-content-around">
+                    <div class="col-xl-4 bg-gradient-info">
+                        <h5 class="mt-4 text-white">Mon équipe</h5>
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="teamPieChart"></canvas>
+                        </div>
 
-                    <h5 class="mt-4 text-white">Entreprise</h5>
-
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="allPieChart"></canvas>
                     </div>
 
+                    <div class="col-xl-4 bg-gradient-info">
+
+                        <h5 class="mt-4 text-white">Entreprise</h5>
+
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="allPieChart"></canvas>
+                        </div>
+
+                    </div>
                 </div>
 
-                <div class="mt-4 text-center small col-12 d-flex">
+                <div class="row mt-4 text-center small d-flex justify-content-center">
                     <div class="mr-2">
                         <span>Service</span>
                         <i class="fas fa-circle text-success"></i>
@@ -198,13 +164,210 @@
                         <i class="fas fa-circle text-danger"></i>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
+
+        <!-- Area Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Evolution du chiffre d'affaire</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myAreaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
+}
+
+@if(User.IsInRole("ADMINISTRATOR"))
+{
+    <!-- Content Row -->
+    <div class="row justify-content-center">
+
+        <!-- Card Salaries -->
+        <a href="~/Team/Index/@(int.Parse(User.FindFirst("Sid").Value))" class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Nombre d'utilisateurs
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Users.Count</div>
+                            </div>
+                            <div class="col-auto">
+
+                                <i class="fas fa-users fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        <!-- Card CA -->
+        <a href="~/Team/Index/@(int.Parse(User.FindFirst("Sid").Value))" class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    C.A Total
+                                </div>
+                                <div class="d-flex">
+                                    <span>€</span>
+                                    <div id="nombre" class="mb-0 font-weight-bold text-gray-800">@Model.GlobalCA</div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        <!-- Card Opportunity -->
+        @*<div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Entretiens en cours
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@Model.CountOpportunities</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+        <!-- Pending Requests Card Example -->
+        @*<a href="~/TeamCras/Index/@(int.Parse(User.FindFirst("Sid").Value))" class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                CRAs à valider
+                            </div>
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CountCrasToValidate</div>
+                            @*<div class="col">
+                        <div class="progress progress-sm mr-2">
+                        <div class="progress-bar bg-warning" role="progressbar"
+                        style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-folder-open fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>*@
+    </div>
+
+    <!-- Content Row -->
+
+    <div class="row justify-content-center">
+
+        <!-- Pie Chart -->
+        @*<div class="col-xl-8 col-lg-7">
+            <div class="card shadow">
+                <!-- Card Header - Dropdown -->
+                <div class="row card-header py-3 d-flex flex-row align-items-center justify-content-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Répartition des temps d'activités</h6>
+                </div>
+            </div>*@
+
+            <!-- Card Body -->
+            @*<div class="card-body">
+
+                <div class="row justify-content-around">
+                    <div class="col-xl-4 bg-gradient-info">
+                        <h5 class="mt-4 text-white">Mon équipe</h5>
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="teamPieChart"></canvas>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4 bg-gradient-info">
+
+                        <h5 class="mt-4 text-white">Entreprise</h5>
+
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="allPieChart"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row mt-4 text-center small d-flex justify-content-center">
+                    <div class="mr-2">
+                        <span>Service</span>
+                        <i class="fas fa-circle text-success"></i>
+                    </div>
+                    <div class="mr-2">
+                        <span>Formation</span>
+                        <i class="fas fa-circle text-primary"></i>
+                    </div>
+
+                    <div class="mr-2">
+                        <span>Vacances</span>
+                        <i class="fas fa-circle text-info"></i>
+                    </div>
+
+                    <div class="mr-2">
+                        <span>RTT</span>
+                        <i class="fas fa-circle text-warning"></i>
+                    </div>
+
+                    <div class="mr-2">
+                        <span>Intercontrat</span>
+                        <i class="fas fa-circle text-danger"></i>
+                    </div>
+                </div>
+            </div>*@
+    @*    </div>*@
+
+        <!-- Area Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Evolution du chiffre d'affaire</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myAreaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
 
 @section Scripts {
     <script>

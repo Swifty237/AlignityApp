@@ -16,7 +16,7 @@
         <div class="card-header py-3">
             @if (Model.User != null)
             {
-                <h6 class="m-0 font-weight-bold text-primary">Voici l'équipe du Manager @Model.User.Name</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Manager @Model.User.Name</h6>
             }
             else
             {
@@ -25,7 +25,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover table-secondary" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="table-dark">
                             <th class="bg-dark" scope="col">Nom</th>
@@ -93,7 +93,7 @@
                                         <tr>
                                             <td>@salaried.RateTjm</td>
                                             <td>
-                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-@salaried.Id">
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-@salaried.Id">
                                                     <i class="far fa-edit"></i>
                                                 </button>
 
@@ -161,33 +161,25 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-
-                            <th>Téléphone</th>
-
-                            <th>Email</th>
-
-                            <th>Métier</th>
-
-                            <th>Editer</th>
+                        <tr class="table-dark">
+                            <th class="bg-dark">Nom</th>
+                            <th class="bg-dark">Prénom</th>
+                            <th class="bg-dark">Téléphone</th>
+                            <th class="bg-dark">Email</th>
+                            <th class="bg-dark">Métier</th>
+                            <th class="bg-dark">Editer</th>
                         </tr>
                     </thead>
                     <tfoot>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-
-                            <th>Téléphone</th>
-
-                            <th>Email</th>
-
-                            <th>Métier</th>
-
-                            <th>Editer </th>
+                        <tr class="table-dark">
+                            <th class="bg-dark">Nom</th>
+                            <th class="bg-dark">Prénom</th>
+                            <th class="bg-dark">Téléphone</th>
+                            <th class="bg-dark">Email</th>
+                            <th class="bg-dark">Métier</th>
+                            <th class="bg-dark">Editer </th>
                         </tr>
                     </tfoot>
                     <tbody>
