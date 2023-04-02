@@ -41,22 +41,23 @@ namespace AlignityApp.Controllers
                     });
                     if (count == 0)
                     {
-                        Cra cra = new Cra() { State = CRAState.DRAFT, UserId = id, CreationDate = DateTime.Now };
+                        activityVM.cra = new Cra() { State = CRAState.DRAFT, UserId = id, CreationDate = DateTime.Now };
 
-                        this.idCra = dal.CreateCra(cra);
+                        this.idCra = dal.CreateCra(activityVM.cra);
                         TempData["idCra"] = this.idCra;
 
-                        //List<Activity> list=new List<Activity>();   
+                    
                         activityVM.activities = new List<Models.Activity>();
 
                         return View(activityVM);
                     }
                     else
                     {
+                        Console.WriteLine("haha");
                         idCra = dal.FindCraByState(int.Parse(User.FindFirst("Sid").Value));
                         TempData["idCra"] = this.idCra;
 
-                        //List<Activity> list =dal.FindCra(idCra);
+                     
                         activityVM.activities = dal.FindCra(idCra);
                         activityVM.cra = dal.GetCraByCraId(id);
 

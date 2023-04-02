@@ -125,7 +125,7 @@
     </div>
     }
 
-    @if (User.IsInRole("MANAGER")&& Model.cra.State.ToString() =="SENT")
+    @if (User.IsInRole("MANAGER")&& Model.cra?.State.ToString() =="SENT")
     {
         <div class="col-md-4">
             <label for="message">Remarque :</label>
@@ -194,73 +194,73 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-
                                     @foreach (AlignityApp.Models.Activity activity in Model.activities)
                                     {
-                                        <tr>
-                                            <td>@activity.Date.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR"))</td>
-                                            @if (@activity.Type.ToString() == "HOLIDAYS")
+                                    <tr>
+                                        <td>@activity.Date.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR"))</td>
+                                        @if (@activity.Type.ToString() == "HOLIDAYS")
                                             {
-                                            <td>Vacances</td>
-                                                
+                                        <td>Vacances</td>
+
                                             }
-                                            @if (@activity.Type.ToString() == "SERVICE")
+                                        @if (@activity.Type.ToString() == "SERVICE")
                                             {
-                                            <td>Prestation de service</td>
-                                                
-                                            }  
-                                            @if (@activity.Type.ToString() == "INTERCONTRACT")
-                                            {
-                                            <td>InterContrat</td>
-                                                
-                                            } 
-                                            @if (@activity.Type.ToString() == "TRAINING")
-                                            {
-                                            <td>Formation</td>
-                                                
+                                        <td>Prestation de service</td>
+
                                             }
-                                            @if (@activity.Type.ToString() == "RTT")
+                                        @if (@activity.Type.ToString() == "INTERCONTRACT")
                                             {
-                                            <td>RTT</td>
-                                                
+                                        <td>InterContrat</td>
+
                                             }
-                                            @if (@activity.Place.ToString() == "EXTERNAL")
+                                        @if (@activity.Type.ToString() == "TRAINING")
                                             {
-                                            <td>Externe</td>
-                                                
+                                        <td>Formation</td>
+
+                                            }
+                                        @if (@activity.Type.ToString() == "RTT")
+                                            {
+                                        <td>RTT</td>
+
+                                            }
+                                        @if (@activity.Place.ToString() == "EXTERNAL")
+                                            {
+                                        <td>Externe</td>
+
                                             }else{
-                                            <td>Interne</td>
+                                        <td>Interne</td>
                                             }
-                                            
-                                            <td>@activity.Duration</td>
-                                            <td>@activity.Description</td>
-                                               @if (User.IsInRole("SALARIED")&&(Model.cra.State.ToString() == "DRAFT"||Model.cra.State.ToString() == "ALERT" ))
+
+                                        <td>@activity.Duration</td>
+                                        <td>@activity.Description</td>
+                                        @if (User.IsInRole("SALARIED")&&(Model.cra.State.ToString() == "DRAFT"||Model.cra.State.ToString() == "ALERT" ))
                                         {
-                                   
-                                            <td><button class=" btn btn-outline-danger btn-sm" onclick="deleteActivity(@activity.Id)" id="tt">Supprimer</button</td>
+
+                                        <td><button class=" btn btn-outline-danger btn-sm" onclick="deleteActivity(@activity.Id)" id="tt">Supprimer</button></td>
                                         }
 
-                                        </tr>
+                                    </tr>
                                     }
-                                        <script>
+
+                                    <script>
                                         function deleteActivity(activityId) {
                                             if (confirm('Voulez vous supprimer cette activité?')) {
                                                 $.ajax({
                                                     type: "POST",
                                                     url: "/listCra/deleteActivity",
                                                     data: { activityId: activityId },
-                                                    success: function(res) {
+                                                    success: function (res) {
                                                         window.location.href = "/listCra/createCra/?id=" + res + "&todo=0"
-                                                      
+
                                                     },
-                                                    error: function() {
-                                                        
+                                                    error: function () {
+
                                                     }
                                                 });
                                             }
                                         }
-                                         
-                                        </script>
+
+                                    </script>
                                 </tbody>
                             </table>
 

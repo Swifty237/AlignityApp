@@ -92,6 +92,9 @@
                                     <table class="mt-1">
                                         <tr>
                                             <td>@salaried.RateTjm</td>
+                                            @if (User.IsInRole("MANAGER"))
+                                            {
+                                                
                                             <td>
                                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-@salaried.Id">
                                                     <i class="far fa-edit"></i>
@@ -126,6 +129,7 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                            }
                                         </tr>
                                     </table>
 
