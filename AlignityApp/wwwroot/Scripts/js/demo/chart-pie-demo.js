@@ -59,6 +59,5 @@ fetch("/Dashboard/AllData")
                 cutoutPercentage: 80,
             },
         });
-        console.log("ok--------")
     })
     .catch(error => console.log(error));

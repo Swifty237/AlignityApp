@@ -39,7 +39,7 @@
                             <div class="profile_img">
                                 <div id="crop-avatar">
                                     <!-- Current avatar -->
-                                    <img class="img-responsive avatar-view" src="/src/avatar.jpg" alt="Avatar" title="Change the avatar" style="block-size:250px;">
+                                    <img class="img-responsive avatar-view" src="/src/profil.png" alt="Avatar" title="Change the avatar" style="block-size:250px;">
                                 </div>
                             </div>
                             <h3>@Model.User.Firstname @Model.User.Name</h3>
@@ -159,7 +159,7 @@
                                                 {
                                                     <li>
 
-                                                        <div class="message_date">
+                                                        <div class="message_date" style="clear: right;">
                                                             <h3 class="date text-info">@cra.CreationDate.ToString("MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR"))</h3>
                                                             <p class="month">@cra.CreationDate.ToString("MM", System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR"))</p>
                                                         </div>
