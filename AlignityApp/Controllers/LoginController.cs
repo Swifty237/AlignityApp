@@ -37,7 +37,7 @@ namespace AlignityApp.Controllers
                     var userClaims = new List<Claim>()
                     {
                         new Claim("Sid", user.Id.ToString()),
-                        new Claim(ClaimTypes.Name, user.Firstname.ToString()),
+                        new Claim(ClaimTypes.Name, user.Name.ToString()),
                         new Claim(ClaimTypes.Role, user.UserRole.ToString())
                     };
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
@@ -64,28 +64,7 @@ namespace AlignityApp.Controllers
             }
             return View(viewModel);
         }
-        //[HttpPost]
-        //public IActionResult CreerCompte(User user)
-        //{
-            //    if (ModelState.IsValid)
-            //    {
-            //        int id = dal.AjouterUtilisateur(utilisateur.Prenom, utilisateur.Password);
-
-            //        var userClaims = new List<Claim>()
-            //        {
-            //            new Claim(ClaimTypes.Name, id.ToString()),
-            //        };
-
-            //        var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
-
-            //        var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
-            //        HttpContext.SignInAsync(userPrincipal);
-
-            //        return Redirect("/");
-            //    }
-            //    return View(utilisateur);
-        //}
-
+       
         public ActionResult Deconnexion()
         {
             HttpContext.SignOutAsync();

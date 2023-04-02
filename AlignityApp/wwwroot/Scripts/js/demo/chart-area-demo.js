@@ -12,7 +12,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
     dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
     s = '',
     toFixedFix = function(n, prec) {
-      var k = Math.pow(10, prec);
+      var k = Math.pow(100, prec);
       return '' + Math.round(n * k) / k;
     };
   // Fix for IE parseFloat(0.55).toFixed(0) = 0;
@@ -29,6 +29,8 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
+
+
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
@@ -46,7 +48,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data:[],
     }],
   },
   options: {
@@ -110,9 +112,28 @@ var myLineChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+              return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
         }
       }
     }
   }
 });
+(function () {
+    var url = "/Dashboard/EarningsAlignity";
+    var options = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    };
+    fetch(url, options)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            myLineChart.data.datasets[0].data = data;
+            myLineChart.update();
+
+
+        });
+
+})();

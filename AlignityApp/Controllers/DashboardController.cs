@@ -9,7 +9,7 @@ namespace AlignityApp.Controllers
     {
         public IActionResult Index(int id)
         {
-            using(Dal dal = new Dal())
+            using (Dal dal = new Dal())
             {
                 DashboardViewModel dvm = new DashboardViewModel()
                 {
@@ -17,6 +17,29 @@ namespace AlignityApp.Controllers
                 };
                 return View(dvm);
             }
+        }
+
+        public ActionResult EarningsAlignity()
+        {
+
+            using (Dal dal = new Dal())
+            {
+                if (User.IsInRole("MANAGER"))
+                {
+                List<double> list = dal.EarningsByTeam(int .Parse(User.FindFirst("Sid").Value));
+                JsonResult jsonResult = Json(list);
+                return jsonResult;
+
+                }
+                else
+                {
+                    List<double> list = dal.Earnings();
+                    JsonResult jsonResult = Json(list);
+                    return jsonResult;
+                }
+            }
+
+
         }
     }
 }

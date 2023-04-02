@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
+using AlignityApp.ViewModels;
 
 namespace AlignityApp.Models
 {
@@ -24,18 +25,19 @@ namespace AlignityApp.Models
 
         public List<User> GetAllUsers()
         {
-            return _bddContext.Users.Where(c => c.IsAvalaible==true).ToList();
+            return _bddContext.Users.Where(c => c.IsAvalaible == true).ToList();
         }
 
-        public void CreateUser(User user) { 
-           
+        public void CreateUser(User user)
+        {
+
 
             _bddContext.Users.Add(user);
             _bddContext.SaveChanges();
-    
+
         }
 
-       public void ModifyUser(User user)
+        public void ModifyUser(User user)
         {
             if (user == null)
             {
@@ -52,7 +54,7 @@ namespace AlignityApp.Models
 
         public void DeleteUser(int id)
         {
-          User user=_bddContext.Users.Find(id);
+            User user = _bddContext.Users.Find(id);
             user.IsAvalaible = false;
             _bddContext.Users.Update(user);
             _bddContext.SaveChanges();
@@ -60,9 +62,9 @@ namespace AlignityApp.Models
 
         public List<User> GetSalariedWithoutManager()
         {
-            List<User> users = _bddContext.Users.Where(c => c.IsAvalaible && c.ManagerId !=0 && !c.Manager.IsAvalaible ).ToList();
+            List<User> users = _bddContext.Users.Where(c => c.IsAvalaible && c.ManagerId != 0 && !c.Manager.IsAvalaible).ToList();
 
-            return users;   
+            return users;
         }
 
         public List<Cra> GetAllCras()
@@ -78,9 +80,9 @@ namespace AlignityApp.Models
 
         public Cra GetCraByCraId(int id)
         {
-            Cra cra= _bddContext.Cras.Where(c=>c.Id==id).FirstOrDefault();  
+            Cra cra = _bddContext.Cras.Where(c => c.Id == id).FirstOrDefault();
 
-            return cra; 
+            return cra;
         }
 
         public List<Cra> GetTeamCras(int id)
@@ -140,11 +142,11 @@ namespace AlignityApp.Models
                 _bddContext.Entry(cra).State = EntityState.Modified;
                 _bddContext.SaveChanges();
             }
-                return cra.UserId;
+            return cra.UserId;
 
         }
 
-        public int ModifyCraStateToInvalid(int idCra,CRAState state)
+        public int ModifyCraStateToInvalid(int idCra, CRAState state)
         {
             var cra = _bddContext.Cras.FirstOrDefault(p => p.Id == idCra);
 
@@ -161,7 +163,7 @@ namespace AlignityApp.Models
 
         public List<User> GetAllManager()
         {
-            List<User> user = _bddContext.Users.Where(c => c.UserRole ==Role.MANAGER && c.IsAvalaible==true).ToList();
+            List<User> user = _bddContext.Users.Where(c => c.UserRole == Role.MANAGER && c.IsAvalaible == true).ToList();
             return user;
         }
 
@@ -191,6 +193,108 @@ namespace AlignityApp.Models
                 return this.GetUser(id);
             }
             return null;
+        }
+
+        public List<ViewModels.T> FindActivitysByUserId(int id)
+        {
+            var activities = _bddContext.Activities
+                    .Where(a => a.Cra.UserId == id)
+                     .GroupBy(a => a.Type)
+            .Select(g => new
+            {
+                Type = g.Key,
+                Duration = g.Sum(a => a.Duration)
+            })
+            .ToList();
+            int totalDuration = activities.Sum(a => a.Duration);
+            return activities.Select(a => new ViewModels.T
+            {
+
+                Type = a.Type.ToString(),
+
+                Duration = a.Duration,
+
+                Ration = ((double)a.Duration / totalDuration) * 100
+            }).ToList();
+        }
+
+        public List<double> EarningsByTeam(int id)
+        {
+            var activities = _bddContext.Activities
+      .Where(a => a.Type == ActivityTypes.SERVICE && a.Cra.User.ManagerId == id)
+      .GroupBy(a => new { Name = a.Cra.User.Name, Month = a.Date.Month, TJM = a.Cra.User.RateTjm })
+      .Select(g => new
+      {
+          Month = g.Key.Month,
+          Name = g.Key.Name,
+          TotalDuration = g.Sum(a => a.Duration),
+          TJM = g.Key.TJM
+          //TotalCost = g.Sum(a => a.Duration * a.Cra.User.RateTjm / 8)
+      })
+      .ToList();
+            List<double> list = new List<double>();
+            double nb = 0;
+            int currentMonth = 1;
+            while (currentMonth < 13)
+            {
+                foreach (var activity in activities)
+                {
+                    if (activity.Month == currentMonth)
+                    {
+                        nb += activity.TJM / 8 * activity.TotalDuration;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                list.Add(nb);
+                currentMonth++;
+                nb = 0;
+            }
+
+
+            return list;
+
+        }
+
+        public List<double> Earnings()
+        {
+            var activities = _bddContext.Activities
+     .Where(a => a.Type == ActivityTypes.SERVICE)
+     .GroupBy(a => new { Name = a.Cra.User.Name, Month = a.Date.Month, TJM = a.Cra.User.RateTjm })
+     .Select(g => new
+     {
+         Month = g.Key.Month,
+         Name = g.Key.Name,
+         TotalDuration = g.Sum(a => a.Duration),
+         TJM = g.Key.TJM
+     })
+     .ToList();
+
+            List<double> list = new List<double>();
+            double nb = 0;
+            int currentMonth = 1;
+            while (currentMonth<13) {
+                foreach (var activity in activities)
+                {
+                    if (activity.Month == currentMonth)
+                    {
+                        nb += activity.TJM / 8 * activity.TotalDuration;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                list.Add(nb);
+                currentMonth++;
+                nb = 0; 
+            }
+     
+           
+            return list;
+
         }
 
         public void CreatCommentMannager(Cra cracopy)
@@ -236,7 +340,7 @@ namespace AlignityApp.Models
             {
                 return jobInterview.Id;
             }
-            return 0; 
+            return 0;
         }
 
         public void ModifySJobInterview(int salariedId)
@@ -246,10 +350,10 @@ namespace AlignityApp.Models
                 SalariedId = salariedId,
                 JobInterviewId = this.GetJobInterviewId()
             };
-            
+
             _bddContext.SJobInterviews.Add(sInterview);
             _bddContext.SaveChanges();
-            
+
         }
 
         public List<SJobInterview> GetSalariesByJId(int jobInterviewId)
@@ -275,7 +379,7 @@ namespace AlignityApp.Models
         public List<User> GetSalariesById(List<SJobInterview> sJobList)
         {
             List<User> listSalaried = new List<User>();
-            foreach (var item  in sJobList)
+            foreach (var item in sJobList)
             {
                 listSalaried.Add(this.GetUser(item.SalariedId));
             }

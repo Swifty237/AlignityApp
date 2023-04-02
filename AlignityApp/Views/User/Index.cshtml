@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     Layout = "_LayoutApp";
 
 }
@@ -9,19 +10,18 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>User Profile</h3>
+                @if (Model.User.UserRole.ToString() == "SALARIED")
+                {
+                    <h3>Salarié Profil </h3>
+
+                }
+                @if (Model.User.UserRole.ToString() == "MANAGER")
+                {
+                    <h3>Manager Profil </h3>
+                }
             </div>
 
-            <div class="title_right">
-                <div class="col-md-5 col-sm-5  form-group pull-right top_search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-secondary" type="button">Go!</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
         <div class="clearfix"></div>
@@ -30,22 +30,8 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>User Report <small>Activity report</small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li>
-                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Settings 1</a>
-                                    <a class="dropdown-item" href="#">Settings 2</a>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
+                        <h2>Info Personnelle <small>Activités reportings</small></h2>
+
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -53,58 +39,38 @@
                             <div class="profile_img">
                                 <div id="crop-avatar">
                                     <!-- Current avatar -->
-                                    <img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar" title="Change the avatar">
+                                    <img class="img-responsive avatar-view" src="/src/avatar.jpg" alt="Avatar" title="Change the avatar" style="block-size:250px;">
                                 </div>
                             </div>
                             <h3>@Model.User.Firstname @Model.User.Name</h3>
 
                             <ul class="list-unstyled user_data">
                                 <li>
-                                    <i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
+                                    <i class="fa fa-map-marker user-profile-icon"></i> @Model.User.Adress  @Model.User.PostalCode, @Model.User.City
                                 </li>
 
                                 <li>
                                     <i class="fa fa-briefcase user-profile-icon"></i> Software Engineer
                                 </li>
 
+
                                 <li class="m-top-xs">
                                     <i class="fa fa-external-link user-profile-icon"></i>
-                                    <a href="http://www.kimlabs.com/profile/" target="_blank">www.kimlabs.com</a>
+                                    @Model.User.Email
+                                </li>
+
+                                <li>
+                                    <i class="fa fa-phone user-profile-icon"></i> @Model.User.PhoneNumber
                                 </li>
                             </ul>
+                            @if (User.IsInRole("ADMINISTRATOR"))
+                            {
 
-                            <a class="btn btn-success" href="/user/ajouterUser?id=@Model.User.Id"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                                <a class="btn btn-success" href="/user/ajouterUser?id=@Model.User.Id"><i class="fa fa-edit m-right-xs"></i>Edit Profil</a>
+                            }
                             <br />
 
-                            <!-- start skills -->
-                            <h4>Skills</h4>
-                            <ul class="list-unstyled user_data">
-                                <li>
-                                    <p>Web Applications</p>
-                                    <div class="progress progress_sm">
-                                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p>Website Design</p>
-                                    <div class="progress progress_sm">
-                                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="70"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p>Automation & Testing</p>
-                                    <div class="progress progress_sm">
-                                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="30"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p>UI / UX</p>
-                                    <div class="progress progress_sm">
-                                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <!-- end of skills -->
+                        
 
                         </div>
                         <div class="col-md-9 col-sm-9 ">
@@ -113,98 +79,110 @@
                                 <div class="col-md-6">
                                     <h2>User Activity Report</h2>
                                 </div>
-                                <div class="col-md-6">
-                                    <div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
-                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                        <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-                                    </div>
-                                </div>
+                               
                             </div>
                             <!-- start of user-activity-graph -->
-                            <div id="graph_bar" style="width:100%; height:280px;"></div>
+                            @*<div id="graph_bar" style="width:100%; height:280px;"></div>*@
+                            <table class="data table table-striped no-margin">
+                                <thead>
+                                    <tr>
+
+                                        <th>Nom d'activités effectuées</th>
+                                        <th>Nombre d'heure</th>
+                                       
+                                        <th>Contribution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+           
+                                    @foreach (var activity in Model.listActivities)
+                                    {
+
+                                        <tr>
+                                            @if (@activity.Type == "SERVICE")
+                                            {
+                                                
+                                            <td>Prestation de service</td>
+                                            }
+                                            @if (@activity.Type == "RTT")
+                                            {
+                                                
+                                            <td>RTT</td>
+                                            } 
+                                            @if (@activity.Type == "HOLIDAYS")
+                                            {
+                                                
+                                            <td>Vacances</td>
+                                            }
+                                            @if (@activity.Type == "INTERCONTRACT")
+                                            {
+
+                                                <td>Intercontract</td>
+                                            }
+                                            @if (@activity.Type == "TRAINING")
+                                            {
+
+                                                <td>Formation</td>
+                                            }
+                                            <td>@activity.Duration h</td>
+                                           
+                                            <td class="vertical-align-mid">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-danger" data-transitiongoal="@activity.Ration">@activity.Ration.ToString("F1")%</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+      
+                                </tbody>
+                            </table>
                             <!-- end of user-activity-graph -->
 
-                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <div class="" role="tabpanel" data-example-id="togglable-tabs" style="margin-top:50px;">
                                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                     <li role="presentation" class="active">
-                                        <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Recent Activity</a>
+                                        <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Cras en attente de validation</a>
                                     </li>
                                     <li role="presentation" class="">
-                                        <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Projects Worked on</a>
+                                        <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Cras besoin de modification</a>
                                     </li>
-                                    <li role="presentation" class="">
-                                        <a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Profile</a>
-                                    </li>
+
                                 </ul>
                                 <div id="myTabContent" class="tab-content">
                                     <div role="tabpanel" class="tab-pane active " id="tab_content1" aria-labelledby="home-tab">
 
                                         <!-- start recent activity -->
                                         <ul class="messages">
-                                            <li>
-                                                <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                                <div class="message_date">
-                                                    <h3 class="date text-info">24</h3>
-                                                    <p class="month">May</p>
-                                                </div>
-                                                <div class="message_wrapper">
-                                                    <h4 class="heading">Desmond Davison</h4>
-                                                    <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
-                                                    <br />
-                                                    <p class="url">
-                                                        <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
-                                                        <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                                <div class="message_date">
-                                                    <h3 class="date text-error">21</h3>
-                                                    <p class="month">May</p>
-                                                </div>
-                                                <div class="message_wrapper">
-                                                    <h4 class="heading">Brian Michaels</h4>
-                                                    <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
-                                                    <br />
-                                                    <p class="url">
-                                                        <span class="fs1" aria-hidden="true" data-icon=""></span>
-                                                        <a href="#" data-original-title="">Download</a>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                                <div class="message_date">
-                                                    <h3 class="date text-info">24</h3>
-                                                    <p class="month">May</p>
-                                                </div>
-                                                <div class="message_wrapper">
-                                                    <h4 class="heading">Desmond Davison</h4>
-                                                    <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
-                                                    <br />
-                                                    <p class="url">
-                                                        <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
-                                                        <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                                <div class="message_date">
-                                                    <h3 class="date text-error">21</h3>
-                                                    <p class="month">May</p>
-                                                </div>
-                                                <div class="message_wrapper">
-                                                    <h4 class="heading">Brian Michaels</h4>
-                                                    <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
-                                                    <br />
-                                                    <p class="url">
-                                                        <span class="fs1" aria-hidden="true" data-icon=""></span>
-                                                        <a href="#" data-original-title="">Download</a>
-                                                    </p>
-                                                </div>
-                                            </li>
+                                            @foreach (AlignityApp.Models.Cra cra in Model.listCras)
+                                            {
+                                                if (cra.State.ToString() == "SENT")
+                                                {
+                                                    <li>
+
+                                                        <div class="message_date">
+                                                            <h3 class="date text-info">@cra.CreationDate.ToString("MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR"))</h3>
+                                                            <p class="month">@cra.CreationDate.ToString("MM", System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR"))</p>
+                                                        </div>
+                                                        <div class="message_wrapper">
+                                                            <a href="/listCra/createCra/?id=@cra.Id&todo=0&status=@cra.State"><h4 class="heading">@cra.CreationDate.Year</h4></a>
+                                                            @if (cra.Observation != null)
+                                                            {
+                                                                <blockquote class="message">@cra.Observation.</blockquote>
+                                                            }
+                                                            else
+                                                            {
+
+                                                                <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                                            }
+                                                            <br>
+
+                                                        </div>
+                                                    </li>
+                                                }
+
+                                            }
+
+
 
                                         </ul>
                                         <!-- end recent activity -->
@@ -213,72 +191,43 @@
                                     <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 
                                         <!-- start user projects -->
-                                        <table class="data table table-striped no-margin">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Project Name</th>
-                                                    <th>Client Company</th>
-                                                    <th class="hidden-phone">Hours Spent</th>
-                                                    <th>Contribution</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>New Company Takeover Review</td>
-                                                    <td>Deveint Inc</td>
-                                                    <td class="hidden-phone">18</td>
-                                                    <td class="vertical-align-mid">
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-success" data-transitiongoal="35"></div>
+                                        <ul class="messages">
+                                            @foreach (AlignityApp.Models.Cra cra in Model.listCras)
+                                            {
+                                                if (cra.State.ToString() == "ALERT")
+                                                {
+                                                    <li>
+
+                                                        <div class="message_date">
+                                                            <h3 class="date text-info">@cra.CreationDate.ToString("MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR"))</h3>
+                                                            <p class="month">@cra.CreationDate.ToString("MM", System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR"))</p>
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>New Partner Contracts Consultanci</td>
-                                                    <td>Deveint Inc</td>
-                                                    <td class="hidden-phone">13</td>
-                                                    <td class="vertical-align-mid">
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-danger" data-transitiongoal="15"></div>
+                                                        <div class="message_wrapper">
+                                                            <a href="/listCra/createCra/?id=@cra.Id&todo=0&status=@cra.State"><h4 class="heading">@cra.CreationDate.Year</h4></a>
+                                                            @if (cra.Observation != null)
+                                                            {
+                                                                <blockquote class="message">@cra.Observation.</blockquote>
+                                                            }
+                                                            else
+                                                            {
+
+                                                                <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                                            }
+                                                            <br />
+
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>Partners and Inverstors report</td>
-                                                    <td>Deveint Inc</td>
-                                                    <td class="hidden-phone">30</td>
-                                                    <td class="vertical-align-mid">
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-success" data-transitiongoal="45"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>New Company Takeover Review</td>
-                                                    <td>Deveint Inc</td>
-                                                    <td class="hidden-phone">28</td>
-                                                    <td class="vertical-align-mid">
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-success" data-transitiongoal="75"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                    </li>
+                                                }
+
+                                            }
+
+
+
+                                        </ul>
                                         <!-- end user projects -->
 
                                     </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                                        <p>
-                                            xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
-                                            photo booth letterpress, commodo enim craft beer mlkshk
-                                        </p>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -292,7 +241,6 @@
 @section Css{
     <link href="/css/user/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="/css/user/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="/css/user/nprogress.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
@@ -303,7 +251,8 @@
             }
 
 @section Scripts{
-   @* <script src="/css/user/js/jquery.min.js"></script>*@
+    <script src="https://kit.fontawesome.com/dd1fcb14df.js" crossorigin="anonymous"></script>
+    @* <script src="/css/user/js/jquery.min.js"></script>*@
     <!-- Bootstrap -->
     @*<script src="/css/user/js/bootstrap.bundle.min.js"></script>*@
     <!-- FastClick -->

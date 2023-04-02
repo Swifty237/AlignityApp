@@ -39,7 +39,14 @@ namespace AlignityApp.Models
         //récupérer une liste de salariés sans manager attribué
         List<User>GetSalariedWithoutManager(); 
         //récupérer une liste de salariés sans manager attribué
-        void CreatCommentMannager(Cra cra);
+        void CreatCommentMannager(Cra cra);      
+        //récupérer une liste d'activités par userId
+        List<ViewModels.T> FindActivitysByUserId(int id);
+        //récupérer une liste de chiffre d'affaire généré en prestation de service par équipe par ManagerId
+        List<double> EarningsByTeam(int id);
+
+        //récupérer une liste de chiffre d'affaire généré tous les salariés
+        List<double> Earnings();
 
         User Authentifier(string email, string password);
         User GetUser(int id);

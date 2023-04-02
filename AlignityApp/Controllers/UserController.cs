@@ -15,6 +15,11 @@ namespace AlignityApp.Controllers
             {
                 userVM.User = dal.GetUser(id);
 
+                userVM.listCras = dal.GetCrasByUserId(id);
+
+                userVM.listActivities=dal.FindActivitysByUserId(id); 
+   
+
             }
 
             return View(userVM);

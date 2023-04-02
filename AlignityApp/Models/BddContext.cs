@@ -289,7 +289,16 @@ namespace AlignityApp.Models
                             new Activity() { Date = new DateTime(2023, 03, 04), Duration = 10, Type = ActivityTypes.TRAINING, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 2h de sup", CraId = 17 },
                             new Activity() { Date = new DateTime(2023, 03, 05), Duration = 9, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, CraId = 17 },
                             new Activity() { Date = new DateTime(2023, 03, 06), Duration = 9, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, CraId = 17 },
-                            new Activity() { Date = new DateTime(2023, 03, 07), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, CraId = 17 }
+                            new Activity() { Date = new DateTime(2023, 03, 07), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, CraId = 17 },
+                            new Activity() { Date = new DateTime(2023, 04, 07), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, CraId = 18 },
+                            new Activity() { Date = new DateTime(2023, 04, 01), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, CraId = 25 },
+                            new Activity() { Date = new DateTime(2023, 04, 02), Duration = 9, Type = ActivityTypes.INTERCONTRACT, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 1h de sup", CraId = 25 },
+                            new Activity() { Date = new DateTime(2023, 04, 03), Duration = 8, Type = ActivityTypes.HOLIDAYS, Place = ActivityPlace.EXTERNAL, CraId = 25 },
+                            new Activity() { Date = new DateTime(2023, 04, 04), Duration = 10, Type = ActivityTypes.SERVICE, Place = ActivityPlace.INTERNAL, Description = "j'ai fait 2h de sup", CraId = 25 },
+                            new Activity() { Date = new DateTime(2023, 04, 05), Duration = 9, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, CraId = 25 },
+                            new Activity() { Date = new DateTime(2023, 04, 06), Duration = 9, Type = ActivityTypes.RTT, Place = ActivityPlace.EXTERNAL, CraId = 25 },
+                            new Activity() { Date = new DateTime(2023, 04, 07), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, CraId = 25 },
+                            new Activity() { Date = new DateTime(2023, 03, 07), Duration = 8, Type = ActivityTypes.SERVICE, Place = ActivityPlace.EXTERNAL, CraId = 8 }
                     );
             this.SaveChanges();
         }
