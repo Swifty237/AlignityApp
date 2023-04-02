@@ -66,17 +66,18 @@
                                 <span>TJM : </span>
                                 @Html.TextBoxFor(m => m.Salaries[i - 1].RateTjm, new {@class="border-0", disabled="disabled"})
                             </div>
-                            @*@Html.ActionLink("Annuler", "DeleteOpportunity", "Opportunity", new { id = Model.Salaries[i - 1], type="button" })*@
                         </div>
                     }
                 }
 
-                <div class="col-12 mt-5">
+                <div class="col-12 mt-5 d-flex justify-content-around">
                     <button class="btn btn-warning m-2" type="submit">Valider</button>
-                    <button class="btn btn-secondary m-2" 
-                        href="~/Opportunity/DeleteOpportunity/@(int.Parse(User.FindFirst("Sid").Value))">Annuler</button>
+                    <a class="btn btn-secondary m-2" href="~/Opportunity/DeleteOpportunity/?id=@(int.Parse(User.FindFirst("Sid").Value))">
+                        Annuler
+                    </a>
                 </div>
                 }
+     
             </div>
         </div>
 

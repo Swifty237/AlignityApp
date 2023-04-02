@@ -52,9 +52,9 @@ namespace AlignityApp.Controllers
                     List<User> salaries = dal.GetAllSalaries(id);
                     ViewBag.listSalaries = salaries;
 
-                    Customer customer = dal.GetCustomerById(dal.GetJIById(dal.GetJobInterviewId()).CustomerId);
+                    Customer customer = dal.GetCustomerById(dal.GetJIById(dal.GetJobInterview().Id).CustomerId);
 
-                    List<SJobInterview> salariedForJob = dal.GetSalariesByJId(dal.GetJobInterviewId());
+                    List<SJobInterview> salariedForJob = dal.GetSalariesByJId(dal.GetJobInterview().Id);
 
                     if (customer != null)
                     {
@@ -125,7 +125,7 @@ namespace AlignityApp.Controllers
             {
                 if (id != 0)
                 {
-                    dal.UpdateJobInterview(dal.GetJIById(dal.GetJobInterviewId()));
+                    dal.UpdateJobInterview(dal.GetJIById(dal.GetJobInterview().Id));
                     return RedirectToAction("CreateOpportunity", new { @id = id });
                 }
                 else
@@ -135,16 +135,45 @@ namespace AlignityApp.Controllers
             }
         }
 
-        [HttpPost]
         public IActionResult DeleteOpportunity(int id)
         {
             using (Dal dal = new Dal())
             {
                 if (id != 0)
                 {
+                    dal.DeleteSJobInterview();
                     dal.DeleteJobInterview();
-                    /*dal.DeleteSJobInterview();*/
                     return RedirectToAction("CreateOpportunity", new { @id = id });
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
+        }
+
+        public IActionResult OpportunityAccepted(int id)
+        {
+            using (Dal dal = new Dal())
+            {
+                if (id != 0)
+                {
+                    return View();
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
+        }
+
+        public IActionResult OpportunityRefused(int id)
+        {
+            using (Dal dal = new Dal())
+            {
+                if (id != 0)
+                {
+                    return View();
                 }
                 else
                 {

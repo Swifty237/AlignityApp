@@ -176,7 +176,7 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Choisir une action:</h6>
                             <a class="collapse-item text-wrap" href="~/Team/Index/@(User.FindFirst("Sid").Value)">Mon équipe</a>
-                            <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.FindFirst("Sid").Value)">CRAs de mon équipe</a>
+                            <a class="collapse-item text-wrap" href="~/TeamCras/Index/@(User.FindFirst("Sid").Value)">CRAs</a>
                         </div>
                     </div>
                 </li>
@@ -189,48 +189,22 @@
                 <!-- Heading -->
                 <li>
                     <div class="sidebar-heading">
-                        Mes clients
+                        Mes Opportunités
                     </div>
                 </li>
 
-                <!-- Nav Item - Collapse Menu clients -->
-                <li class="nav-item @((Context.Request.Path == "/Opportunity/Index/" + User.FindFirst("Sid").Value || 
-                    Context.Request.Path == "/Opportunity/CreateOpportunity/" + User.FindFirst("Sid").Value ||
-                    Context.Request.Path == "/Opportunity/Contract/" + User.FindFirst("Sid").Value) ? "active" : null)">
-
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOpportunity"
-                       aria-expanded="true" aria-controls="collapseOpportunity">
-                        <i class="fas fa-folder-open"></i>
-                        <span class="text-wrap">Opportunités</span>
+                <li class="nav-item @((Context.Request.Path == "/Opportunity/CreateOpportunity/" + User.FindFirst("Sid").Value) ? "active" : null)">
+                    <a class="nav-link" href="~/Opportunity/CreateOpportunity/@(User.FindFirst("Sid").Value)">
+                        <i class="fas fa-square-full" aria-hidden="true"></i>
+                        <span>Nouvel entretien</span>
                     </a>
-                    <div id="collapseOpportunity" class="collapse" aria-labelledby="headingOpportunity"
-                         data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item text-wrap" href="~/Opportunity/CreateOpportunity/@(User.FindFirst("Sid").Value)">Créer une nouvelle opportunité</a>
-                            <a class="collapse-item text-wrap" href="~/Opportunity/Index/@(User.FindFirst("Sid").Value)">Liste des opportunités</a>
-                            <hr class="collapse-item" />
-                            <a class="collapse-item text-wrap" href="~/Opportunity/Contract/@(User.FindFirst("Sid").Value)">Liste des contrats clients</a>
-                        </div>
-                    </div>
                 </li>
 
-                <li class="nav-item @((Context.Request.Path == "/Invoice/Index/" + User.FindFirst("Sid").Value ||
-                    Context.Request.Path == "/Invoice/CreateInvoice/" + User.FindFirst("Sid").Value) ? "active" : null)">
-
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBilling"
-                       aria-expanded="true" aria-controls="collapseBilling">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                        <span class="text-wrap">Facturation client</span>
+                <li class="nav-item @((Context.Request.Path == "/Opportunity/Index/" + User.FindFirst("Sid").Value) ? "active" : null)">
+                    <a class="nav-link" href="~/Opportunity/Index/@(User.FindFirst("Sid").Value))">
+                        <i class="fas fa-square-full" aria-hidden="true"></i>
+                        <span>Entretien en cours</span>
                     </a>
-                    <div id="collapseBilling" class="collapse" aria-labelledby="headingBilling"
-                         data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Choisir une action:</h6>
-                            <a class="collapse-item text-wrap" href="~/Invoice/CreateInvoice/@(User.FindFirst("Sid").Value)">Créer une nouvelle facture</a>
-                            <a class="collapse-item text-wrap" href="~/Invoice/Index/@(User.FindFirst("Sid").Value)">Liste des factures</a>
-                        </div>
-                    </div>
                 </li>
             }
 

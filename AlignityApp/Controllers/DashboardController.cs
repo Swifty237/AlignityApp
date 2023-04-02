@@ -35,7 +35,7 @@ namespace AlignityApp.Controllers
 
                 foreach (var salaried in  dvm.Salaries)
                 {
-                    countTeamCA += dal.SalariedHoursProduction(salaried) * salaried.RateTjm;
+                    countTeamCA += dal.SalariedHoursProduction(salaried) * salaried.RateTjm / 7;
                 }
                 dvm.teamCA = countTeamCA;
 
@@ -61,7 +61,7 @@ namespace AlignityApp.Controllers
             {
                 if (User.IsInRole("MANAGER"))
                 {
-                List<double> list = dal.EarningsByTeam(int .Parse(User.FindFirst("Sid").Value));
+                List<double> list = dal.EarningsByTeam(int.Parse(User.FindFirst("Sid").Value));
                 JsonResult jsonResult = Json(list);
                 return jsonResult;
 

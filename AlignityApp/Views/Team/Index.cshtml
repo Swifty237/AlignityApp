@@ -188,34 +188,34 @@
                             <tr>
                                 <td>@user.Name</td>
                                 <td>@user.Firstname</td>
-
                                 <td>@user.PhoneNumber</td>
-
                                 <td>@user.Email</td>
+
                                 @if (@user.UserJob.ToString() == "TECHNICIAN")
                                 {
                                     <td>Tech</td>
-
                                 }
+
                                 @if (@user.UserJob.ToString() == "HR_MANAGER")
                                 {
                                     <td>RH</td>
-
                                 }
+
                                 @if (@user.UserJob.ToString() == "COMMERCIAL")
                                 {
                                     <td>Commercial</td>
 
                                 }
+
                                 @if (@user.UserJob.ToString() == "SECRETARY")
                                 {
                                     <td>Secrétaire</td>
 
                                 }
+
                                 @if (@user.UserJob.ToString() == "DIRECTOR")
                                 {
                                     <td>Directeur</td>
-
                                 }
 
                                 <td><a href="/Team/?id=@user.Id" class="btn btn-primary btn-sm" style="margin-right:20px">voir son équipe</a><a href="/User/?id=@user.Id" class="btn btn-info btn-sm">voir manager</a></td>
